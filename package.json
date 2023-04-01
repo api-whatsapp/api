@@ -15,7 +15,8 @@
     "whatsapp-web.js": "^1.19.5"
   },
   "devDependencies": {
-    "webpack": "^5.77.0"
+    "webpack": "^5.77.0",
+    "webpack-cli": "^5.0.1"
   },
   "scripts": {
     "dev": "nodemon index.js",
