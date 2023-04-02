@@ -4,7 +4,7 @@ specifiers:
   '@microsoft/eslint-formatter-sarif': 2.1.7
   eslint: 8.10.0
   eslint-config-airbnb-base: ^15.0.0
-  eslint-plugin-import: ^2.25.2
+  eslint-plugin-import: ^2.27.5
   qrcode-terminal: ^0.12.0
   whatsapp-web.js: ^1.19.5
 
