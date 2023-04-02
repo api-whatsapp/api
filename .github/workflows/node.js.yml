@@ -1,4 +1,4 @@
-name: Node.js CI 🧪 & Webpack 🕸 📦
+name: Node.js CI 🧪
 
 on:
   push:
@@ -25,4 +25,3 @@ jobs:
       - run: pnpm i
       - run: pnpm run build
       - run: pnpm test
-      # - run: npx webpack
