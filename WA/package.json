@@ -11,17 +11,6 @@
     "api-whatsapp",
     "whatsapp-api"
   ],
-  "dependencies": {
-    "@microsoft/eslint-formatter-sarif": "3.0.0",
-    "@prisma/client": "^5.0.0",
-    "body-parser": "^1.20.2",
-    "dotenv": "^16.0.3",
-    "express": "^4.18.2",
-    "multer": "1.4.5-lts.1",
-    "qrcode": "^1.5.1",
-    "qrcode-terminal": "^0.12.0",
-    "whatsapp-web.js": "^1.19.5"
-  },
   "scripts": {
     "dev": "nodemon index.js",
     "test": "jest",
@@ -34,6 +23,15 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/api-whatsapp/api.git"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.0.0",
+    "body-parser": "^1.20.2",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "multer": "1.4.5-lts.1",
+    "qrcode": "^1.5.1",
+    "whatsapp-web.js": "^1.19.5"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.21.4",
