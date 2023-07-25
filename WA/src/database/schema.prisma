@@ -1,0 +1,66 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+  // shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+}
+
+model User {
+  username String  @db.VarChar(100)
+  name     String? @db.VarChar(100)
+  token    String  @id @db.VarChar(100)
+
+  @@map("users")
+}
+
+model Device {
+  id                  Int          @id @default(autoincrement())
+  device_id           String       @db.VarChar(100)
+  status              DeviceStatus @default(disconnected)
+  disconnected_at     DateTime?    @db.Timestamp
+  disconnected_reason String?      @db.VarChar(100)
+
+  @@map("devices")
+}
+
+model Message {
+  id         Int       @id @default(autoincrement())
+  trigger    String    @db.VarChar(100)
+  response   String    @db.VarChar(100)
+  state      Boolean?  @default(false)
+  hardware   Hardware? @relation(fields: [hardwareId], references: [id])
+  hardwareId Int?
+
+  @@map("messages")
+}
+
+model Hardware {
+  id    Int     @id @default(autoincrement())
+  state Boolean @default(false)
+  name  String  @db.VarChar(100)
+
+  Message Message[]
+
+  @@map("hardwares")
+}
+
+model Log {
+  id        Int    @id @default(autoincrement())
+  sender    String @db.VarChar(100)
+  time      Int    @db.Int
+  text      String @db.VarChar(100)
+  device_id String @db.VarChar(100)
+
+  @@map("logs")
+}
+
+enum DeviceStatus {
+  connected
+  disconnected
+}
