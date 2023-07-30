@@ -1,12 +1,11 @@
 import "dotenv/config";
 import { logger } from "../app/logger.js";
-import { Config } from "../config/config.js";
 import { prismaClient } from "../app/database.js";
 
 const getVersion = async (req, res) => {
 	const bearer = req.headers.authorization.split(" ");
 	const bearerToken = bearer[1];
-	const version = Config.version;
+	const version = process.env.APP_VERSION;
 
 	const tokenCheck = await prismaClient.user.findUnique({
 		where: {
