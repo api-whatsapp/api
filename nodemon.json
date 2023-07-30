@@ -1,3 +1,10 @@
 {
-	"ignore": [".wwebjs_auth/session/*"]
+	"ignore": [
+		"*.test.js",
+		"sessions/*",
+		"src/database/*",
+		"node_modules/*",
+		".wwebjs_cache/*",
+		".wwebjs_auth/session/*"
+	]
 }

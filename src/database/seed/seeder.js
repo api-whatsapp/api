@@ -1,13 +1,11 @@
 /* eslint-disable no-console */
-import { logs } from "./logSeeder.js";
-import { messages } from "./messageSeeder.js";
 import { PrismaClient } from "@prisma/client";
-import { hardwares } from "./hardwareSeeder.js";
+import { usersSeeder } from "./usersSeeder.js";
+import { deviceSeeder } from "./deviceSeeder.js";
 const prisma = new PrismaClient();
 
 const load = async () => {
-	const tableNames = ["hardwares", "users", "messages", "devices", "logs"];
-
+	const tableNames = ["users"];
 	try {
 		for (const tableName of tableNames) {
 			await prisma.$queryRawUnsafe("SET FOREIGN_KEY_CHECKS = 0;");
@@ -15,20 +13,15 @@ const load = async () => {
 			await prisma.$queryRawUnsafe("SET FOREIGN_KEY_CHECKS = 1;");
 		}
 
-		await prisma.hardware.createMany({
-			data: hardwares,
+		await prisma.user.createMany({
+			data: usersSeeder,
 		});
-		console.log("Added hardwares data");
+		console.log("Added users data");
 
-		await prisma.message.createMany({
-			data: messages,
+		await prisma.device.createMany({
+			data: deviceSeeder,
 		});
-		console.log("Added messages data");
-
-		await prisma.log.createMany({
-			data: logs,
-		});
-		console.log("Added logs data");
+		console.log("Added device data");
 	} catch (e) {
 		console.error(e);
 		process.exit(1);
