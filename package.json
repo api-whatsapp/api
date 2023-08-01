@@ -22,6 +22,7 @@
 	"scripts": {
 		"dev": "nodemon src/main.js",
 		"test": "jest",
+		"seed": "pnpx prisma db seed",
 		"mig": "pnpx prisma migrate dev --name init",
 		"fc": " prettier --write . && eslint --fix . && prettier --check . && eslint ."
 	},

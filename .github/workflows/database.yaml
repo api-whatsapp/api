@@ -36,3 +36,7 @@ jobs:
         run: pnpm fc
       - name: Migration
         run: pnpm mig
+      - name: Seed
+        run: pnpm seed
+      - name: Test
+        run: pnpm Test
