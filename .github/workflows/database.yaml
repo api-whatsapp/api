@@ -1,0 +1,39 @@
+name: Database Test
+
+on:
+  push:
+    branches: ["dev"]
+
+jobs:
+  cache-and-install:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.x, 18.x]
+    name: Node ${{ matrix.node-version }} sample
+    steps:
+      - uses: mirromutth/mysql-action@v1.1
+        with:
+          host port: 3800
+          container port: 3307
+          character set server: "utf8"
+          collation server: "utf8_general_ci"
+          mysql version: "8.0"
+          mysql database: "pakaiwa"
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: latest
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "pnpm"
+      - name: Install dependencies
+        run: pnpm i
+      - name: Format and Check code
+        run: pnpm fc
+      - name: Generate prisma client
+        run: pnpm prisma:generate
+      - name: Migration
+        run: pnpm mig
