@@ -39,4 +39,4 @@ jobs:
       - name: Seed
         run: pnpm seed
       - name: Test
-        run: pnpm Test
+        run: pnpm test
