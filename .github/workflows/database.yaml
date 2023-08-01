@@ -19,9 +19,11 @@ jobs:
           character set server: "utf8"
           collation server: "utf8_general_ci"
           mysql version: "8.0"
+          mysql root password: root
           mysql database: "pakaiwa"
       - uses: actions/checkout@v3
-      - uses: pnpm/action-setup@v2
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2.4.0
         with:
           version: latest
       - name: Use Node.js ${{ matrix.node-version }}
