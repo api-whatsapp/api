@@ -1,25 +1,36 @@
-import winston from "winston";
+import { createLogger, format, transports } from "winston";
+const { combine, timestamp, printf, label } = format;
 
-export const logger = winston.createLogger({
-	level: "verbose",
-	format: winston.format.combine(
-		winston.format.timestamp({ format: "YYYY-MM-DD HH:mm:ss" }),
-		winston.format.json()
+//Using the printf format.
+const customFormat = printf(({ level, message, timestamp }) => {
+	return `"${timestamp}": {"${level}": "${message}"},`;
+});
+
+var todayDate = new Date().toISOString().slice(0, 10);
+const infoFile = todayDate + "-info.log";
+const errorFile = todayDate + "-error.log";
+const queryFile = todayDate + "-query.log";
+
+export const logger = createLogger({
+	format: combine(
+		label({ label: "right meow!" }),
+		timestamp({ format: "YYYY-MM-DD HH:mm:ss.SSS" }),
+		customFormat
 	),
 	transports: [
-		new winston.transports.Console({
+		new transports.Console({
 			level: "error",
 		}),
-		new winston.transports.File({
-			filename: "./logs/error.log",
+		new transports.File({
+			filename: "./logs/" + errorFile,
 			level: "error",
 		}),
-		new winston.transports.File({
-			filename: "./logs/info.log",
+		new transports.File({
+			filename: "./logs/" + infoFile,
 			level: "info",
 		}),
-		new winston.transports.File({
-			filename: "./logs/query.log",
+		new transports.File({
+			filename: "./logs/" + queryFile,
 			level: "verbose",
 		}),
 	],
