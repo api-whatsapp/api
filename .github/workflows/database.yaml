@@ -35,7 +35,5 @@ jobs:
         run: pnpm i
       - name: Format and Check code
         run: pnpm fc
-      - name: Generate prisma client
-        run: pnpm prisma:generate
       - name: Migration
         run: pnpm mig
