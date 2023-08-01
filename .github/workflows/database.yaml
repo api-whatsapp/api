@@ -33,6 +33,8 @@ jobs:
           cache: "pnpm"
       - name: create .env
         run: mv .env.example .env
+      - name: list files in the directory
+        run: ls -la
       - name: Install dependencies
         run: pnpm i
       - name: Format and Check code
