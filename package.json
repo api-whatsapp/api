@@ -25,11 +25,6 @@
 		"mig": "pnpx prisma migrate dev --name init",
 		"fc": " prettier --write . && eslint --fix . && prettier --check . && eslint ."
 	},
-	"jest": {
-		"transform": {
-			"^.+\\.[t|j]sx?$": "babel-jest"
-		}
-	},
 	"prisma": {
 		"seed": "node src/database/seed/seeder.js",
 		"schema": "src/database/schema.prisma"
@@ -39,6 +34,7 @@
 		"bcrypt": "^5.1.0",
 		"dotenv": "^16.3.1",
 		"express": "^4.18.2",
+		"express-rate-limit": "^6.8.1",
 		"qrcode": "^1.5.3",
 		"uuid": "^9.0.0",
 		"whatsapp-web.js": "^1.21.0",
