@@ -31,6 +31,8 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: "pnpm"
+      - name: create .env
+        run: mv .env.example .env
       - name: Install dependencies
         run: pnpm i
       - name: Format and Check code
