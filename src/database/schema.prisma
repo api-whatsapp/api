@@ -28,7 +28,7 @@ model Device {
   created_at          DateTime     @default(now())
   connected_at        DateTime?    @db.Timestamp
   disconnected_at     DateTime?    @db.Timestamp
-  disconnected_reason String?      @db.VarChar(100)
+  disconnected_reason String       @default("") @db.VarChar(100)
   User                User?        @relation(fields: [userEmail], references: [email])
 
   @@map("devices")

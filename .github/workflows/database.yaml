@@ -40,3 +40,7 @@ jobs:
         run: pnpm seed
       - name: Test
         run: pnpm test
+      - name: Generating coverage badges
+        uses: jpb06/jest-badges-action@latest
+        with:
+          branches: main,dev

@@ -21,7 +21,7 @@ CREATE TABLE `devices` (
     `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `connected_at` TIMESTAMP NULL,
     `disconnected_at` TIMESTAMP NULL,
-    `disconnected_reason` VARCHAR(100) NULL,
+    `disconnected_reason` VARCHAR(100) NOT NULL DEFAULT '',
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;

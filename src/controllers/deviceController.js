@@ -69,4 +69,124 @@ const addDevice = async (req, res) => {
 	}
 };
 
-export { addDevice };
+const getDeviceList = async (req, res) => {
+	const device = await prismaClient.device.findMany({
+		where: {
+			User: {
+				token: global.token,
+			},
+		},
+		select: {
+			device_id: true,
+			status: true,
+			created_at: true,
+			connected_at: true,
+			disconnected_at: true,
+			disconnected_reason: true,
+		},
+	});
+
+	if (device.length <= 0) {
+		return res.status(404).json({
+			message: "Device not found",
+		});
+	}
+	const last_key = device.slice(-1);
+
+	res.status(200).json({
+		data: [
+			...device.map((device) => ({
+				id: device.device_id,
+				status: device.status,
+				created_at: device.created_at,
+				connected_at: device.connected_at,
+				disconnected_at: device.disconnected_at,
+				disconnected_reason: device.disconnected_reason,
+			})),
+		],
+		meta: {
+			last_key: `${last_key[0].device_id}`,
+		},
+	});
+};
+
+const getDeviceStatus = async (req, res) => {
+	const device_id = req.params.device_id;
+
+	const device = await prismaClient.device.findFirst({
+		where: {
+			device_id: device_id,
+			User: {
+				token: global.token,
+			},
+		},
+		select: {
+			device_id: true,
+			status: true,
+			created_at: true,
+			connected_at: true,
+			disconnected_at: true,
+			disconnected_reason: true,
+		},
+	});
+
+	if (!device) {
+		return res.status(404).json({
+			message: "Device not found",
+		});
+	}
+
+	res.status(200).json({
+		data: {
+			id: device.device_id,
+			status: device.status,
+			created_at: device.created_at,
+			connected_at: device.connected_at,
+			disconnected_at: device.disconnected_at,
+			disconnected_reason: device.disconnected_reason,
+		},
+	});
+};
+
+const deleteDevice = async (req, res) => {
+	const device_id = req.params.device_id;
+	try {
+		const device = await prismaClient.device.findFirst({
+			where: {
+				device_id: device_id,
+				User: {
+					token: global.token,
+				},
+			},
+			select: {
+				id: true,
+				device_id: true,
+				status: true,
+				created_at: true,
+				connected_at: true,
+				disconnected_at: true,
+				disconnected_reason: true,
+			},
+		});
+
+		if (!device) {
+			return res.status(404).json({
+				message: "Device not found",
+			});
+		}
+
+		await prismaClient.device.delete({
+			where: {
+				id: device.id,
+			},
+		});
+		res.status(204).send();
+	} catch (error) {
+		logger.error(error);
+		return res.status(500).json({
+			message: "Error: Internal server error",
+		});
+	}
+};
+
+export { addDevice, getDeviceList, getDeviceStatus, deleteDevice };

@@ -11,3 +11,9 @@ pnpm i @prisma/client bcrypt dotenv express qrcode uuid whatsapp-web.js winston
 ```bash
 pnpm i -D @types/express eslint eslint-config-airbnb-base eslint-config-prettier eslint-plugin-import prettier prisma @babel/preset-env @types/bcrypt @types/jest @types/supertest @types/uuid babel-jest eslint-plugin-prettier jest nodemon supertest
 ```
+
+![Branches](./badges/coverage-branches.svg)
+![Functions](./badges/coverage-functions.svg)
+![Lines](./badges/coverage-lines.svg)
+![Statements](./badges/coverage-statements.svg)
+![Jest coverage](./badges/coverage-jest%20coverage.svg)
