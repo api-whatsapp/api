@@ -6,7 +6,7 @@ describe("GET /v1", function () {
 		const result = await supertest(api)
 			.get("/v1/")
 			.set("Accept", "application/json")
-			.set("Authorization", "Bearer 1122");
+			.set("Authorization", "Bearer 1121");
 		expect(result.status).toBe(200);
 		expect(result.body.message).toContain("PakaiWA.my.id");
 		expect(result.body.version).not.toBeNull();

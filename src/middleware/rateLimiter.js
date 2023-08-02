@@ -6,9 +6,6 @@ const rateLimitConfig = {
 };
 
 const isPremium = async (bearerToken) => {
-	if (!bearerToken) {
-		return "guest";
-	}
 	const token = bearerToken.split(" ")[1];
 	const tokenCheck = await prismaClient.user.findUnique({
 		where: {

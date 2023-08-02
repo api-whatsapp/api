@@ -15,7 +15,7 @@ model User {
   token        String    @unique @db.VarChar(100)
   created_at   DateTime  @default(now())
   last_request DateTime? @updatedAt
-  devices      Device[]
+  Device       Device[]
 
   @@map("users")
 }
