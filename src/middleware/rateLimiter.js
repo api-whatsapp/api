@@ -7,7 +7,7 @@ const rateLimitConfig = {
 
 const isPremium = async (bearerToken) => {
 	if (!bearerToken) {
-		return "user";
+		return "guest";
 	}
 	const token = bearerToken.split(" ")[1];
 	const tokenCheck = await prismaClient.user.findUnique({
@@ -18,7 +18,7 @@ const isPremium = async (bearerToken) => {
 			level: true,
 		},
 	});
-	return tokenCheck ? tokenCheck.level : 0;
+	return tokenCheck ? tokenCheck.level : "guest";
 };
 
 export const limiter = rateLimit({
@@ -27,12 +27,14 @@ export const limiter = rateLimit({
 	windowMs: rateLimitConfig.minute * 60 * 1000,
 	max: async (req) => {
 		const level = await isPremium(req.headers.authorization);
-		if (level === "member") {
+		if (level === "user") {
 			return 250;
-		} else if (level === "premium") {
+		} else if (level === "member") {
 			return 1000;
-		} else {
+		} else if (level === "premium") {
 			return 100;
+		} else {
+			return 10;
 		}
 	},
 	message: async (req, res) => {
