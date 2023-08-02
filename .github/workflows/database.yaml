@@ -1,0 +1,42 @@
+name: Database Test
+
+on:
+  push:
+    branches: ["dev"]
+
+jobs:
+  cache-and-install:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.x, 18.x]
+    name: Node ${{ matrix.node-version }} sample
+    steps:
+      - uses: mirromutth/mysql-action@v1.1
+        with:
+          mysql root password: root
+          mysql database: "pakaiwa"
+      - uses: actions/checkout@v3
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2.4.0
+        with:
+          version: latest
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "pnpm"
+      - name: create .env
+        run: mv .env.example .env
+      - name: list files in the directory
+        run: ls -la
+      - name: Install dependencies
+        run: pnpm i
+      - name: Format and Check code
+        run: pnpm fc
+      - name: Migration
+        run: pnpm mig
+      - name: Seed
+        run: pnpm seed
+      - name: Test
+        run: pnpm test

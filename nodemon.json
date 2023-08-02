@@ -1,3 +1,12 @@
 {
-	"ignore": [".wwebjs_auth/session/*"]
+	"ignore": [
+		"*.test.js",
+		"*.log",
+		"sessions/*",
+		"src/database/*",
+		"node_modules/*",
+		".wwebjs_cache/*",
+		".wwebjs_auth/session/*",
+		"thunder-tests/*"
+	]
 }

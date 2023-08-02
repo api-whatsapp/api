@@ -1,0 +1,18 @@
+{
+	"_id": "76420fd3-7ecd-4025-a45b-9e32f669bed2",
+	"name": "PakaiWA",
+	"default": true,
+	"sortNum": 10000,
+	"created": "2023-07-30T10:51:15.360Z",
+	"modified": "2023-07-30T10:51:15.360Z",
+	"data": [
+		{
+			"name": "host",
+			"value": "http://127.0.0.1:3000"
+		},
+		{
+			"name": "version",
+			"value": "v1"
+		}
+	]
+}

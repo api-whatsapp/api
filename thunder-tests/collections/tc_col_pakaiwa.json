@@ -1,0 +1,27 @@
+{
+    "_id": "98b65e94-1f50-4c5e-83ba-a8fd9487afe2",
+    "colName": "PakaiWA",
+    "created": "2023-07-30T10:50:09.087Z",
+    "sortNum": 10000,
+    "folders": [],
+    "requests": [
+        {
+            "_id": "032b4470-f4e1-4869-8012-8f528d8dfeab",
+            "colId": "98b65e94-1f50-4c5e-83ba-a8fd9487afe2",
+            "containerId": "",
+            "name": "Get Version",
+            "url": "{{host}}/{{version}}/",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2023-07-30T12:19:35.955Z",
+            "modified": "2023-07-30T13:14:12.654Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "1123"
+            },
+            "tests": []
+        }
+    ]
+}
