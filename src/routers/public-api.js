@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import express from "express";
-import getQRCode from "../controllers/getQRController.js";
+import getQRCode from "../controllers/QRController.js";
 import getVersion from "../controllers/versionController.js";
 
 const publicRouter = new express.Router();
