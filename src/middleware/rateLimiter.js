@@ -28,11 +28,11 @@ export const limiter = rateLimit({
 	max: async (req) => {
 		const level = await isPremium(req.headers.authorization);
 		if (level === "user") {
-			return 250;
-		} else if (level === "member") {
-			return 1000;
-		} else if (level === "premium") {
 			return 100;
+		} else if (level === "member") {
+			return 250;
+		} else if (level === "premium") {
+			return 1000;
 		} else {
 			return 10;
 		}

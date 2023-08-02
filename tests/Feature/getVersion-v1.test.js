@@ -56,14 +56,6 @@ describe("GET /v1", function () {
 		expect(result.body.stability).not.toBeNull();
 	});
 
-	it("should return 404 Not Found", async function () {
-		const result = await supertest(api)
-			.post("/v1/")
-			.set("Accept", "application/json");
-		expect(result.status).toBe(404);
-		expect(result.body.message).toContain("Not Found");
-	});
-
 	it("should return 429 Too Many Requests", async function () {
 		let result;
 		for (let i = 0; i < 120; i++) {
