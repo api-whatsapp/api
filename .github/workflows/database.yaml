@@ -31,7 +31,7 @@ jobs:
     needs: Format_and_Check
     strategy:
       matrix:
-        node-version: [14x, 16.x, 20.x]
+        node-version: [14.x, 16.x, 20.x]
     name: Test with Jest Node ${{ matrix.node-version }}
     steps:
       - uses: mirromutth/mysql-action@v1.1
