@@ -17,4 +17,10 @@ export const usersSeeder = [
 		token: "1123",
 		level: "premium",
 	},
+	{
+		email: "n@o.t",
+		quota: 100,
+		token: "404",
+		level: "premium",
+	},
 ];

@@ -171,7 +171,7 @@
             "method": "GET",
             "sortNum": 40000,
             "created": "2023-08-02T09:14:22.425Z",
-            "modified": "2023-08-02T13:39:07.807Z",
+            "modified": "2023-08-03T05:57:13.106Z",
             "headers": [],
             "params": [],
             "auth": {
@@ -207,7 +207,7 @@
             "method": "DELETE",
             "sortNum": 60000,
             "created": "2023-08-02T14:10:12.300Z",
-            "modified": "2023-08-02T14:14:21.977Z",
+            "modified": "2023-08-03T06:06:50.645Z",
             "headers": [],
             "params": [],
             "auth": {

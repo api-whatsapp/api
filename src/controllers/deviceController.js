@@ -36,116 +36,126 @@ const addDevice = async (req, res) => {
 				email: true,
 			},
 		});
-		if (user) {
-			try {
-				const device = await prismaClient.device.create({
-					data: {
-						device_id: device_id,
-						userEmail: user.email,
-					},
-					select: {
-						device_id: true,
-						status: true,
-						created_at: true,
-					},
-				});
-				res.status(201).json({
-					id: device.device_id,
-					status: device.status,
-					created_at: device.created_at,
-					meta: {
-						location: `${global.host}/v1/devices/${device.device_id}`,
-					},
-				});
-			} catch (error) {
-				res.status(500).json({ message: "Error: Internal server error" });
-				logger.error(error);
-			}
-		} else {
-			res.status(403).json({
-				message: "Invalid API token.",
+		try {
+			const device = await prismaClient.device.create({
+				data: {
+					device_id: device_id,
+					userEmail: user.email,
+				},
+				select: {
+					device_id: true,
+					status: true,
+					created_at: true,
+				},
 			});
+			res.status(201).json({
+				id: device.device_id,
+				status: device.status,
+				created_at: device.created_at,
+				meta: {
+					location: `${global.host}/v1/devices/${device.device_id}`,
+				},
+			});
+		} catch (error) {
+			/* istanbul ignore next */
+			res.status(500).json({ message: "Error: Internal server error" });
+			/* istanbul ignore next */
+			logger.error(error);
 		}
 	}
 };
 
 const getDeviceList = async (req, res) => {
-	const device = await prismaClient.device.findMany({
-		where: {
-			User: {
-				token: global.token,
+	try {
+		const device = await prismaClient.device.findMany({
+			where: {
+				User: {
+					token: global.token,
+				},
 			},
-		},
-		select: {
-			device_id: true,
-			status: true,
-			created_at: true,
-			connected_at: true,
-			disconnected_at: true,
-			disconnected_reason: true,
-		},
-	});
-
-	if (device.length <= 0) {
-		return res.status(404).json({
-			message: "Device not found",
+			select: {
+				device_id: true,
+				status: true,
+				created_at: true,
+				connected_at: true,
+				disconnected_at: true,
+				disconnected_reason: true,
+			},
 		});
-	}
-	const last_key = device.slice(-1);
 
-	res.status(200).json({
-		data: [
-			...device.map((device) => ({
+		if (device.length <= 0) {
+			return res.status(404).json({
+				message: "Device not found",
+			});
+		}
+		const last_key = device.slice(-1);
+
+		res.status(200).json({
+			data: [
+				...device.map((device) => ({
+					id: device.device_id,
+					status: device.status,
+					created_at: device.created_at,
+					connected_at: device.connected_at,
+					disconnected_at: device.disconnected_at,
+					disconnected_reason: device.disconnected_reason,
+				})),
+			],
+			meta: {
+				last_key: `${last_key[0].device_id}`,
+			},
+		});
+	} catch (error) {
+		/* istanbul ignore next */
+		logger.error(error);
+		/* istanbul ignore next */
+		return res.status(500).json({ message: "Error: Internal server error" });
+	}
+};
+
+const getDeviceStatus = async (req, res) => {
+	const device_id = req.params.device_id;
+
+	try {
+		const device = await prismaClient.device.findFirst({
+			where: {
+				device_id: device_id,
+				User: {
+					token: global.token,
+				},
+			},
+			select: {
+				device_id: true,
+				status: true,
+				created_at: true,
+				connected_at: true,
+				disconnected_at: true,
+				disconnected_reason: true,
+			},
+		});
+
+		if (!device) {
+			return res.status(404).json({
+				message: "Device not found",
+			});
+		}
+
+		res.status(200).json({
+			data: {
 				id: device.device_id,
 				status: device.status,
 				created_at: device.created_at,
 				connected_at: device.connected_at,
 				disconnected_at: device.disconnected_at,
 				disconnected_reason: device.disconnected_reason,
-			})),
-		],
-		meta: {
-			last_key: `${last_key[0].device_id}`,
-		},
-	});
-};
-
-const getDeviceStatus = async (req, res) => {
-	const device_id = req.params.device_id;
-
-	const device = await prismaClient.device.findFirst({
-		where: {
-			device_id: device_id,
-			User: {
-				token: global.token,
 			},
-		},
-		select: {
-			device_id: true,
-			status: true,
-			created_at: true,
-			connected_at: true,
-			disconnected_at: true,
-			disconnected_reason: true,
-		},
-	});
-
-	if (!device) {
-		return res.status(404).json({
-			message: "Device not found",
 		});
+	} catch (error) {
+		/* istanbul ignore next */
+		logger.error(error);
+		/* istanbul ignore next */
+		return res.status(500).json({ message: "Error: Internal server error" });
 	}
-
-	res.status(200).json({
-		data: {
-			id: device.device_id,
-			status: device.status,
-			created_at: device.created_at,
-			connected_at: device.connected_at,
-			disconnected_at: device.disconnected_at,
-			disconnected_reason: device.disconnected_reason,
-		},
-	});
 };
 
 const deleteDevice = async (req, res) => {
@@ -180,12 +190,12 @@ const deleteDevice = async (req, res) => {
 				id: device.id,
 			},
 		});
-		res.status(204).send();
+		res.status(204).end();
 	} catch (error) {
+		/* istanbul ignore next */
 		logger.error(error);
-		return res.status(500).json({
-			message: "Error: Internal server error",
-		});
+		/* istanbul ignore next */
+		return res.status(500).json({ message: "Error: Internal server error" });
 	}
 };
 

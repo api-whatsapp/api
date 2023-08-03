@@ -6,7 +6,7 @@ describe("404 Test", function () {
 		const result = await supertest(api)
 			.get("/asmlckasm")
 			.set("Accept", "application/json")
-			.set("Authorization", "Bearer 1122");
+			.set("Authorization", "Bearer 404");
 		expect(result.status).toBe(404);
 		expect(result.body.message).toContain("Not Found");
 	});
@@ -15,7 +15,7 @@ describe("404 Test", function () {
 		const result = await supertest(api)
 			.post("/asmlckasm")
 			.set("Accept", "application/json")
-			.set("Authorization", "Bearer 1122");
+			.set("Authorization", "Bearer 404");
 		expect(result.status).toBe(404);
 		expect(result.body.message).toContain("Not Found");
 	});
