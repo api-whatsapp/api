@@ -3,8 +3,85 @@
     "colName": "PakaiWA",
     "created": "2023-07-30T10:50:09.087Z",
     "sortNum": 10000,
-    "folders": [],
+    "folders": [
+        {
+            "_id": "46a97329-cec0-45d8-8b4b-9448129a9fb8",
+            "name": "Messages",
+            "containerId": "",
+            "created": "2023-07-30T10:50:18.316Z",
+            "sortNum": 10000
+        },
+        {
+            "_id": "060ce9cb-5840-45ab-bbb3-c00914ba2848",
+            "name": "QR",
+            "containerId": "",
+            "created": "2023-07-30T10:50:25.786Z",
+            "sortNum": 20000
+        },
+        {
+            "_id": "2ca1b1bf-d467-4652-9230-fa6eccbd05be",
+            "name": "Devices",
+            "containerId": "",
+            "created": "2023-08-02T05:27:04.335Z",
+            "sortNum": 30000
+        }
+    ],
     "requests": [
+        {
+            "_id": "a7d80925-c462-49c3-b229-c7f24ab5137d",
+            "colId": "98b65e94-1f50-4c5e-83ba-a8fd9487afe2",
+            "containerId": "060ce9cb-5840-45ab-bbb3-c00914ba2848",
+            "name": "get QR Code",
+            "url": "{{host}}/{{version}}/qr?device_id=iphone-x",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2023-07-30T10:50:38.778Z",
+            "modified": "2023-08-02T04:57:30.267Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "device_id",
+                    "value": "iphone-x",
+                    "isPath": false
+                }
+            ],
+            "auth": {
+                "type": "bearer",
+                "bearer": "1121"
+            },
+            "tests": [
+                {
+                    "type": "res-code",
+                    "custom": "",
+                    "action": ">=",
+                    "value": "200"
+                },
+                {
+                    "type": "res-code",
+                    "custom": "",
+                    "action": "<",
+                    "value": "300"
+                },
+                {
+                    "type": "res-body",
+                    "custom": "",
+                    "action": "isjson",
+                    "value": ""
+                },
+                {
+                    "type": "json-query",
+                    "custom": "json.message",
+                    "action": "notequal",
+                    "value": "null"
+                },
+                {
+                    "type": "Content-Length",
+                    "custom": "",
+                    "action": ">",
+                    "value": "0"
+                }
+            ]
+        },
         {
             "_id": "032b4470-f4e1-4869-8012-8f528d8dfeab",
             "colId": "98b65e94-1f50-4c5e-83ba-a8fd9487afe2",
@@ -14,14 +91,137 @@
             "method": "GET",
             "sortNum": 20000,
             "created": "2023-07-30T12:19:35.955Z",
-            "modified": "2023-07-30T13:14:12.654Z",
+            "modified": "2023-08-01T07:38:57.578Z",
             "headers": [],
             "params": [],
             "auth": {
                 "type": "bearer",
-                "bearer": "1123"
+                "bearer": "1121"
+            },
+            "tests": [
+                {
+                    "type": "res-code",
+                    "custom": "",
+                    "action": ">=",
+                    "value": "200"
+                },
+                {
+                    "type": "res-code",
+                    "custom": "",
+                    "action": "<",
+                    "value": "300"
+                },
+                {
+                    "type": "res-body",
+                    "custom": "",
+                    "action": "isjson",
+                    "value": ""
+                },
+                {
+                    "type": "json-query",
+                    "custom": "json.message",
+                    "action": "notequal",
+                    "value": "null"
+                },
+                {
+                    "type": "json-query",
+                    "custom": "json.version",
+                    "action": "notequal",
+                    "value": "null"
+                },
+                {
+                    "type": "json-query",
+                    "custom": "json.stability",
+                    "action": "notequal",
+                    "value": "null"
+                },
+                {
+                    "type": "Content-Length",
+                    "custom": "",
+                    "action": ">",
+                    "value": "0"
+                }
+            ]
+        },
+        {
+            "_id": "8d5195ec-efcc-4058-8ee8-5a4ea700ba7a",
+            "colId": "98b65e94-1f50-4c5e-83ba-a8fd9487afe2",
+            "containerId": "2ca1b1bf-d467-4652-9230-fa6eccbd05be",
+            "name": "Add Device",
+            "url": "{{host}}/{{version}}/devices",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2023-08-02T05:27:18.615Z",
+            "modified": "2023-08-02T07:11:58.817Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"device_id\":\"iphone-x\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "52411425-1160-4245-a67d-34ed629539df",
+            "colId": "98b65e94-1f50-4c5e-83ba-a8fd9487afe2",
+            "containerId": "2ca1b1bf-d467-4652-9230-fa6eccbd05be",
+            "name": "Get Device List",
+            "url": "{{host}}/{{version}}/devices",
+            "method": "GET",
+            "sortNum": 40000,
+            "created": "2023-08-02T09:14:22.425Z",
+            "modified": "2023-08-03T05:57:13.106Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "1121"
+            },
+            "tests": []
+        },
+        {
+            "_id": "6255fb20-f51b-48c1-9027-9d33484e7b72",
+            "colId": "98b65e94-1f50-4c5e-83ba-a8fd9487afe2",
+            "containerId": "2ca1b1bf-d467-4652-9230-fa6eccbd05be",
+            "name": "Get Device Status",
+            "url": "{{host}}/{{version}}/devices/hardware_1",
+            "method": "GET",
+            "sortNum": 50000,
+            "created": "2023-08-02T14:00:35.883Z",
+            "modified": "2023-08-02T14:06:36.442Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "1121"
+            },
+            "tests": []
+        },
+        {
+            "_id": "2390c422-c21e-4534-99f1-a44b17b22863",
+            "colId": "98b65e94-1f50-4c5e-83ba-a8fd9487afe2",
+            "containerId": "2ca1b1bf-d467-4652-9230-fa6eccbd05be",
+            "name": "Delete Device",
+            "url": "{{host}}/{{version}}/devices/hardware_1",
+            "method": "DELETE",
+            "sortNum": 60000,
+            "created": "2023-08-02T14:10:12.300Z",
+            "modified": "2023-08-03T06:06:50.645Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "1121"
             },
             "tests": []
         }
-    ]
+    ],
+    "settings": {
+        "runOptions": {
+            "delay": 1,
+            "iterations": 505,
+            "dataFilePath": ""
+        }
+    }
 }

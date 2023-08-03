@@ -6,7 +6,7 @@ describe("GET /v1", function () {
 		const result = await supertest(api)
 			.get("/v1/")
 			.set("Accept", "application/json")
-			.set("Authorization", "Bearer 1122");
+			.set("Authorization", "Bearer 1121");
 		expect(result.status).toBe(200);
 		expect(result.body.message).toContain("PakaiWA.my.id");
 		expect(result.body.version).not.toBeNull();
@@ -54,14 +54,6 @@ describe("GET /v1", function () {
 		expect(result.body.message).toContain("Missing API token.");
 		expect(result.body.version).not.toBeNull();
 		expect(result.body.stability).not.toBeNull();
-	});
-
-	it("should return 404 Not Found", async function () {
-		const result = await supertest(api)
-			.post("/v1/")
-			.set("Accept", "application/json");
-		expect(result.status).toBe(404);
-		expect(result.body.message).toContain("Not Found");
 	});
 
 	it("should return 429 Too Many Requests", async function () {

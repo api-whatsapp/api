@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+import { logger } from "../../app/logger.js";
 import { PrismaClient } from "@prisma/client";
 import { usersSeeder } from "./usersSeeder.js";
 import { deviceSeeder } from "./deviceSeeder.js";
@@ -12,18 +13,16 @@ const load = async () => {
 			await prisma.$queryRawUnsafe(`TRUNCATE TABLE ${tableName};`);
 			await prisma.$queryRawUnsafe("SET FOREIGN_KEY_CHECKS = 1;");
 		}
-
 		await prisma.user.createMany({
 			data: usersSeeder,
 		});
-		console.log("Added users data");
-
+		logger.info("Added users data");
 		await prisma.device.createMany({
 			data: deviceSeeder,
 		});
-		console.log("Added device data");
+		logger.info("Added device data");
 	} catch (e) {
-		console.error(e);
+		logger.error(e);
 		process.exit(1);
 	} finally {
 		await prisma.$disconnect();

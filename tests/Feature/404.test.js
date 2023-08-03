@@ -5,7 +5,8 @@ describe("404 Test", function () {
 	it("should return 404 Not Found", async function () {
 		const result = await supertest(api)
 			.get("/asmlckasm")
-			.set("Accept", "application/json");
+			.set("Accept", "application/json")
+			.set("Authorization", "Bearer 404");
 		expect(result.status).toBe(404);
 		expect(result.body.message).toContain("Not Found");
 	});
@@ -13,7 +14,8 @@ describe("404 Test", function () {
 	it("should return 404 Not Found", async function () {
 		const result = await supertest(api)
 			.post("/asmlckasm")
-			.set("Accept", "application/json");
+			.set("Accept", "application/json")
+			.set("Authorization", "Bearer 404");
 		expect(result.status).toBe(404);
 		expect(result.body.message).toContain("Not Found");
 	});

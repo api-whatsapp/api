@@ -1,6 +1,12 @@
-# api
+# PakaiWA
 
 [![Node.JS Scan](https://github.com/pakaiwa/api/actions/workflows/njsscan.yml/badge.svg)](https://github.com/pakaiwa/api/actions/workflows/njsscan.yml) [![CI](https://github.com/pakaiwa/api/actions/workflows/node.js.yml/badge.svg)](https://github.com/pakaiwa/api/actions/workflows/node.js.yml)
+
+![Branches](./badges/coverage-branches.svg)
+![Functions](./badges/coverage-functions.svg)
+![Lines](./badges/coverage-lines.svg)
+![Statements](./badges/coverage-statements.svg)
+![Jest coverage](./badges/coverage-jest%20coverage.svg)
 
 ## Install
 
