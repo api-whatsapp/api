@@ -2,12 +2,11 @@ import "dotenv/config";
 import { createLogger, format, transports } from "winston";
 const { combine, timestamp, printf } = format;
 
-//Using the printf format.
 const logsFormat = printf(({ level, message, timestamp }) => {
 	return `"${timestamp}": {"${level}": "${message}"},`;
 });
 
-var todayDate = new Date().toISOString().slice(0, 10);
+let todayDate = new Date().toISOString().slice(0, 10);
 const infoFile = todayDate + "-info.log";
 const warnFile = todayDate + "-warn.log";
 const errorFile = todayDate + "-error.log";
@@ -49,6 +48,7 @@ if (appEnv === "development" || appEnv === "dev" || appEnv === "test") {
 }
 
 if (appDebug === "true") {
+	/* istanbul ignore next */
 	myTransports.push(
 		new transports.Console({
 			level: "verbose",
