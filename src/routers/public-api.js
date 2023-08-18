@@ -16,11 +16,6 @@ publicRouter.get("/devices", getDeviceList);
 publicRouter.get("/devices/:device_id", getDeviceStatus);
 publicRouter.delete("/devices/:device_id", deleteDevice);
 
-publicRouter.get("*", function (req, res) {
-	res.status(404).json({
-		message: "Not Found",
-	});
-});
 
 publicRouter.all("*", function (req, res) {
 	res.status(404).json({
