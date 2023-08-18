@@ -1,17 +1,19 @@
 import "dotenv/config";
 import { createLogger, format, transports } from "winston";
-const { combine, timestamp, printf, label } = format;
+const { combine, timestamp, printf } = format;
 
-//Using the printf format.
 const logsFormat = printf(({ level, message, timestamp }) => {
 	return `"${timestamp}": {"${level}": "${message}"},`;
 });
 
-var todayDate = new Date().toISOString().slice(0, 10);
+let todayDate = new Date().toISOString().slice(0, 10);
 const infoFile = todayDate + "-info.log";
+const warnFile = todayDate + "-warn.log";
 const errorFile = todayDate + "-error.log";
 const queryFile = todayDate + "-query.log";
 const appEnv = process.env.APP_ENV || "development";
+const appDebug = process.env.APP_DEBUG || "false";
+
 
 const myTransports = [
 	new transports.Console({
@@ -20,6 +22,10 @@ const myTransports = [
 	new transports.File({
 		filename: "./logs/" + errorFile,
 		level: "error",
+	}),
+	new transports.File({
+		filename: "./logs/" + warnFile,
+		level: "warn",
 	}),
 	new transports.File({
 		filename: "./logs/" + infoFile,
@@ -35,6 +41,18 @@ if (appEnv === "development" || appEnv === "dev" || appEnv === "test") {
 	myTransports.push(
 		new transports.Console({
 			level: "info",
+		}),
+		new transports.Console({
+			level: "warn",
+		})
+	);
+}
+
+if (appDebug === "true") {
+	/* istanbul ignore next */
+	myTransports.push(
+		new transports.Console({
+			level: "verbose",
 		})
 	);
 }

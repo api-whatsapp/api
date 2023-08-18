@@ -22,9 +22,9 @@ publicRouter.get("*", function (req, res) {
 	});
 });
 
-publicRouter.post("*", function (req, res) {
+publicRouter.all("*", function (req, res) {
 	res.status(404).json({
-		message: "Not Found",
+		message: "Endpoint Not Found",
 	});
 });
 
