@@ -1,9 +1,9 @@
 import { logger } from "../app/logger.js";
 import { prismaClient } from "../app/database.js";
 
-const check = await prismaClient.hardware.findMany({
+const check = await prismaClient.device.findMany({
 	select: {
-		name: true,
+		device_id: true,
 	},
 });
 
