@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+import { logger } from "../app/logger.js";
 import { prismaClient } from "../app/database.js";
 
 const check = await prismaClient.hardware.findMany({
@@ -10,5 +10,5 @@ const check = await prismaClient.hardware.findMany({
 check.forEach(myFunction);
 
 function myFunction(item) {
-	console.info(item["name"]);
+	logger.info(item["name"]);
 }
