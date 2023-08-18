@@ -14,7 +14,6 @@ const queryFile = todayDate + "-query.log";
 const appEnv = process.env.APP_ENV || "development";
 const appDebug = process.env.APP_DEBUG || "false";
 
-
 const myTransports = [
 	new transports.Console({
 		level: "error",

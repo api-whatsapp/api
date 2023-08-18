@@ -1,21 +1,71 @@
 import { api } from "../../src/app/api.js";
 import supertest from "supertest";
 
-describe("404 Test", function () {
-	for (let index = 1; index <= 5; index++) {
-		it(index + ". 404 Not Found", async function () {
-			var chars =
-				"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-			var charLength = chars.length;
-			var url = "";
-			for (var i = 0; i < 10; i++) {
-				url += chars.charAt(Math.floor(Math.random() * charLength));
-			}
+function genrateURL() {
+	let chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+	let charLength = chars.length;
+	let url = "";
+	for (let i = 0; i < 10; i++) {
+		url += chars.charAt(Math.floor(Math.random() * charLength));
+	}
+	return url;
+}
 
+describe("404 Test", function () {
+	for (let index = 1; index <= 10; index++) {
+		it(index + ". 404 Not Found Guest", async function () {
 			const result = await supertest(api)
-				.get("/" + url)
+				.get("/" + genrateURL())
+				.set("Accept", "application/json");
+
+			expect(result.status).toBe(404);
+			expect(result.body.message).toContain("Not Found");
+		});
+	}
+
+	for (let index = 1; index <= 10; index++) {
+		it(index + ". 404 Not Found User", async function () {
+			const result = await supertest(api)
+				.get("/" + genrateURL())
 				.set("Accept", "application/json")
-				.set("Authorization", "Bearer 404");
+				.set("Authorization", "Bearer 1120");
+
+			expect(result.status).toBe(404);
+			expect(result.body.message).toContain("Not Found");
+		});
+	}
+
+	for (let index = 1; index <= 10; index++) {
+		it(index + ". 404 Not Found User", async function () {
+			const result = await supertest(api)
+				.get("/" + genrateURL())
+				.set("Accept", "application/json")
+				.set("Authorization", "Bearer 1121");
+
+			expect(result.status).toBe(404);
+			expect(result.body.message).toContain("Not Found");
+		});
+	}
+
+	for (let index = 1; index <= 10; index++) {
+		it(index + ". 404 Not Found Member", async function () {
+			const result = await supertest(api)
+				.get("/" + genrateURL())
+				.set("Accept", "application/json")
+				.set("Authorization", "Bearer 1122");
+
+			expect(result.status).toBe(404);
+			expect(result.body.message).toContain("Not Found");
+		});
+	}
+
+	for (let index = 1; index <= 10; index++) {
+		it(index + ". 404 Not Found Premium", async function () {
+			const result = await supertest(api)
+				.get("/" + genrateURL())
+				.set("Accept", "application/json")
+				.set("Authorization", "Bearer 1123");
+
 			expect(result.status).toBe(404);
 			expect(result.body.message).toContain("Not Found");
 		});
