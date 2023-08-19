@@ -1,4 +1,5 @@
 import express from "express";
+import registerUser from "../controllers/userController.js";
 import getVersion from "../controllers/versionController.js";
 import {
 	addDevice,
@@ -10,6 +11,8 @@ import {
 const publicRouter = new express.Router();
 
 publicRouter.get("/", getVersion);
+
+publicRouter.post("/users", registerUser);
 
 publicRouter.post("/devices", addDevice);
 publicRouter.get("/devices", getDeviceList);
