@@ -1,5 +1,5 @@
-import { api } from "../../src/app/api.js";
 import supertest from "supertest";
+import { api } from "../../src/app/api.js";
 
 function genrateURL() {
 	let chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -13,59 +13,31 @@ function genrateURL() {
 
 describe("404 Test", function () {
 	for (let index = 1; index <= 10; index++) {
-		it(index + ". 404 Not Found Guest", async function () {
-			const result = await supertest(api)
-				.get("/" + genrateURL())
-				.set("Accept", "application/json");
-
-			expect(result.status).toBe(404);
-			expect(result.body.message).toContain("Not Found");
-		});
-	}
-
-	for (let index = 1; index <= 10; index++) {
-		it(index + ". 404 Not Found User", async function () {
-			const result = await supertest(api)
-				.get("/" + genrateURL())
-				.set("Accept", "application/json")
-				.set("Authorization", "Bearer 1120");
-
-			expect(result.status).toBe(404);
-			expect(result.body.message).toContain("Not Found");
-		});
-	}
-
-	for (let index = 1; index <= 10; index++) {
 		it(index + ". 404 Not Found User", async function () {
 			const result = await supertest(api)
 				.get("/" + genrateURL())
 				.set("Accept", "application/json")
 				.set("Authorization", "Bearer 1121");
-
 			expect(result.status).toBe(404);
 			expect(result.body.message).toContain("Not Found");
 		});
 	}
-
 	for (let index = 1; index <= 10; index++) {
 		it(index + ". 404 Not Found Member", async function () {
 			const result = await supertest(api)
 				.get("/" + genrateURL())
 				.set("Accept", "application/json")
 				.set("Authorization", "Bearer 1122");
-
 			expect(result.status).toBe(404);
 			expect(result.body.message).toContain("Not Found");
 		});
 	}
-
 	for (let index = 1; index <= 10; index++) {
 		it(index + ". 404 Not Found Premium", async function () {
 			const result = await supertest(api)
 				.get("/" + genrateURL())
 				.set("Accept", "application/json")
 				.set("Authorization", "Bearer 1123");
-
 			expect(result.status).toBe(404);
 			expect(result.body.message).toContain("Not Found");
 		});
