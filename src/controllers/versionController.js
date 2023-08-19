@@ -1,7 +1,7 @@
 import "dotenv/config";
 import { logger } from "../app/logger.js";
 
-const getVersion = async (req, res) => {
+const getVersion = async (_req, res) => {
 	const version = process.env.APP_VERSION;
 
 	try {

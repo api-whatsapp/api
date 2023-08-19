@@ -34,7 +34,8 @@ jobs:
         node-version: [16.x, 20.x]
     name: Test with Jest Node ${{ matrix.node-version }}
     steps:
-      - uses: mirromutth/mysql-action@v1.1
+      - name: Create DB
+        uses: mirromutth/mysql-action@v1.1
         with:
           mysql root password: root
           mysql database: "pakaiwa"

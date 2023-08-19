@@ -1,5 +1,5 @@
-import { api } from "../../src/app/api.js";
 import supertest from "supertest";
+import { api } from "../../src/app/api.js";
 
 describe("GET /", function () {
 	it("should return 200 OK", async function () {
