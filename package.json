@@ -21,7 +21,7 @@
 	},
 	"scripts": {
 		"dev": "nodemon src/main.js",
-		"test": "jest",
+		"test": "jest -i",
 		"seed": "pnpx prisma db seed",
 		"mig": "pnpx prisma migrate dev --name init && pnpx prisma db seed",
 		"fc": " prettier --write . && eslint --fix . && prettier --check . && eslint ."
@@ -36,6 +36,7 @@
 		"dotenv": "^16.3.1",
 		"express": "^4.18.2",
 		"express-rate-limit": "^6.9.0",
+		"joi": "^17.9.2",
 		"qrcode": "^1.5.3",
 		"uuid": "^9.0.0",
 		"whatsapp-web.js": "^1.22.1",

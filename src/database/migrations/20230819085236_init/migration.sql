@@ -1,7 +1,7 @@
 -- CreateTable
 CREATE TABLE `users` (
     `email` VARCHAR(191) NOT NULL,
-    `quota` INTEGER NOT NULL DEFAULT 0,
+    `quota` INTEGER NOT NULL DEFAULT 100,
     `level` ENUM('user', 'member', 'premium') NOT NULL DEFAULT 'user',
     `token` VARCHAR(100) NOT NULL,
     `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
