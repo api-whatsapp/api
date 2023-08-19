@@ -1,14 +1,14 @@
 export const deviceSeeder = [
 	{
-		userEmail: "a@b.c",
+		userEmail: "a@a.a",
 		device_id: "Hardware_1",
 	},
 	{
-		userEmail: "b@b.c",
+		userEmail: "b@b.b",
 		device_id: "Hardware_2",
 	},
 	{
-		userEmail: "c@b.c",
+		userEmail: "c@c.c",
 		device_id: "Hardware_3",
 	},
 ];

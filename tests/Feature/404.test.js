@@ -12,7 +12,7 @@ function genrateURL() {
 }
 
 describe("404 Test", function () {
-	for (let index = 1; index <= 10; index++) {
+	for (let index = 0; index < 10; index++) {
 		it(index + ". 404 Not Found User", async function () {
 			const result = await supertest(api)
 				.get("/" + genrateURL())
@@ -22,7 +22,7 @@ describe("404 Test", function () {
 			expect(result.body.message).toContain("Not Found");
 		});
 	}
-	for (let index = 1; index <= 10; index++) {
+	for (let index = 0; index < 10; index++) {
 		it(index + ". 404 Not Found Member", async function () {
 			const result = await supertest(api)
 				.get("/" + genrateURL())
@@ -32,7 +32,7 @@ describe("404 Test", function () {
 			expect(result.body.message).toContain("Not Found");
 		});
 	}
-	for (let index = 1; index <= 10; index++) {
+	for (let index = 0; index < 10; index++) {
 		it(index + ". 404 Not Found Premium", async function () {
 			const result = await supertest(api)
 				.get("/" + genrateURL())

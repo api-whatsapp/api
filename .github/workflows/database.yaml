@@ -39,11 +39,6 @@ jobs:
         with:
           mysql root password: root
           mysql database: "pakaiwa"
-      - name: Create Shadow DB
-        uses: mirromutth/mysql-action@v1.1
-        with:
-          mysql root password: root
-          mysql database: "pakaiwas"
       - uses: actions/checkout@v3
       - name: Setup pnpm
         uses: pnpm/action-setup@v2.4.0
