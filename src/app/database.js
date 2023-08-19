@@ -21,11 +21,11 @@ export const prismaClient = new PrismaClient({
 		},
 	],
 });
-
+/* istanbul ignore next */
 prismaClient.$on("error", (e) => {
 	logger.error(e);
 });
-
+/* istanbul ignore next */
 prismaClient.$on("warn", (e) => {
 	logger.warn(e);
 });

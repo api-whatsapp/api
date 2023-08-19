@@ -46,6 +46,17 @@ describe("GET /", function () {
 		expect(result.body.stability).not.toBeNull();
 	});
 
+	it("should return 403 Forbidden", async function () {
+		const result = await supertest(api)
+			.get("/")
+			.set("Accept", "application/json")
+			.set("Authorization", "Bearer");
+		expect(result.status).toBe(403);
+		expect(result.body.message).toContain("Invalid API token.");
+		expect(result.body.version).not.toBeNull();
+		expect(result.body.stability).not.toBeNull();
+	});
+
 	it("should return 401 Unauthorized", async function () {
 		const result = await supertest(api)
 			.get("/")

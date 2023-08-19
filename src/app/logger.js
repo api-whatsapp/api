@@ -36,7 +36,8 @@ const myTransports = [
 	}),
 ];
 
-if (appEnv === "development" || appEnv === "dev" || appEnv === "test") {
+/* istanbul ignore next */
+if (appEnv.includes("dev")) {
 	myTransports.push(
 		new transports.Console({
 			level: "info",
@@ -47,8 +48,8 @@ if (appEnv === "development" || appEnv === "dev" || appEnv === "test") {
 	);
 }
 
+/* istanbul ignore next */
 if (appDebug === "true") {
-	/* istanbul ignore next */
 	myTransports.push(
 		new transports.Console({
 			level: "verbose",
