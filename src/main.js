@@ -6,5 +6,5 @@ const port = process.env.API_PORT || 3000;
 global.host = process.env.API_HOST || "https://pakaiwa.my.id";
 
 api.listen(port, () => {
-	logger.info("Listening on port http://127.0.0.1:" + port + "\n");
+	logger.info(`Run on http://127.0.0.1:${port} or http://localhost:${port}`);
 });
