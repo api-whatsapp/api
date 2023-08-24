@@ -2,11 +2,11 @@ name: "CodeQL"
 
 on:
   push:
-    branches: ["main", "dev"]
+    branches: ["main","dev","qa"]
     paths-ignore:
       - "**/*.test.js"
   pull_request:
-    branches: ["main"]
+    branches: ["main","dev","qa"]
     paths-ignore:
       - "**/*.test.js"
   schedule:
@@ -14,7 +14,7 @@ on:
 
 jobs:
   analyze:
-    name: Analyze
+    name: 🧪 Code QL Analyze
     runs-on: ubuntu-latest
     permissions:
       actions: read

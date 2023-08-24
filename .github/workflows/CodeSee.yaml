@@ -2,13 +2,7 @@ name: CodeSee
 
 on:
   push:
-    branches:
-      - main
-      - dev
-  pull_request_target:
-    types: [opened, synchronize, reopened]
-
-permissions: read-all
+    branches: ["main","dev","qa"]
 
 jobs:
   codesee:
