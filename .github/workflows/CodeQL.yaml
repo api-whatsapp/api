@@ -6,7 +6,7 @@ on:
     paths-ignore:
       - "**/*.test.js"
   pull_request:
-    branches: ["main"]
+    branches: ["main", "dev"]
     paths-ignore:
       - "**/*.test.js"
   schedule:
@@ -14,7 +14,7 @@ on:
 
 jobs:
   analyze:
-    name: Analyze
+    name: 🧪 Code QL Analyze
     runs-on: ubuntu-latest
     permissions:
       actions: read
