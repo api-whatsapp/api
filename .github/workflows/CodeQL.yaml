@@ -2,11 +2,11 @@ name: "CodeQL"
 
 on:
   push:
-    branches: ["main", "dev"]
+    branches: ["main","dev","qa"]
     paths-ignore:
       - "**/*.test.js"
   pull_request:
-    branches: ["main", "dev"]
+    branches: ["main","dev","qa"]
     paths-ignore:
       - "**/*.test.js"
   schedule:
