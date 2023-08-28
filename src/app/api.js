@@ -1,7 +1,7 @@
 import express from "express";
-import { limiter } from "../middleware/rateLimiter.js";
 import { publicRouter } from "../routers/public-api.js";
 import { publicRouterV1 } from "../routers/routerV1.js";
+import { limiter } from "../middleware/rateLimiterMiddleware.js";
 import { authMiddleware } from "../middleware/authMiddleware.js";
 import { errorMiddleware } from "../middleware/errorMiddleware.js";
 
