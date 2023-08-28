@@ -33,5 +33,5 @@ jobs:
         run: pnpm mig
       - uses: ArtiomTr/jest-coverage-report-action@v2.0-rc.6
         with:
-          github-token: ${{ secrets.GH_TOKEN }}
-          threshold: 70 # optional parameter
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          threshold: 70
