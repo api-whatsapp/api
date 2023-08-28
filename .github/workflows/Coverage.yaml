@@ -6,6 +6,12 @@ on:
       - "*/*" # matches every branch containing a single '/'
       - "**" # matches every branch
       - "!master" # excludes master
+  pull_request:
+        branches:
+            - qa
+            - dev
+            - main
+
 
 jobs:
   Format_and_Check:
@@ -91,16 +97,7 @@ jobs:
         run: pnpm seed
       - name: Test
         run: pnpm test
-      - name: Jest Coverage Comment
-        id: coverageComment
-        uses: MishaKav/jest-coverage-comment@main
+      - uses: ArtiomTr/jest-coverage-report-action@v2.0-rc.6
         with:
-          hide-summary: true
-          coverage-summary-path: ./coverage/coverage-summary.json
-      - name: Update README with Coverage HTML
-        run: sed -i "/<!-- Jest Coverage Comment:Begin -->/,/<!-- Jest Coverage Comment:End -->/c\<!-- Jest Coverage Comment:Begin -->\n\${{ steps.coverageComment.outputs.summaryHtml }}\n<!-- Jest Coverage Comment:End -->" ./README.md
-      - name: Commit & Push changes in README
-        uses: actions-js/push@master
-        with:
-          message: Update coverage in README
-          github_token: ${{ secrets.GH_TOKEN }}
+            github-token: ${{ secrets.GH_TOKEN }}
+            threshold: 70 # optional parameter
