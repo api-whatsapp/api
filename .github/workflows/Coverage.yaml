@@ -8,14 +8,89 @@ on:
       - "!master" # excludes master
 
 jobs:
-  update-coverage-in-readme:
+  Format_and_Check:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.x, 18.x, 20.x]
+    name: Node ${{ matrix.node-version }} sample
     steps:
       - uses: actions/checkout@v3
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2.4.0
         with:
-          persist-credentials: false # otherwise, the token used is the GH_TOKEN, instead of your personal token
-          fetch-depth: 0 # otherwise, you will failed to push refs to dest repo
-
+          version: latest
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "pnpm"
+      - name: Install dependencies
+        run: pnpm i
+      - name: Format and Check code
+        run: pnpm fc
+  Jest_Test:
+    runs-on: ubuntu-latest
+    needs: Format_and_Check
+    strategy:
+      matrix:
+        node-version: [16.x, 20.x]
+    name: Test with Jest Node ${{ matrix.node-version }}
+    steps:
+      - name: Create DB
+        uses: mirromutth/mysql-action@v1.1
+        with:
+          mysql root password: root
+          mysql database: "pakaiwa"
+      - uses: actions/checkout@v3
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2.4.0
+        with:
+          version: latest
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v3.7.0
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "pnpm"
+      - name: create .env
+        run: mv .env.example .env
+      - name: Install dependencies
+        run: pnpm i
+      - name: Migration
+        run: pnpm mig
+      - name: Seed
+        run: pnpm seed
+      - name: Test
+        run: pnpm test
+  Create_Test_Coverage_Badges:
+    runs-on: ubuntu-latest
+    needs: Format_and_Check
+    name: Test with Jest Node 18.x LTS
+    steps:
+      - uses: mirromutth/mysql-action@v1.1
+        with:
+          mysql root password: root
+          mysql database: "pakaiwa"
+      - uses: actions/checkout@v3
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2.4.0
+        with:
+          version: latest
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v3.7.0
+        with:
+          node-version: 18
+          cache: "pnpm"
+      - name: create .env
+        run: mv .env.example .env
+      - name: Install dependencies
+        run: pnpm i
+      - name: Migration
+        run: pnpm mig
+      - name: Seed
+        run: pnpm seed
+      - name: Test
+        run: pnpm test
       - name: Jest Coverage Comment
         id: coverageComment
         uses: MishaKav/jest-coverage-comment@main
