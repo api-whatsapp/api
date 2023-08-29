@@ -23,5 +23,7 @@ jobs:
           cache: "pnpm"
       - name: Install dependencies
         run: pnpm i
-      - name: Format and Check code
-        run: pnpm fc
+      - name: Check code with prettier
+        run: pnpm prettier --check .
+      - name: Check code with eslint
+        run: pnpm eslint .
