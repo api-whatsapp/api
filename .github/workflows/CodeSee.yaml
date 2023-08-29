@@ -1,7 +1,9 @@
-# This workflow was added by CodeSee. Learn more at https://codesee.io/
-# This is v2.0 of this workflow file
+name: Code See 🔎
+
 on:
   push:
+    branches: ["main", "dev", "qa"]
+  pull_request:
     branches: ["main", "dev", "qa"]
 
 jobs:

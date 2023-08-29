@@ -1,10 +1,8 @@
-name: Update Coverage in README
+name: PR Check Coverage 🗺
+
 on:
   pull_request:
-    branches:
-      - qa
-      - dev
-      - main
+    branches: ["main", "dev", "qa"]
 
 jobs:
   Create_Test_Coverage_Badges:
