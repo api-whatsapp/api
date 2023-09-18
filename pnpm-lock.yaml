@@ -21,8 +21,8 @@ dependencies:
     specifier: ^6.9.0
     version: 6.9.0(express@4.18.2)
   joi:
-    specifier: ^17.10.0
-    version: 17.10.0
+    specifier: ^17.10.2
+    version: 17.10.2
   qrcode:
     specifier: ^1.5.3
     version: 1.5.3
@@ -4493,8 +4493,8 @@ packages:
       - ts-node
     dev: true
 
-  /joi@17.10.0:
-    resolution: {integrity: sha512-hrazgRSlhzacZ69LdcKfhi3Vu13z2yFfoAzmEov3yFIJlatTdVGUW6vle1zjH8qkzdCn/qGw8rapjqsObbYXAg==}
+  /joi@17.10.2:
+    resolution: {integrity: sha512-hcVhjBxRNW/is3nNLdGLIjkgXetkeGc2wyhydhz8KumG23Aerk4HPjU5zaPAMRqXQFc0xNqXTC7+zQjxr0GlKA==}
     dependencies:
       '@hapi/hoek': 9.3.0
       '@hapi/topo': 5.1.0
