@@ -3,6 +3,8 @@ name: Database Test
 on:
   push:
     branches: ["main", "dev", "qa"]
+  pull_request:
+    branches: ["main", "dev", "qa"]
 
 jobs:
   Format_and_Check:

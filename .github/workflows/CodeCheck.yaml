@@ -1,4 +1,4 @@
-name: Node.js CI 🧪
+name: Code Check 🔎🧪
 
 on:
   push:
@@ -7,24 +7,23 @@ on:
     branches: ["main", "dev", "qa"]
 
 jobs:
-  cache-and-install:
+  code_check:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [16.x, 18.x]
-    name: Node ${{ matrix.node-version }} sample
+    name: Code Check with ESLint Node 18.x LTS
     steps:
       - uses: actions/checkout@v3
       - name: Setup pnpm
         uses: pnpm/action-setup@v2.4.0
         with:
           version: latest
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v3.7.0
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 18
           cache: "pnpm"
       - name: Install dependencies
         run: pnpm i
-      - name: Format and Check code
-        run: pnpm fc
+      - name: Check code with prettier
+        run: pnpm prettier --check .
+      - name: Check code with eslint
+        run: pnpm eslint .
