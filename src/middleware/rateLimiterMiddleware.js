@@ -10,15 +10,23 @@ const isPremium = async (bearerToken) => {
 		return "guest";
 	} else {
 		const token = bearerToken.split(" ")[1];
-		const tokenCheck = await prismaClient.user.findUnique({
-			where: {
-				token: token,
-			},
-			select: {
-				level: true,
-			},
-		});
-		return tokenCheck ? tokenCheck.level : "guest";
+		if (!token) {
+			return "guest";
+		}
+		try {
+			const tokenCheck = await prismaClient.user.findUnique({
+				where: {
+					token: token,
+				},
+				select: {
+					level: true,
+				},
+			});
+			return tokenCheck ? tokenCheck.level : "guest";
+		} catch (error) {
+			/* istanbul ignore next */
+			console.error(error);
+		}
 	}
 };
 

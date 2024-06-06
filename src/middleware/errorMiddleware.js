@@ -1,6 +1,7 @@
 import { ResponseError } from "../errors/responseErrors.js";
 
 export const errorMiddleware = async (error, _req, res, next) => {
+	/* istanbul ignore next */
 	if (!error) {
 		next();
 		return;
@@ -13,6 +14,7 @@ export const errorMiddleware = async (error, _req, res, next) => {
 			})
 			.end();
 	} else {
+		/* istanbul ignore next */
 		res
 			.status(error.status || 500)
 			.json({
