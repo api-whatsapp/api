@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [16.x, 18.x, 20.x]
+        node-version: [18.x, 20.x, 22.x]
     name: Node ${{ matrix.node-version }} sample
     steps:
       - uses: actions/checkout@v3
@@ -20,7 +20,7 @@ jobs:
         with:
           version: latest
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
           cache: "pnpm"
@@ -47,7 +47,7 @@ jobs:
         with:
           version: latest
       - name: Setup Node.js environment
-        uses: actions/setup-node@v3.7.0
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
           cache: "pnpm"
@@ -76,7 +76,7 @@ jobs:
         with:
           version: latest
       - name: Setup Node.js environment
-        uses: actions/setup-node@v3.7.0
+        uses: actions/setup-node@v4
         with:
           node-version: 18
           cache: "pnpm"
