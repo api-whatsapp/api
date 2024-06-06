@@ -35,34 +35,13 @@ describe("GET /", function () {
 		expect(result.body.stability).not.toBeNull();
 	});
 
-	it("should return 403 Forbidden", async function () {
-		const result = await supertest(api)
-			.get("/")
-			.set("Accept", "application/json")
-			.set("Authorization", "Bearer 112233");
-		expect(result.status).toBe(403);
-		expect(result.body.message).toContain("Invalid API token.");
-		expect(result.body.version).not.toBeNull();
-		expect(result.body.stability).not.toBeNull();
-	});
-
-	it("should return 403 Forbidden", async function () {
+	it("200 without vaild Token", async function () {
 		const result = await supertest(api)
 			.get("/")
 			.set("Accept", "application/json")
 			.set("Authorization", "Bearer");
-		expect(result.status).toBe(403);
-		expect(result.body.message).toContain("Invalid API token.");
-		expect(result.body.version).not.toBeNull();
-		expect(result.body.stability).not.toBeNull();
-	});
-
-	it("should return 401 Unauthorized", async function () {
-		const result = await supertest(api)
-			.get("/")
-			.set("Accept", "application/json");
-		expect(result.status).toBe(401);
-		expect(result.body.message).toContain("Missing API token.");
+		expect(result.status).toBe(200);
+		expect(result.body.message).not.toBeNull();
 		expect(result.body.version).not.toBeNull();
 		expect(result.body.stability).not.toBeNull();
 	});

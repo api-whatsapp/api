@@ -7,7 +7,7 @@ on:
 jobs:
   Create_Test_Coverage_Badges:
     runs-on: ubuntu-latest
-    name: Test with Jest Node 18.x LTS
+    name: Test with Jest Node 20.x LTS
     steps:
       - uses: mirromutth/mysql-action@v1.1
         with:
@@ -19,9 +19,9 @@ jobs:
         with:
           version: latest
       - name: Setup Node.js environment
-        uses: actions/setup-node@v3.7.0
+        uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
           cache: "pnpm"
       - name: create .env
         run: mv .env.example .env
