@@ -11,9 +11,9 @@ jobs:
     runs-on: ubuntu-latest
     name: Code Check with ESLint Node 20.x LTS
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4.1.6
       - name: Setup pnpm
-        uses: pnpm/action-setup@v2.4.0
+        uses: pnpm/action-setup@v4.0.0
         with:
           version: latest
       - name: Setup Node.js environment
