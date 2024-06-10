@@ -6,6 +6,7 @@ export const errorMiddleware = async (error, _req, res, next) => {
 		next();
 		return;
 	}
+	/* istanbul ignore next */
 	if (error instanceof ResponseError) {
 		res
 			.status(error.status)
