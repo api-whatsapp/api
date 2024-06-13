@@ -14,9 +14,9 @@ jobs:
         node-version: [18.x, 20.x, 22.x]
     name: Node ${{ matrix.node-version }} sample
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4.1.6
       - name: Setup pnpm
-        uses: pnpm/action-setup@v2.4.0
+        uses: pnpm/action-setup@v4.0.0
         with:
           version: latest
       - name: Use Node.js ${{ matrix.node-version }}
@@ -36,14 +36,13 @@ jobs:
         node-version: [18.x, 22.x]
     name: Test with Jest Node ${{ matrix.node-version }}
     steps:
-      - name: Create DB
-        uses: mirromutth/mysql-action@v1.1
-        with:
-          mysql root password: root
-          mysql database: "pakaiwa"
-      - uses: actions/checkout@v3
+      - name: Start MySQL
+        run: |
+          sudo /etc/init.d/mysql start
+          mysql -e "CREATE DATABASE IF NOT EXISTS pakaiwa;" -uroot -proot
+      - uses: actions/checkout@v4.1.6
       - name: Setup pnpm
-        uses: pnpm/action-setup@v2.4.0
+        uses: pnpm/action-setup@v4.0.0
         with:
           version: latest
       - name: Setup Node.js environment
@@ -66,13 +65,13 @@ jobs:
     needs: Format_and_Check
     name: Test with Jest Node 20.x LTS
     steps:
-      - uses: mirromutth/mysql-action@v1.1
-        with:
-          mysql root password: root
-          mysql database: "pakaiwa"
-      - uses: actions/checkout@v3
+      - name: Start MySQL
+        run: |
+          sudo /etc/init.d/mysql start
+          mysql -e "CREATE DATABASE IF NOT EXISTS pakaiwa;" -uroot -proot
+      - uses: actions/checkout@v4.1.6
       - name: Setup pnpm
-        uses: pnpm/action-setup@v2.4.0
+        uses: pnpm/action-setup@v4.0.0
         with:
           version: latest
       - name: Setup Node.js environment
@@ -91,6 +90,6 @@ jobs:
       - name: Test
         run: pnpm test
       - name: Generating coverage badges
-        uses: jpb06/jest-badges-action@latest
+        uses: jpb06/jest-badges-action@v1.9.18
         with:
           branches: main,dev
