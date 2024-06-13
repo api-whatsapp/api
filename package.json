@@ -21,9 +21,9 @@
 	},
 	"scripts": {
 		"dev": "nodemon src/main.js",
-		"test": "jest -i",
-		"seed": "pnpx prisma db seed",
-		"mig": "pnpx prisma migrate dev --name init && pnpx prisma db seed",
+		"test": "jest -i --detectOpenHandles",
+		"seed": "pnpm exec prisma db seed",
+		"mig": "pnpm exec prisma migrate dev --name init && pnpm exec prisma db seed",
 		"fc": " prettier --write . && eslint --fix . && prettier --check . && eslint ."
 	},
 	"prisma": {
