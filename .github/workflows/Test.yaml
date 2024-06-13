@@ -36,11 +36,10 @@ jobs:
         node-version: [18.x, 22.x]
     name: Test with Jest Node ${{ matrix.node-version }}
     steps:
-      - name: Create DB
-        uses: mirromutth/mysql-action@v1.1
-        with:
-          mysql root password: root
-          mysql database: "pakaiwa"
+      - name: Start MySQL
+        run: |
+          sudo /etc/init.d/mysql start
+          mysql -e "CREATE DATABASE IF NOT EXISTS pakaiwa;" -uroot -proot
       - uses: actions/checkout@v4.1.6
       - name: Setup pnpm
         uses: pnpm/action-setup@v4.0.0
