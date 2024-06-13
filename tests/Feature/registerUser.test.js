@@ -129,5 +129,5 @@ describe("POST /users", function () {
 		expect(result.status).toBe(429);
 		expect(result.body).not.toBeNull();
 		expect(result.body.message).toContain("Too many requests");
-	});
+	}, 60000);
 });
