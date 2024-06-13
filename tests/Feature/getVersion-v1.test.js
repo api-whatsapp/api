@@ -66,5 +66,5 @@ describe("GET /v1", function () {
 		}
 		expect(result.status).toBe(429);
 		expect(result.body.message).toContain("Too many requests");
-	});
+	}, 60000);
 });

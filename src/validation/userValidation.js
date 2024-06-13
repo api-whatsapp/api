@@ -10,6 +10,6 @@ const registerUserValidation = Joi.object({
 			"string.email": "email must be a valid email",
 			"any.required": "email is a required",
 		}),
-});
+}).options({ allowUnknown: true });
 
 export { registerUserValidation };
