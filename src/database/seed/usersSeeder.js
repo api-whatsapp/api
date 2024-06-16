@@ -1,13 +1,13 @@
 export const usersSeeder = [
 	{
 		email: "a@a.a",
-		quota: 0,
+		quota: 100,
 		token: "1121",
 		level: "user",
 	},
 	{
 		email: "b@b.b",
-		quota: 5,
+		quota: 100,
 		token: "1122",
 		level: "member",
 	},
