@@ -34,8 +34,8 @@ export const limiter = rateLimit({
 	legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 	standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
 	windowMs: rateLimitConfig.minute * 60 * 1000,
-	keyGenerator: (req) => req.headers.authorization || req.ip,
-	max: async (req) => {
+	keyGenerator: (req) => req.ip,
+	limit: async (req) => {
 		const level = await isPremium(req.headers.authorization);
 		if (level === "user") {
 			return 100;
