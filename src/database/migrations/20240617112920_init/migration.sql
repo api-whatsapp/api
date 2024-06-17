@@ -1,5 +1,6 @@
 -- CreateTable
 CREATE TABLE `users` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
     `email` VARCHAR(191) NOT NULL,
     `quota` INTEGER NOT NULL DEFAULT 100,
     `level` ENUM('user', 'member', 'premium') NOT NULL DEFAULT 'user',
@@ -9,7 +10,7 @@ CREATE TABLE `users` (
 
     UNIQUE INDEX `users_email_key`(`email`),
     UNIQUE INDEX `users_token_key`(`token`),
-    PRIMARY KEY (`email`)
+    PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable

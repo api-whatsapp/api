@@ -8,5 +8,8 @@
 		".wwebjs_cache/*",
 		".wwebjs_auth/session/*",
 		"thunder-tests/*"
-	]
+	],
+	"events": {
+		"start": "clear"
+	}
 }
