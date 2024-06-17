@@ -11,11 +11,11 @@
 ## Install
 
 ```bash
-pnpm i @prisma/client bcrypt dotenv express qrcode uuid whatsapp-web.js winston
+pnpm add @prisma/client @whiskeysockets/baileys bcrypt dotenv express express-rate-limit joi qrcode uuid winston
 ```
 
 ```bash
-pnpm i -D @types/express eslint eslint-config-airbnb-base eslint-config-prettier eslint-plugin-import prettier prisma @babel/preset-env @types/bcrypt @types/jest @types/supertest @types/uuid babel-jest eslint-plugin-prettier jest nodemon supertest
+pnpm add -D @babel/preset-env @microsoft/eslint-formatter-sarif @types/bcrypt @types/express @types/jest @types/supertest @types/uuid babel-jest eslint eslint-config-airbnb-base eslint-config-prettier eslint-plugin-import eslint-plugin-prettier jest nodemon prettier prisma supertest
 ```
 
 <!-- Jest Coverage Comment:Begin -->

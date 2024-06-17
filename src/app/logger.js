@@ -1,19 +1,15 @@
 import "dotenv/config";
-import { createLogger, format, transports } from "winston";
 const { combine, timestamp, printf, colorize } = format;
+import { createLogger, format, transports } from "winston";
 
 const logsFormat = printf(({ level, message, timestamp }) => {
 	return `${timestamp}|[${level.toUpperCase()}]|${message}|`;
 });
 
-let todayDate = new Date().toISOString().slice(0, 10);
-const appEnv = process.env.APP_ENV || "development";
-const appDebug = process.env.APP_DEBUG || "false";
+const logLevel = process.env.LOG_LEVEL || "error";
+const todayDate = new Date().toISOString().slice(0, 10);
 
 const myTransports = [
-	new transports.Console({
-		level: "error",
-	}),
 	new transports.File({
 		filename: `./logs/${todayDate}-error.log`,
 		level: "error",
@@ -33,19 +29,31 @@ const myTransports = [
 ];
 
 /* istanbul ignore next */
-if (appEnv.includes("dev")) {
+if (logLevel === "verbose") {
+	myTransports.push(
+		new transports.Console({
+			level: "verbose",
+		})
+	);
+	/* istanbul ignore next */
+} else if (logLevel === "info") {
 	myTransports.push(
 		new transports.Console({
 			level: "info",
 		})
 	);
-}
-
-/* istanbul ignore next */
-if (appDebug === "true") {
+	/* istanbul ignore next */
+} else if (logLevel === "warn") {
 	myTransports.push(
 		new transports.Console({
-			level: "verbose",
+			level: "warn",
+		})
+	);
+	/* istanbul ignore next */
+} else {
+	myTransports.push(
+		new transports.Console({
+			level: "error",
 		})
 	);
 }
