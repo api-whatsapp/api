@@ -5,24 +5,25 @@ const rateLimitConfig = {
 	minute: 1,
 };
 
+const defaultLimit = { level: "guest", quota: 10 };
+
 const isPremium = async (bearerToken) => {
 	if (!bearerToken) {
-		return "guest";
+		return defaultLimit;
+	} else if (!bearerToken.split(" ")[1]) {
+		return defaultLimit;
 	} else {
-		const token = bearerToken.split(" ")[1];
-		if (!token) {
-			return "guest";
-		}
 		try {
 			const tokenCheck = await prismaClient.user.findUnique({
 				where: {
-					token: token,
+					token: bearerToken.split(" ")[1],
 				},
 				select: {
 					level: true,
+					quota: true,
 				},
 			});
-			return tokenCheck ? tokenCheck.level : "guest";
+			return tokenCheck || defaultLimit;
 		} catch (error) {
 			/* istanbul ignore next */
 			console.error(error);
@@ -34,22 +35,15 @@ export const limiter = rateLimit({
 	legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 	standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
 	windowMs: rateLimitConfig.minute * 60 * 1000,
-	keyGenerator: (req) => req.headers.authorization || req.ip,
-	max: async (req) => {
+	keyGenerator: (req) => req.ip,
+	limit: async (req) => {
 		const level = await isPremium(req.headers.authorization);
-		if (level === "user") {
-			return 100;
-		} else if (level === "member") {
-			return 250;
-		} else if (level === "premium") {
-			return 1000;
-		} else {
-			return 10;
-		}
+		return level.quota;
 	},
 	message: async (req, res) => {
+		const user = await isPremium(req.headers.authorization);
 		res.status(429).json({
-			message: "Too many requests, please try again later.",
+			message: `You can only make ${user.quota} requests every ${rateLimitConfig.minute} minutes, please try again later.`,
 		});
 	},
 });
