@@ -57,4 +57,7 @@ export const logger = createLogger({
 		colorize()
 	),
 	transports: myTransports,
+	rejectionHandlers: [
+		new transports.File({ filename: `./logs/${todayDate}-rejections.log` }),
+	],
 });
