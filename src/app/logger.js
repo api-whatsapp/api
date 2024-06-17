@@ -1,6 +1,6 @@
 import "dotenv/config";
 import { createLogger, format, transports } from "winston";
-const { combine, timestamp, printf } = format;
+const { combine, timestamp, printf, colorize } = format;
 
 const logsFormat = printf(({ level, message, timestamp }) => {
 	return `"${timestamp}": {"${level}": "${message}"},`;
@@ -51,6 +51,10 @@ if (appDebug === "true") {
 }
 
 export const logger = createLogger({
-	format: combine(timestamp({ format: "YYYY-MM DD_HH:mm:ss.SSS" }), logsFormat),
+	format: combine(
+		timestamp({ format: "YYYY-MM-DD HH:mm:ss.SSS" }),
+		logsFormat,
+		colorize()
+	),
 	transports: myTransports,
 });
