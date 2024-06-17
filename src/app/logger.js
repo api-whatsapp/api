@@ -3,7 +3,7 @@ import { createLogger, format, transports } from "winston";
 const { combine, timestamp, printf, colorize } = format;
 
 const logsFormat = printf(({ level, message, timestamp }) => {
-	return `"${timestamp}": {"${level}": "${message}"},`;
+	return `${timestamp}|[${level.toUpperCase()}]|${message}|`;
 });
 
 let todayDate = new Date().toISOString().slice(0, 10);
