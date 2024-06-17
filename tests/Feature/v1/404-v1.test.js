@@ -1,5 +1,5 @@
 import supertest from "supertest";
-import { app } from "../../src/app/api.js";
+import { app } from "../../../src/app/api.js";
 
 function genrateURL() {
 	let chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -11,11 +11,11 @@ function genrateURL() {
 	return url;
 }
 
-describe("404 Test", function () {
+describe("404 v1 Test", function () {
 	for (let index = 0; index < 10; index++) {
-		it(index + ". 404 Not Found User", async function () {
+		it(index + ". 404 v1 Not Found User", async function () {
 			const result = await supertest(app)
-				.get("/" + genrateURL())
+				.get("/v1/" + genrateURL())
 				.set("Accept", "application/json")
 				.set("Authorization", "Bearer 1121");
 			expect(result.status).toBe(404);
@@ -23,9 +23,9 @@ describe("404 Test", function () {
 		});
 	}
 	for (let index = 0; index < 10; index++) {
-		it(index + ". 404 Not Found Member", async function () {
+		it(index + ". 404 v1 Not Found Member", async function () {
 			const result = await supertest(app)
-				.get("/" + genrateURL())
+				.get("/v1/" + genrateURL())
 				.set("Accept", "application/json")
 				.set("Authorization", "Bearer 1122");
 			expect(result.status).toBe(404);
@@ -33,9 +33,9 @@ describe("404 Test", function () {
 		});
 	}
 	for (let index = 0; index < 10; index++) {
-		it(index + ". 404 Not Found Premium", async function () {
+		it(index + ". 404 v1 Not Found Premium", async function () {
 			const result = await supertest(app)
-				.get("/" + genrateURL())
+				.get("/v1/" + genrateURL())
 				.set("Accept", "application/json")
 				.set("Authorization", "Bearer 1123");
 			expect(result.status).toBe(404);

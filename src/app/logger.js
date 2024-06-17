@@ -6,7 +6,7 @@ const logsFormat = printf(({ level, message, timestamp }) => {
 	return `${timestamp}|[${level.toUpperCase()}]|${message}|`;
 });
 
-const logLevel = process.env.LOG_LEVEL || "error";
+const logLevel = process.env.LOG_LEVEL;
 const todayDate = new Date().toISOString().slice(0, 10);
 
 const myTransports = [

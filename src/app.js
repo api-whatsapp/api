@@ -1,10 +1,10 @@
 import "dotenv/config";
-import { api } from "./app/api.js";
+import { app } from "./app/api.js";
 import { logger } from "./app/logger.js";
 
 const port = process.env.API_PORT || 3000;
 global.host = process.env.API_HOST || "https://pakaiwa.my.id";
 
-api.listen(port, () => {
-	logger.info(`Run on http://127.0.0.1:${port} or http://localhost:${port}`);
+app.listen(port, () => {
+	logger.info(`App run on port ${port}`);
 });

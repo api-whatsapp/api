@@ -1,5 +1,5 @@
 import supertest from "supertest";
-import { api } from "../../src/app/api.js";
+import { app } from "../../src/app/api.js";
 import { prismaClient } from "../../src/app/database.js";
 
 const email = "kelvin@anggara.com";
@@ -14,7 +14,7 @@ describe("POST /users", function () {
 	});
 
 	it("201 Created", async function () {
-		const result = await supertest(api)
+		const result = await supertest(app)
 			.post("/users")
 			.set("Accept", "application/json")
 			.send({
@@ -32,7 +32,7 @@ describe("POST /users", function () {
 	});
 
 	it("400 User already exists", async function () {
-		let result = await supertest(api)
+		let result = await supertest(app)
 			.post("/users")
 			.set("Accept", "application/json")
 			.send({
@@ -48,7 +48,7 @@ describe("POST /users", function () {
 		expect(result.body.data.created_at).not.toBeNull();
 		expect(result.body.data.last_request).not.toBeNull();
 
-		result = await supertest(api)
+		result = await supertest(app)
 			.post("/users")
 			.set("Accept", "application/json")
 			.send({
@@ -61,7 +61,7 @@ describe("POST /users", function () {
 	});
 
 	it("400 Email is a required", async function () {
-		const result = await supertest(api).post("/users");
+		const result = await supertest(app).post("/users");
 
 		expect(result.status).toBe(400);
 		expect(result.body).not.toBeNull();
@@ -69,7 +69,7 @@ describe("POST /users", function () {
 	});
 
 	it("400 Email should be a type of string", async function () {
-		const result = await supertest(api)
+		const result = await supertest(app)
 			.post("/users")
 			.set("Accept", "application/json")
 			.send({
@@ -82,7 +82,7 @@ describe("POST /users", function () {
 	});
 
 	it("400 Email must be a valid email", async function () {
-		const result = await supertest(api)
+		const result = await supertest(app)
 			.post("/users")
 			.set("Accept", "application/json")
 			.send({
@@ -96,7 +96,7 @@ describe("POST /users", function () {
 
 	it("429 Too many requests", async function () {
 		for (let i = 7; i <= 10; i++) {
-			const result = await supertest(api)
+			const result = await supertest(app)
 				.post("/users")
 				.set("Accept", "application/json")
 				.send({
@@ -119,7 +119,7 @@ describe("POST /users", function () {
 			expect(result.body.data.last_request).not.toBeNull();
 		}
 
-		const result = await supertest(api)
+		const result = await supertest(app)
 			.post("/users")
 			.set("Accept", "application/json")
 			.send({

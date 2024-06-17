@@ -1,9 +1,9 @@
 import supertest from "supertest";
-import { api } from "../../src/app/api.js";
+import { app } from "../../src/app/api.js";
 
 describe("GET /", function () {
 	it("should return 200 OK", async function () {
-		const result = await supertest(api)
+		const result = await supertest(app)
 			.get("/")
 			.set("Accept", "application/json")
 			.set("Authorization", "Bearer 1122");
@@ -14,7 +14,7 @@ describe("GET /", function () {
 	});
 
 	it("should return 200 OK", async function () {
-		const result = await supertest(api)
+		const result = await supertest(app)
 			.get("/")
 			.set("Accept", "application/json")
 			.set("Authorization", "Bearer 1122");
@@ -25,7 +25,7 @@ describe("GET /", function () {
 	});
 
 	it("should return 200 OK", async function () {
-		const result = await supertest(api)
+		const result = await supertest(app)
 			.get("/")
 			.set("Accept", "application/json")
 			.set("Authorization", "Bearer 1123");
@@ -36,7 +36,7 @@ describe("GET /", function () {
 	});
 
 	it("200 without vaild Token", async function () {
-		const result = await supertest(api)
+		const result = await supertest(app)
 			.get("/")
 			.set("Accept", "application/json")
 			.set("Authorization", "Bearer");
@@ -49,7 +49,7 @@ describe("GET /", function () {
 	it("should return 429 Too Many Requests", async function () {
 		let result;
 		for (let i = 0; i < 120; i++) {
-			result = await supertest(api)
+			result = await supertest(app)
 				.get("/")
 				.set("Accept", "application/json")
 				.set("Authorization", "Bearer 1121");

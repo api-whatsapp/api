@@ -1,7 +1,7 @@
 {
 	"name": "pakaiwa",
 	"type": "module",
-	"main": "src/main.js",
+	"main": "src/app.js",
 	"author": "KAnggara75",
 	"license": "MIT",
 	"version": "0.1.0",
@@ -20,7 +20,7 @@
 		"url": "git+https://github.com/pakaiwa/api.git"
 	},
 	"scripts": {
-		"dev": "nodemon src/main.js",
+		"dev": "nodemon src/app.js",
 		"test": "jest -i --detectOpenHandles",
 		"seed": "pnpm exec prisma db seed",
 		"mig": "pnpm exec prisma migrate dev --name init && pnpm exec prisma db seed",
