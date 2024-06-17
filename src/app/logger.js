@@ -7,10 +7,6 @@ const logsFormat = printf(({ level, message, timestamp }) => {
 });
 
 let todayDate = new Date().toISOString().slice(0, 10);
-const infoFile = todayDate + "-info.log";
-const warnFile = todayDate + "-warn.log";
-const errorFile = todayDate + "-error.log";
-const queryFile = todayDate + "-query.log";
 const appEnv = process.env.APP_ENV || "development";
 const appDebug = process.env.APP_DEBUG || "false";
 
@@ -19,19 +15,19 @@ const myTransports = [
 		level: "error",
 	}),
 	new transports.File({
-		filename: "./logs/" + errorFile,
+		filename: `./logs/${todayDate}-error.log`,
 		level: "error",
 	}),
 	new transports.File({
-		filename: "./logs/" + warnFile,
+		filename: `./logs/${todayDate}-warn.log`,
 		level: "warn",
 	}),
 	new transports.File({
-		filename: "./logs/" + infoFile,
+		filename: `./logs/${todayDate}-info.log`,
 		level: "info",
 	}),
 	new transports.File({
-		filename: "./logs/" + queryFile,
+		filename: `./logs/${todayDate}-query.log`,
 		level: "verbose",
 	}),
 ];
@@ -41,9 +37,6 @@ if (appEnv.includes("dev")) {
 	myTransports.push(
 		new transports.Console({
 			level: "info",
-		}),
-		new transports.Console({
-			level: "warn",
 		})
 	);
 }
