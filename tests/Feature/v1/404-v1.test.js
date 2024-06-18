@@ -16,7 +16,7 @@ describe("404 v1 Test", function () {
 		it(index + ". 404 v1 Not Found User", async function () {
 			const result = await supertest(app)
 				.get("/v1/" + genrateURL())
-				.set("Accept", "application/json")
+				.set("Accept", "application/json;charset=utf-8")
 				.set("Authorization", "Bearer 1121");
 			expect(result.status).toBe(404);
 			expect(result.body.message).not.toBeNull();
@@ -26,7 +26,7 @@ describe("404 v1 Test", function () {
 		it(index + ". 404 v1 Not Found Member", async function () {
 			const result = await supertest(app)
 				.get("/v1/" + genrateURL())
-				.set("Accept", "application/json")
+				.set("Accept", "application/json;charset=utf-8")
 				.set("Authorization", "Bearer 1122");
 			expect(result.status).toBe(404);
 			expect(result.body.message).not.toBeNull();
@@ -36,7 +36,7 @@ describe("404 v1 Test", function () {
 		it(index + ". 404 v1 Not Found Premium", async function () {
 			const result = await supertest(app)
 				.get("/v1/" + genrateURL())
-				.set("Accept", "application/json")
+				.set("Accept", "application/json;charset=utf-8")
 				.set("Authorization", "Bearer 1123");
 			expect(result.status).toBe(404);
 			expect(result.body.message).not.toBeNull();

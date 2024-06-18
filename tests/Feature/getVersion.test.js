@@ -5,7 +5,7 @@ describe("GET /", function () {
 	it("should return 200 OK", async function () {
 		const result = await supertest(app)
 			.get("/")
-			.set("Accept", "application/json")
+			.set("Accept", "application/json;charset=utf-8")
 			.set("Authorization", "Bearer 1122");
 		expect(result.status).toBe(200);
 		expect(result.body.message).toContain("PakaiWA.my.id");
@@ -16,7 +16,7 @@ describe("GET /", function () {
 	it("should return 200 OK", async function () {
 		const result = await supertest(app)
 			.get("/")
-			.set("Accept", "application/json")
+			.set("Accept", "application/json;charset=utf-8")
 			.set("Authorization", "Bearer 1122");
 		expect(result.status).toBe(200);
 		expect(result.body.message).toContain("PakaiWA.my.id");
@@ -27,7 +27,7 @@ describe("GET /", function () {
 	it("should return 200 OK", async function () {
 		const result = await supertest(app)
 			.get("/")
-			.set("Accept", "application/json")
+			.set("Accept", "application/json;charset=utf-8")
 			.set("Authorization", "Bearer 1123");
 		expect(result.status).toBe(200);
 		expect(result.body.message).toContain("PakaiWA.my.id");
@@ -38,7 +38,7 @@ describe("GET /", function () {
 	it("200 without vaild Token", async function () {
 		const result = await supertest(app)
 			.get("/")
-			.set("Accept", "application/json")
+			.set("Accept", "application/json;charset=utf-8")
 			.set("Authorization", "Bearer");
 		expect(result.status).toBe(200);
 		expect(result.body.message).not.toBeNull();
@@ -51,7 +51,7 @@ describe("GET /", function () {
 		for (let i = 0; i < 120; i++) {
 			result = await supertest(app)
 				.get("/")
-				.set("Accept", "application/json")
+				.set("Accept", "application/json;charset=utf-8")
 				.set("Authorization", "Bearer 1121");
 		}
 		expect(result.status).toBe(429);
