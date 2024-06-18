@@ -1,4 +1,4 @@
-name: njsscan sarif
+name: Node Scan
 
 on:
   push:
