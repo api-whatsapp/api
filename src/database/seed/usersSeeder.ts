@@ -1,4 +1,9 @@
-export const usersSeeder = [
+export const usersSeeder: {
+	email: string;
+	quota: number;
+	token: string;
+	level: string;
+}[] = [
 	{
 		email: "a@a.a",
 		quota: 100,

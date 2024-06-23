@@ -1,18 +1,16 @@
-import "dotenv/config";
-import { app } from "./app/api.js";
-import { logger } from "./app/logger.js";
+import { web } from "./app/web";
+import { logger } from "./app/logger";
 
-const port = process.env.API_PORT || 3030;
-global.host = process.env.API_HOST || "https://pakaiwa.my.id";
+const port: string = process.env.API_PORT ?? "3030";
 
-const server = app.listen(port, () => {
-	logger.info(`App run on port ${port}`);
+const server = web.listen(port, () => {
+	logger.info(`App run on http://127.0.0.1:${port}`);
 });
 
 process.on("SIGINT", gracefulShutdown);
 process.on("SIGTERM", gracefulShutdown);
 
-function gracefulShutdown() {
+function gracefulShutdown(): void {
 	logger.info("SIGTERM/SIGINT signal received: closing HTTP server");
 	logger.info("Shutting down gracefully...");
 

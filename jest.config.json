@@ -1,0 +1,10 @@
+{
+	"verbose": true,
+	"collectCoverage": true,
+	"coverageDirectory": "coverage",
+	"coverageReporters": ["json-summary", "text", "html"],
+	"transform": {
+		"^.+\\.[t|j]sx?$": "babel-jest"
+	},
+	"testPathIgnorePatterns": ["old"]
+}

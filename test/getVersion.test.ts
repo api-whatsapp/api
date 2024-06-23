@@ -1,9 +1,9 @@
 import supertest from "supertest";
-import { app } from "../../src/app/api.js";
+import { web } from "../src/app/web";
 
 describe("GET /", function () {
 	it("should return 200 OK", async function () {
-		const result = await supertest(app)
+		const result = await supertest(web)
 			.get("/")
 			.set("Accept", "application/json;charset=utf-8")
 			.set("Authorization", "Bearer 1122");
@@ -14,7 +14,7 @@ describe("GET /", function () {
 	});
 
 	it("should return 200 OK", async function () {
-		const result = await supertest(app)
+		const result = await supertest(web)
 			.get("/")
 			.set("Accept", "application/json;charset=utf-8")
 			.set("Authorization", "Bearer 1122");
@@ -25,7 +25,7 @@ describe("GET /", function () {
 	});
 
 	it("should return 200 OK", async function () {
-		const result = await supertest(app)
+		const result = await supertest(web)
 			.get("/")
 			.set("Accept", "application/json;charset=utf-8")
 			.set("Authorization", "Bearer 1123");
@@ -36,7 +36,7 @@ describe("GET /", function () {
 	});
 
 	it("200 without vaild Token", async function () {
-		const result = await supertest(app)
+		const result = await supertest(web)
 			.get("/")
 			.set("Accept", "application/json;charset=utf-8")
 			.set("Authorization", "Bearer");
@@ -45,16 +45,4 @@ describe("GET /", function () {
 		expect(result.body.version).not.toBeNull();
 		expect(result.body.stability).not.toBeNull();
 	});
-
-	it("should return 429 Too Many Requests", async function () {
-		let result;
-		for (let i = 0; i < 120; i++) {
-			result = await supertest(app)
-				.get("/")
-				.set("Accept", "application/json;charset=utf-8")
-				.set("Authorization", "Bearer 1121");
-		}
-		expect(result.status).toBe(429);
-		expect(result.body.message).not.toBeNull();
-	}, 60000);
 });

@@ -1,4 +1,4 @@
-export const deviceSeeder = [
+export const deviceSeeder: { userEmail: string; device_id: string }[] = [
 	{
 		userEmail: "a@a.a",
 		device_id: "Hardware_1",
