@@ -43,7 +43,7 @@ jobs:
       - name: create .env
         run: mv .env.example .env
       - name: Install dependencies
-        run: pnpm i
+        run: bun i
       - name: Migration
         run: bun run mig
       - name: Seed
