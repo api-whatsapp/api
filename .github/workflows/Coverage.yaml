@@ -7,29 +7,24 @@ on:
 jobs:
   Create_Test_Coverage_Badges:
     runs-on: ubuntu-latest
-    name: Test with Jest Node 20.x LTS
+    name: Test with Jest Bun
     steps:
       - name: Start MySQL
         run: |
           sudo /etc/init.d/mysql start
           mysql -e "CREATE DATABASE IF NOT EXISTS pakaiwa;" -uroot -proot
       - uses: actions/checkout@v4.1.6
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4.0.0
-        with:
-          version: latest
-      - name: Setup Node.js environment
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: "pnpm"
+      - name: Setup Bun environment
+        uses: oven-sh/setup-bun@v1
       - name: create .env
         run: mv .env.example .env
       - name: Install dependencies
-        run: pnpm i
+        run: bun i
       - name: Migration
-        run: pnpm mig
-      - uses: ArtiomTr/jest-coverage-report-action@v2.0-rc.6
+        run: bun run mig
+      - name: Jest coverage report
+        uses: ArtiomTr/jest-coverage-report-action@v2.3.0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          package-manager: bun
           threshold: 80
