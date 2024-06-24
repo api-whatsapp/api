@@ -1,14 +1,14 @@
-name: "CodeQL"
+name: CodeQL 🧼
 
 on:
   push:
     branches: ["main", "dev", "qa"]
     paths-ignore:
-      - "**/*.test.js"
+      - "**/*.test.ts"
   pull_request:
     branches: ["main", "dev", "qa"]
     paths-ignore:
-      - "**/*.test.js"
+      - "**/*.test.ts"
   schedule:
     - cron: "0 0 * * 0"
 
@@ -23,17 +23,17 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: ["javascript"]
+        language: ["typescript"]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4.1.6
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@v2
+        uses: github/codeql-action/init@v3
         with:
           languages: ${{ matrix.language }}
       - name: Autobuild
-        uses: github/codeql-action/autobuild@v2
+        uses: github/codeql-action/autobuild@v3
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v2
+        uses: github/codeql-action/analyze@v3
         with:
           category: "/language:${{matrix.language}}"
