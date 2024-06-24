@@ -19,9 +19,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4.1.6
-
+      - uses: oven-sh/setup-bun@v2
       - name: Install ESLint
-        uses: oven-sh/setup-bun@v2
         run: |
           bun add eslint
           bun add @microsoft/eslint-formatter-sarif
