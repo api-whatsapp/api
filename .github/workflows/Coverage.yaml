@@ -23,7 +23,7 @@ jobs:
       - name: Migration
         run: bun run mig
       - name: Jest coverage report
-        uses: ArtiomTr/jest-coverage-report-action@v2.3.0    
+        uses: ArtiomTr/jest-coverage-report-action@v2.3.0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           package-manager: bun
