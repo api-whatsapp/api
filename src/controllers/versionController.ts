@@ -13,7 +13,7 @@ const getVersion = async (req: Request, res: Response) => {
 		});
 	} catch (e) {
 		/* istanbul ignore next */
-		let error = e instanceof Error ? e.message : "Internal Server Error";
+		const error = e instanceof Error ? e.message : "Internal Server Error";
 		/* istanbul ignore next */
 		logger.error(e);
 		/* istanbul ignore next */

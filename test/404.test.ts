@@ -2,8 +2,9 @@ import supertest from "supertest";
 import { web } from "../src/app/web";
 
 function genrateURL() {
-	let chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-	let charLength = chars.length;
+	const chars =
+		"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+	const charLength = chars.length;
 	let url = "";
 	for (let i = 0; i < 10; i++) {
 		url += chars.charAt(Math.floor(Math.random() * charLength));
