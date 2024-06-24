@@ -1,6 +1,11 @@
-import { prismaClient } from "../app/database.js";
+import { prismaClient } from "../app/database";
+import type { NextFunction, Request, Response } from "express";
 
-export const authMiddleware = async (req, res, next) => {
+export const authMiddleware = async (
+	req: Request,
+	res: Response,
+	next: NextFunction
+) => {
 	const token = req.headers.authorization;
 
 	if (!token) {
@@ -11,7 +16,7 @@ export const authMiddleware = async (req, res, next) => {
 		try {
 			const user = await prismaClient.user.findUnique({
 				where: {
-					token: token.substr(7),
+					token: token.substring(7),
 				},
 				select: {
 					email: true,
@@ -25,6 +30,7 @@ export const authMiddleware = async (req, res, next) => {
 				});
 			}
 		} catch (error) {
+			/* istanbul ignore next */
 			return res.status(500).json({
 				error: error,
 			});

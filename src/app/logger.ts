@@ -1,42 +1,39 @@
-import "dotenv/config";
-const { combine, timestamp, printf, colorize } = format;
 import { createLogger, format, transports } from "winston";
+
+const { combine, timestamp, printf, colorize } = format;
 
 const logsFormat = printf(({ level, message, timestamp }) => {
 	return `${timestamp}|[${level.toUpperCase()}]|${message}|`;
 });
 
-const logLevel = process.env.LOG_LEVEL;
-const todayDate = new Date().toISOString().slice(0, 10);
+const logLevel: string = process.env.LOG_LEVEL ?? "prod";
+const todayDate: string = new Date().toISOString().slice(0, 10);
+const logFolder: string = `./logs/${todayDate.replace(/-/g, "")}/${todayDate}`;
 
-const myTransports = [
+const myTransports: (
+	| transports.ConsoleTransportInstance
+	| transports.FileTransportInstance
+)[] = [
 	new transports.File({
-		filename: `./logs/${todayDate}-error.log`,
+		filename: `${logFolder}-error.log`,
 		level: "error",
 	}),
 	new transports.File({
-		filename: `./logs/${todayDate}-warn.log`,
+		filename: `${logFolder}-warn.log`,
 		level: "warn",
 	}),
 	new transports.File({
-		filename: `./logs/${todayDate}-info.log`,
+		filename: `${logFolder}-info.log`,
 		level: "info",
 	}),
 	new transports.File({
-		filename: `./logs/${todayDate}-query.log`,
+		filename: `${logFolder}-query.log`,
 		level: "verbose",
 	}),
 ];
 
 /* istanbul ignore next */
-if (logLevel === "verbose") {
-	myTransports.push(
-		new transports.Console({
-			level: "verbose",
-		})
-	);
-	/* istanbul ignore next */
-} else if (logLevel === "info") {
+if (logLevel === "info") {
 	myTransports.push(
 		new transports.Console({
 			level: "info",
@@ -49,7 +46,6 @@ if (logLevel === "verbose") {
 			level: "warn",
 		})
 	);
-	/* istanbul ignore next */
 } else {
 	myTransports.push(
 		new transports.Console({
@@ -66,6 +62,6 @@ export const logger = createLogger({
 	),
 	transports: myTransports,
 	rejectionHandlers: [
-		new transports.File({ filename: `./logs/${todayDate}-rejections.log` }),
+		new transports.File({ filename: `${logFolder}-rejections.log` }),
 	],
 });

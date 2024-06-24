@@ -11,84 +11,67 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [18.x, 20.x, 22.x]
-    name: Node ${{ matrix.node-version }} sample
+        bun-version: [canary, 1.0.0, 1.0.36, 1.1.0, 1.1.16]
+    name: Bun ${{ matrix.bun-version }} sample
     steps:
       - uses: actions/checkout@v4.1.6
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4.0.0
+      - name: Use Bun ${{ matrix.bun-version }}
+        uses: oven-sh/setup-bun@v2
         with:
-          version: latest
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: "pnpm"
+          bun-version: ${{ matrix.bun-version }}
       - name: Install dependencies
-        run: pnpm i
+        run: bun i
       - name: Format and Check code
-        run: pnpm fc
+        run: bun run fc
   Jest_Test:
     runs-on: ubuntu-latest
     needs: Format_and_Check
     strategy:
       matrix:
-        node-version: [18.x, 22.x]
-    name: Test with Jest Node ${{ matrix.node-version }}
+        bun-version: [canary, 1.0.0, 1.0.36, 1.1.0, 1.1.16]
+    name: Test with Jest Bun ${{ matrix.bun-version }}
     steps:
       - name: Start MySQL
         run: |
           sudo /etc/init.d/mysql start
           mysql -e "CREATE DATABASE IF NOT EXISTS pakaiwa;" -uroot -proot
       - uses: actions/checkout@v4.1.6
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4.0.0
+      - name: Use Bun ${{ matrix.bun-version }}
+        uses: oven-sh/setup-bun@v2
         with:
-          version: latest
-      - name: Setup Node.js environment
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: "pnpm"
+          bun-version: ${{ matrix.bun-version }}
       - name: create .env
         run: mv .env.example .env
       - name: Install dependencies
-        run: pnpm i
+        run: bun i
       - name: Migration
-        run: pnpm mig
+        run: bun run mig
       - name: Seed
-        run: pnpm seed
+        run: bun run seed
       - name: Test
-        run: pnpm test
+        run: bun run test
   Create_Test_Coverage_Badges:
     runs-on: ubuntu-latest
     needs: Format_and_Check
-    name: Test with Jest Node 20.x LTS
+    name: Test with Jest Bun Latest
     steps:
       - name: Start MySQL
         run: |
           sudo /etc/init.d/mysql start
           mysql -e "CREATE DATABASE IF NOT EXISTS pakaiwa;" -uroot -proot
       - uses: actions/checkout@v4.1.6
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4.0.0
-        with:
-          version: latest
-      - name: Setup Node.js environment
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: "pnpm"
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
       - name: create .env
         run: mv .env.example .env
       - name: Install dependencies
-        run: pnpm i
+        run: bun i
       - name: Migration
-        run: pnpm mig
+        run: bun run mig
       - name: Seed
-        run: pnpm seed
+        run: bun run seed
       - name: Test
-        run: pnpm test
+        run: bun run test
       - name: Generating coverage badges
         uses: jpb06/jest-badges-action@v1.9.18
         with:
