@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [canary, 1.0.x, 1.1.x]
+        node-version: [canary, 1.0.0, 1.1.16]
     name: Node ${{ matrix.node-version }} sample
     steps:
       - uses: actions/checkout@v4.1.6
