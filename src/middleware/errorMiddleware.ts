@@ -9,6 +9,7 @@ export const ErrorMiddleware = async (
 	res: Response,
 	next: NextFunction
 ) => {
+	/* istanbul ignore else */
 	if (error instanceof ZodError) {
 		res
 			.status(400)
@@ -24,7 +25,6 @@ export const ErrorMiddleware = async (
 			})
 			.end();
 	} else {
-		/* istanbul ignore next */
 		res
 			.status(500)
 			.json({

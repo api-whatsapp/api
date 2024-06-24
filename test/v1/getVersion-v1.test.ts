@@ -1,52 +1,45 @@
 import supertest from "supertest";
 import { web } from "../../src/app/web";
 
+const user_token = process.env.TEST_USER_TOKEN;
+const member_token = process.env.TEST_MEMB_TOKEN;
+const premium_token = process.env.TEST_PREM_TOKEN;
+
 describe("GET /v1", function () {
-	it("should return 200 OK", async function () {
+	it("should return 200 OK", async () => {
 		const result = await supertest(web)
 			.get("/v1/")
 			.set("Accept", "application/json;charset=utf-8")
-			.set("Authorization", "Bearer 1121");
+			.set("Authorization", `Bearer ${user_token}`);
 		expect(result.status).toBe(200);
 		expect(result.body.message).toContain("PakaiWA.my.id");
 		expect(result.body.version).not.toBeNull();
 		expect(result.body.stability).not.toBeNull();
 	});
 
-	it("should return 200 OK", async function () {
+	it("should return 200 OK", async () => {
 		const result = await supertest(web)
 			.get("/v1/")
 			.set("Accept", "application/json;charset=utf-8")
-			.set("Authorization", "Bearer 1122");
+			.set("Authorization", `Bearer ${member_token}`);
 		expect(result.status).toBe(200);
 		expect(result.body.message).toContain("PakaiWA.my.id");
 		expect(result.body.version).not.toBeNull();
 		expect(result.body.stability).not.toBeNull();
 	});
 
-	it("should return 200 OK", async function () {
+	it("should return 200 OK", async () => {
 		const result = await supertest(web)
 			.get("/v1/")
 			.set("Accept", "application/json;charset=utf-8")
-			.set("Authorization", "Bearer 1123");
+			.set("Authorization", `Bearer ${premium_token}`);
 		expect(result.status).toBe(200);
 		expect(result.body.message).toContain("PakaiWA.my.id");
 		expect(result.body.version).not.toBeNull();
 		expect(result.body.stability).not.toBeNull();
 	});
 
-	it("should return 403 Forbidden", async function () {
-		const result = await supertest(web)
-			.get("/v1/")
-			.set("Accept", "application/json;charset=utf-8")
-			.set("Authorization", "Bearer 112233");
-		expect(result.status).toBe(403);
-		expect(result.body.message).toContain("Invalid API token.");
-		expect(result.body.version).not.toBeNull();
-		expect(result.body.stability).not.toBeNull();
-	});
-
-	it("should return 401 Unauthorized", async function () {
+	it("should return 401 Unauthorized", async () => {
 		const result = await supertest(web)
 			.get("/v1/")
 			.set("Accept", "application/json;charset=utf-8");
@@ -56,13 +49,24 @@ describe("GET /v1", function () {
 		expect(result.body.stability).not.toBeNull();
 	});
 
-	it("should return 429 Too Many Requests", async function () {
-		let result;
+	it("should return 403 Forbidden", async () => {
+		const result = await supertest(web)
+			.get("/v1/")
+			.set("Accept", "application/json;charset=utf-8")
+			.set("Authorization", `Bearer`);
+		expect(result.status).toBe(403);
+		expect(result.body.message).toContain("Invalid API token.");
+		expect(result.body.version).not.toBeNull();
+		expect(result.body.stability).not.toBeNull();
+	});
+
+	it("should return 429 Too Many Requests", async () => {
+		let result: import("superagent/lib/node/response");
 		for (let i = 0; i < 120; i++) {
 			result = await supertest(web)
 				.get("/v1/")
 				.set("Accept", "application/json;charset=utf-8")
-				.set("Authorization", "Bearer 1121");
+				.set("Authorization", `Bearer ${user_token}`);
 		}
 		expect(result.status).toBe(429);
 		expect(result.body.message).not.toBeNull();
