@@ -24,17 +24,13 @@ jobs:
         run: |
           bun add eslint
           bun add @microsoft/eslint-formatter-sarif
-      - uses: sibiraj-s/action-eslint@v3
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          eslint-args: '--ignore-path=.gitignore --quiet'
-          extensions: 'js,jsx,ts,tsx'
-          annotations: true
+
       - name: Run ESLint
         run: bun eslint .
           --format @microsoft/eslint-formatter-sarif
           --output-file eslint-results.sarif
         continue-on-error: true
+
       - name: Upload analysis results to GitHub
         uses: github/codeql-action/upload-sarif@v3
         with:
