@@ -1,8 +1,10 @@
+import type { UserLevel } from "@prisma/client";
+
 export const usersSeeder: {
 	email: string;
 	quota: number;
 	token: string;
-	level: string;
+	level: UserLevel;
 }[] = [
 	{
 		email: "a@a.a",

@@ -1,3 +1,4 @@
+import "dotenv/config";
 import supertest from "supertest";
 import { web } from "../src/app/web";
 import { prismaClient } from "../src/app/database";
