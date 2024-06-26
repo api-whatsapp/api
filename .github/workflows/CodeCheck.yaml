@@ -9,14 +9,16 @@ on:
 jobs:
   code_check:
     runs-on: ubuntu-latest
-    name: Code Check with ESLint Bun
+    name: Code Check with ESLint Node.js
     steps:
       - uses: actions/checkout@v4.1.6
-      - name: Setup Bun environment
-        uses: oven-sh/setup-bun@v2
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4
+        with:
+          cache: "pnpm"
       - name: Install dependencies
-        run: bun i
+        run: pnpm i
       - name: Check code with prettier
-        run: bun prettier --check .
+        run: pnpm prettier --check .
       - name: Check code with eslint
-        run: bun eslint .
+        run: pnpm eslint .
