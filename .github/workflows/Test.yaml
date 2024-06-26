@@ -36,10 +36,6 @@ jobs:
         run: pnpm prisma generate
       - name: Migration
         run: pnpm prisma migrate dev --name init
-      - name: Build Dist File
-        run: cd /home/runner/work/api/api && pnpm build && ls -la
-      - name: Seed
-        run: node dist/database/seed/seeder.js
       - name: Test
         run: pnpm test
       - name: Generating coverage badges
