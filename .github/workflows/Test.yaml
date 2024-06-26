@@ -32,12 +32,12 @@ jobs:
         run: mv .env.example .env
       - name: Install dependencies
         run: pnpm i
+      - name: Generate
+        run: pnpm prisma generate
       - name: Migration
         run: pnpm prisma migrate dev --name init
-      - name: Migration
-        run: pnpm prisma generate
       - name: Build Dist File
-        run: pnpm build && ls -la
+        run: cd /home/runner/work/api/api && pnpm build && ls -la
       - name: Seed
         run: node dist/database/seed/seeder.js
       - name: Test
