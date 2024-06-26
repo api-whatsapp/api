@@ -24,11 +24,11 @@
 		"build": "tsc && tsc-alias",
 		"start": "nodemon dist/app.js",
 		"start:dev": "node dist/app.js",
-		"seed": "pnpm exec prisma db seed",
+		"seed": "pnpm prisma db seed",
 		"wa": "pnpm --hot src/app/whatsapp.ts",
 		"test": "jest -i --detectOpenHandles --runInBand",
-		"mig": "pnpm exec prisma migrate dev --name init && pnpm exec prisma db seed",
-		"fc": "pnpm exec prettier --write . && pnpm exec eslint --fix . && pnpm exec prettier --check . && pnpm exec eslint ."
+		"mig": "pnpm prisma generate && pnpm prisma migrate dev --name init && pnpm prisma db seed",
+		"fc": "pnpm prettier --write . && pnpm eslint --fix . && pnpm prettier --check . && pnpm eslint ."
 	},
 	"prisma": {
 		"seed": "pnpm src/database/seed/seeder.ts",

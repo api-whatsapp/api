@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [18.x, 19.x, 21.x, 22.x]
+        node-version: [18.x, 19.x, 20.x, 21.x, 22.x]
     name: Test with Jest Node.js ${{ matrix.node-version }}
     steps:
       - name: Start MySQL
@@ -38,35 +38,8 @@ jobs:
         run: pnpm run seed
       - name: Test
         run: pnpm run test
-  Create_Test_Coverage_Badges:
-    runs-on: ubuntu-latest
-    name: Test with Jest
-    steps:
-      - name: Start MySQL
-        run: |
-          sudo /etc/init.d/mysql start
-          mysql -e "CREATE DATABASE IF NOT EXISTS pakaiwa;" -uroot -proot
-      - uses: actions/checkout@v4.1.6
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 9
-      - name: Use Node.js 21 LTS
-        uses: actions/setup-node@v4
-        with:
-          node-version: 21
-          cache: "pnpm"
-      - name: create .env
-        run: mv .env.example .env
-      - name: Install dependencies
-        run: pnpm i
-      - name: Migration
-        run: pnpm run mig
-      - name: Seed
-        run: pnpm run seed
-      - name: Test
-        run: pnpm run test
       - name: Generating coverage badges
+        if: ${{ matrix.node-version == '20.x'}}
         uses: jpb06/jest-badges-action@v1.9.18
         with:
           branches: main,dev
