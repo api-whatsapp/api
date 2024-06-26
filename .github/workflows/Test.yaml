@@ -32,10 +32,14 @@ jobs:
         run: mv .env.example .env
       - name: Install dependencies
         run: pnpm i
+      - name: Build Dist File
+        run: pnpm build
       - name: Migration
-        run: pnpm run mig
+        run: pnpm prisma migrate dev --name init
+      - name: Migration
+        run: pnpm prisma generate
       - name: Seed
-        run: pnpm run seed
+        run: pnpm dist/database/seed/seeder.js
       - name: Test
         run: pnpm run test
       - name: Generating coverage badges

@@ -27,7 +27,7 @@
 		"seed": "pnpm prisma db seed",
 		"wa": "pnpm --hot src/app/whatsapp.ts",
 		"test": "jest -i --detectOpenHandles --runInBand",
-		"mig": "pnpm prisma generate && pnpm prisma migrate dev --name init && pnpm prisma db seed",
+		"mig": "pnpm prisma generate && pnpm prisma migrate dev --name init && pnpm seed",
 		"fc": "pnpm prettier --write . && pnpm eslint --fix . && pnpm prettier --check . && pnpm eslint ."
 	},
 	"prisma": {
