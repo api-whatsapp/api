@@ -9,15 +9,23 @@ on:
 jobs:
   code_check:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20]
     name: Code Check with ESLint Node.js
     steps:
       - uses: actions/checkout@v4.1.6
-      - name: Setup Node.js environment
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - name: Setup Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
+          node-version: ${{ matrix.node-version }}
           cache: "pnpm"
       - name: Install dependencies
-        run: pnpm i
+        run: pnpm install
       - name: Check code with prettier
         run: pnpm prettier --check .
       - name: Check code with eslint
