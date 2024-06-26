@@ -27,10 +27,12 @@ jobs:
         run: mv .env.example .env
       - name: Install dependencies
         run: pnpm i
+      - name: Generate
+        run: pnpm prisma generate
       - name: Migration
-        run: pnpm run mig
-      - name: Seed
-        run: pnpm run seed
+        run: pnpm prisma migrate dev --name init
+      - name: Dump Database
+        run: mysql -u root -p'root' pakaiwa < dump.sql
       - name: Jest coverage report
         uses: ArtiomTr/jest-coverage-report-action@v2.3.0
         with:
