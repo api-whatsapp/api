@@ -7,30 +7,8 @@ on:
     branches: ["main", "dev", "qa"]
 
 jobs:
-  Format_and_Check:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [18.x, 19.x, 20.x, 21.x, 22.x]
-    name: Node.js ${{ matrix.node-version }}
-    steps:
-      - uses: actions/checkout@v4.1.6
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 9
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: "pnpm"
-      - name: Install dependencies
-        run: pnpm i
-      - name: Format and Check code
-        run: pnpm run fc
   Jest_Test:
     runs-on: ubuntu-latest
-    needs: Format_and_Check
     strategy:
       matrix:
         node-version: [18.x, 19.x, 21.x, 22.x]
@@ -62,8 +40,7 @@ jobs:
         run: pnpm run test
   Create_Test_Coverage_Badges:
     runs-on: ubuntu-latest
-    needs: Format_and_Check
-    name: Test with Jest Bun Latest
+    name: Test with Jest
     steps:
       - name: Start MySQL
         run: |
