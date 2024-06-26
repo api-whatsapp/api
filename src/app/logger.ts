@@ -1,3 +1,4 @@
+import "dotenv/config";
 import { createLogger, format, transports } from "winston";
 
 const { combine, timestamp, printf, colorize } = format;
@@ -33,17 +34,17 @@ const myTransports: (
 ];
 
 /* istanbul ignore next */
-if (logLevel === "info") {
-	myTransports.push(
-		new transports.Console({
-			level: "info",
-		})
-	);
-	/* istanbul ignore next */
-} else if (logLevel === "warn") {
+if (logLevel === "warn") {
 	myTransports.push(
 		new transports.Console({
 			level: "warn",
+		})
+	);
+	/* istanbul ignore next */
+} else if (logLevel === "info") {
+	myTransports.push(
+		new transports.Console({
+			level: "info",
 		})
 	);
 } else {

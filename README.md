@@ -16,6 +16,13 @@ pnpm add @prisma/client @whiskeysockets/baileys bcrypt dotenv express express-ra
 
 ```bash
 pnpm add -D @babel/preset-env @microsoft/eslint-formatter-sarif @types/bcrypt @types/express @types/jest @types/supertest @types/uuid babel-jest eslint eslint-config-airbnb-base eslint-config-prettier eslint-plugin-import eslint-plugin-prettier jest nodemon prettier prisma supertest
+pnpm add -D @babel/preset-env @babel/preset-typescript @jest/globals @types/bcrypt @types/express @types/jest @types/supertest @types/uuid babel-jest jest prisma supertest typescript
+```
+
+```bash
+pnpm install
+pnpm prisma generate
+pnpm build
 ```
 
 <!-- Jest Coverage Comment:Begin -->

@@ -1,29 +1,29 @@
 {
 	"include": ["./src/**/*"],
 	"compilerOptions": {
-		"outDir": "./dist",
-		// Enable latest features
-		"lib": ["ESNext", "DOM"],
+		"strict": true,
+		"noEmit": true,
+		"allowJs": true,
+		"jsx": "react-jsx",
 		"target": "ESNext",
 		"module": "ESNext",
-		"moduleDetection": "force",
-		"jsx": "react-jsx",
-		"allowJs": true,
-
-		// Bundler mode
-		"moduleResolution": "bundler",
-		"allowImportingTsExtensions": true,
-		"verbatimModuleSyntax": true,
-		"noEmit": true,
-
-		// Best practices
-		"strict": true,
+		"outDir": "./dist",
 		"skipLibCheck": true,
-		"noFallthroughCasesInSwitch": true,
-
-		// Some stricter flags (disabled by default)
 		"noUnusedLocals": false,
+		"esModuleInterop": true,
+		"lib": ["ESNext", "DOM"],
+		"moduleDetection": "force",
 		"noUnusedParameters": false,
+		"verbatimModuleSyntax": true,
+		"moduleResolution": "Bundler",
+		"allowArbitraryExtensions": true,
+		"allowImportingTsExtensions": true,
+		"noFallthroughCasesInSwitch": true,
+		"forceConsistentCasingInFileNames": true,
 		"noPropertyAccessFromIndexSignature": false
+	},
+	"tsc-alias": {
+		"verbose": false,
+		"resolveFullPaths": true
 	}
 }

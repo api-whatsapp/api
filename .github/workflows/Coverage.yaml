@@ -14,17 +14,28 @@ jobs:
           sudo /etc/init.d/mysql start
           mysql -e "CREATE DATABASE IF NOT EXISTS pakaiwa;" -uroot -proot
       - uses: actions/checkout@v4.1.6
-      - name: Setup Bun environment
-        uses: oven-sh/setup-bun@v1
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - name: Use Node.js 21 LTS
+        uses: actions/setup-node@v4
+        with:
+          node-version: 21
+          cache: "pnpm"
       - name: create .env
         run: mv .env.example .env
       - name: Install dependencies
-        run: bun i
+        run: pnpm i
+      - name: Generate
+        run: pnpm prisma generate
       - name: Migration
-        run: bun run mig
+        run: pnpm prisma migrate dev --name init
+      - name: Dump Database
+        run: mysql -u root -p'root' pakaiwa < dump.sql
       - name: Jest coverage report
         uses: ArtiomTr/jest-coverage-report-action@v2.3.0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          package-manager: bun
+          package-manager: pnpm
           threshold: 80

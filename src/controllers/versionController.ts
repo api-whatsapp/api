@@ -1,6 +1,7 @@
+import "dotenv/config";
 import { logger } from "../app/logger";
-import type { Request, Response } from "express";
 import { Config } from "../config/config";
+import type { Request, Response } from "express";
 
 const version: string = process.env.APP_VERSION ?? Config.version;
 
@@ -11,12 +12,9 @@ const getVersion = async (req: Request, res: Response) => {
 			version: version,
 			stability: "Developer-Preview",
 		});
-	} catch (e) {
-		/* istanbul ignore next */
+	} catch (e) /* istanbul ignore next */ {
 		const error = e instanceof Error ? e.message : "Internal Server Error";
-		/* istanbul ignore next */
-		logger.error(e);
-		/* istanbul ignore next */
+		logger.error(error);
 		res.status(500).json({ message: error });
 	}
 };

@@ -1,3 +1,4 @@
+import "dotenv/config";
 import supertest from "supertest";
 import { web } from "../../src/app/web";
 
@@ -53,7 +54,7 @@ describe("GET /v1", function () {
 		const result = await supertest(web)
 			.get("/v1/")
 			.set("Accept", "application/json;charset=utf-8")
-			.set("Authorization", `Bearer`);
+			.set("Authorization", "Bearer");
 		expect(result.status).toBe(403);
 		expect(result.body.message).toContain("Invalid API token.");
 		expect(result.body.version).not.toBeNull();
@@ -61,7 +62,7 @@ describe("GET /v1", function () {
 	});
 
 	it("should return 429 Too Many Requests", async () => {
-		let result: import("superagent/lib/node/response");
+		let result;
 		for (let i = 0; i < 120; i++) {
 			result = await supertest(web)
 				.get("/v1/")
