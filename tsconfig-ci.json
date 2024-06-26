@@ -1,0 +1,28 @@
+{
+	"include": ["./src/**/*"],
+	"compilerOptions": {
+		"strict": true,
+		"noEmit": true,
+		"allowJs": true,
+		"jsx": "react-jsx",
+		"target": "ESNext",
+		"module": "ESNext",
+		"skipLibCheck": true,
+		"noUnusedLocals": false,
+		"esModuleInterop": true,
+		"lib": ["ESNext", "DOM"],
+		"moduleDetection": "force",
+		"noUnusedParameters": false,
+		"verbatimModuleSyntax": true,
+		"moduleResolution": "Bundler",
+		"allowArbitraryExtensions": true,
+		"allowImportingTsExtensions": true,
+		"noFallthroughCasesInSwitch": true,
+		"forceConsistentCasingInFileNames": true,
+		"noPropertyAccessFromIndexSignature": false
+	},
+	"tsc-alias": {
+		"verbose": false,
+		"resolveFullPaths": true
+	}
+}

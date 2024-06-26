@@ -36,8 +36,8 @@ jobs:
         run: pnpm prisma generate
       - name: Migration
         run: pnpm prisma migrate dev --name init
-      - name: Seeding Data
-        run: pnpm Seed
+      - name: Build Dist witc CI Config
+        run: rm tsconfig.json && mv tsconfig-ci.json tsconfig.json && pnpm build && ls -la src/database/seed
       - name: Test
         run: pnpm test
       - name: Generating coverage badges
