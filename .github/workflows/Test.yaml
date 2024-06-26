@@ -36,6 +36,8 @@ jobs:
         run: pnpm prisma generate
       - name: Migration
         run: pnpm prisma migrate dev --name init
+      - name: Seeding Data
+        run: pnpm Seed
       - name: Test
         run: pnpm test
       - name: Generating coverage badges
