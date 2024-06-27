@@ -10,22 +10,27 @@ const server = web.listen(port, () => {
 
 process.on("SIGINT", gracefulShutdown);
 process.on("SIGTERM", gracefulShutdown);
-
+process.on("SIGHUP", async () => {
+	await prismaClient.$disconnect();
+	process.kill(process.pid, "SIGTERM");
+});
 function gracefulShutdown(): void {
 	logger.info("SIGTERM/SIGINT signal received: closing HTTP server");
 	logger.info("Shutting down gracefully...");
 
-	server.close(() => {
+	server.close(async () => {
 		logger.info("HTTP server closed");
+		await prismaClient.$disconnect();
 		// Close any other connections or resources here
 		process.exit(0);
 	});
 
 	// Force close the server after 5 seconds
-	setTimeout(() => {
+	setTimeout(async () => {
 		console.error(
 			"Could not close connections in time, forcefully shutting down"
 		);
+		await prismaClient.$disconnect();
 		process.exit(1);
 	}, 5000);
 }
