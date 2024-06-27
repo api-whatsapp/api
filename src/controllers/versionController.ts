@@ -1,5 +1,5 @@
 import "dotenv/config";
-import { logger } from "../app/logger";
+import { logger } from "../config/logger";
 import { Config } from "../config/config";
 import type { Request, Response } from "express";
 

@@ -1,6 +1,6 @@
 import "dotenv/config";
 import supertest from "supertest";
-import { web } from "../src/app/web";
+import { web } from "../../src/app/web";
 
 const user_token = process.env.TEST_USER_TOKEN;
 const member_token = process.env.TEST_MEMB_TOKEN;

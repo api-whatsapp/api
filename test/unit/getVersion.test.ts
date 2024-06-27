@@ -1,5 +1,5 @@
 import supertest from "supertest";
-import { web } from "../src/app/web";
+import { web } from "../../src/app/web";
 
 describe("GET /", function () {
 	it("200 without vaild Token", async () => {

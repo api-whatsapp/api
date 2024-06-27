@@ -1,4 +1,4 @@
-import getVersion from "../controllers/versionController";
+import getVersion from "../../controllers/versionController";
 import { Router, type Request, type Response } from "express";
 import { authMiddleware } from "../middleware/authMiddleware";
 

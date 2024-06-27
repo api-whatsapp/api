@@ -1,6 +1,6 @@
-import getVersion from "../controllers/versionController";
+import getVersion from "../../controllers/versionController";
 import { Router, type Request, type Response } from "express";
-import { UserController } from "../controllers/userController";
+import { UserController } from "../../controllers/userController";
 
 const publicRouter: Router = Router();
 

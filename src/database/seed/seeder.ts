@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { usersSeeder } from "./usersSeeder";
 import { deviceSeeder } from "./deviceSeeder";
-import { logger } from "../../app/logger";
+import { logger } from "../../config/logger";
 
 const prisma = new PrismaClient();
 

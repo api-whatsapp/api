@@ -1,6 +1,7 @@
 import "dotenv/config";
-import { web } from "./app/web";
-import { logger } from "./app/logger";
+import { web } from "./main/server/app";
+import { logger } from "./config/logger";
+import { prismaClient } from "./config/database";
 
 const port: string = process.env.API_PORT ?? "3030";
 
