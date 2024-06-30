@@ -14,6 +14,18 @@ CREATE TABLE `users` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
+CREATE TABLE `messages` (
+    `id` VARCHAR(191) NOT NULL,
+    `text` VARCHAR(191) NOT NULL DEFAULT 'Not From PakaiWA',
+    `status` ENUM('ERROR', 'PENDING', 'SERVER_ACK', 'DELIVERY_ACK', 'READ', 'PLAYED') NOT NULL DEFAULT 'PENDING',
+    `message` VARCHAR(100) NOT NULL,
+    `send_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updated_at` DATETIME(3) NULL,
+
+    UNIQUE INDEX `messages_id_key`(`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
 CREATE TABLE `devices` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `userEmail` VARCHAR(191) NULL,

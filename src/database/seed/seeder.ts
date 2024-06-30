@@ -1,7 +1,7 @@
-import { PrismaClient } from "@prisma/client";
 import { usersSeeder } from "./usersSeeder";
-import { deviceSeeder } from "./deviceSeeder";
 import { logger } from "../../config/logger";
+import { deviceSeeder } from "./deviceSeeder";
+import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
@@ -9,6 +9,7 @@ const tableNames = ["users"];
 
 async function seeder() {
 	try {
+		await prisma.message.deleteMany();
 		await prisma.device.deleteMany();
 		await prisma.user.deleteMany();
 		for (const tableName of tableNames) {

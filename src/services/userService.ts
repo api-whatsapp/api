@@ -16,7 +16,7 @@ export class UserService {
 			request
 		);
 
-		const userExists = await prismaClient.user.count({
+		const userExists: number | null = await prismaClient.user.count({
 			where: {
 				email: registerRequest.email,
 			},

@@ -21,6 +21,15 @@ model User {
   @@map("users")
 }
 
+model Message {
+  id      String        @unique
+  text    String        @default("Not From PakaiWA")
+  status  MessageStatus @default(PENDING)
+  message String        @db.VarChar(100)
+
+  @@map("messages")
+}
+
 model Device {
   id                  Int          @id @default(autoincrement())
   userEmail           String?
@@ -38,6 +47,15 @@ model Device {
 enum DeviceStatus {
   connected
   disconnected
+}
+
+enum MessageStatus {
+  ERROR
+  PENDING
+  SERVER_ACK
+  DELIVERY_ACK
+  READ
+  PLAYED
 }
 
 enum UserLevel {

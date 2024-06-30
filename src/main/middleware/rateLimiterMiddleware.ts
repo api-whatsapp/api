@@ -1,7 +1,7 @@
 import rateLimit from "express-rate-limit";
-import { prismaClient } from "../config/database";
+import { logger } from "../../config/logger";
 import type { Request, Response } from "express";
-import { logger } from "../config/logger";
+import { prismaClient } from "../../config/database";
 
 const rateLimitConfig = {
 	points: 10, // 6 points

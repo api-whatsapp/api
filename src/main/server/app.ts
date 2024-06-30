@@ -1,13 +1,17 @@
 import cors from "cors";
-import path from "path";
 import helmet from "helmet";
 import express from "express";
+import { fileURLToPath } from "url";
+import path, { dirname } from "path";
 import compression from "compression";
-import { publicRouter } from "../routes/router";
 import { publicRouterV1 } from "../routes/routerV1";
+import { publicRouter } from "../routes/publicRoute";
+import { reqInterceptor } from "../middleware/logMiddleware";
 import { limiter } from "../middleware/rateLimiterMiddleware";
 import { ErrorMiddleware } from "../middleware/errorMiddleware";
-import { reqInterceptor } from "../middleware/logMiddleware";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 export const app = express();
 app.use(helmet());

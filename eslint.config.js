@@ -3,6 +3,7 @@ import pluginJs from "@eslint/js";
 import tseslint from "typescript-eslint";
 
 export default [
+	{ ignores: ["**/modules/index.js"] },
 	{ files: ["**/*.{js,mjs,cjs,ts}"] },
 	{
 		languageOptions: { globals: globals.node },
@@ -15,8 +16,8 @@ export default [
 			],
 
 			semi: [2, "always"],
-			indent: ["error", "tab"],
-			quotes: ["error", "double"],
+			indent: ["warn", "tab", { SwitchCase: 1 }],
+			quotes: ["warn", "double"],
 			"no-unused-vars": "warn",
 		},
 	},

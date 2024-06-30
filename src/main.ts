@@ -1,26 +1,36 @@
 import "dotenv/config";
 import { web } from "./main/server/app";
-import { logger } from "./config/logger";
+import { logger as log } from "./config/logger";
 import { prismaClient } from "./config/database";
+import { connectToWhatsApp } from "./modules/whatsapp";
 
 const port: string = process.env.API_PORT ?? "3030";
 
 const server = web.listen(port, () => {
-	logger.info(`App run on http://127.0.0.1:${port}`);
+	try {
+		log.info(`App run on http://127.0.0.1:${port}`);
+		connectToWhatsApp().catch((e) => log.error(`unexpected error: ${e}`));
+	} catch (error) {
+		log.error("Failed to start the server");
+		process.exit(1);
+	}
 });
 
 process.on("SIGINT", gracefulShutdown);
+
 process.on("SIGTERM", gracefulShutdown);
+
 process.on("SIGHUP", async () => {
 	await prismaClient.$disconnect();
 	process.kill(process.pid, "SIGTERM");
 });
+
 function gracefulShutdown(): void {
-	logger.info("SIGTERM/SIGINT signal received: closing HTTP server");
-	logger.info("Shutting down gracefully...");
+	log.info("SIGTERM/SIGINT signal received: closing HTTP server");
+	log.info("Shutting down gracefully...");
 
 	server.close(async () => {
-		logger.info("HTTP server closed");
+		log.info("HTTP server closed");
 		await prismaClient.$disconnect();
 		// Close any other connections or resources here
 		process.exit(0);
