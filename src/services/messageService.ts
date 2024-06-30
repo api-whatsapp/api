@@ -5,7 +5,10 @@ import { ResponseError } from "../errors/responseErrors";
 import { MessageUtility } from "../utils/messageUtility";
 import { waSock, isWAConnected } from "../modules/whatsapp";
 import { MessageValidation } from "../validation/messageValidation";
-import type { WASendMessageResponse } from "../@types/baileys/WAMessages";
+import type {
+	WAMessagesUpdate,
+	WASendMessageResponse,
+} from "../@types/baileys/WAMessages";
 import {
 	toMessageResponse,
 	type MessageReq,
@@ -54,5 +57,43 @@ export class MessageService {
 			throw new ResponseError(500, `${e}`);
 		}
 		return message;
+	}
+
+	static async messageUpdated(message: Array<WAMessagesUpdate>) {
+		logger.info(
+			`MessageService.messageUpdated|\n|${JSON.stringify(message, undefined, 2)}\n|FINISH UPDATE`
+		);
+		for (let i = 0; i < message.length; i++) {
+			const keyId: string = message[i].key.id;
+			try {
+				const keyIdCount = await prismaClient.message.count({
+					where: {
+						id: keyId,
+						NOT: {
+							OR: [{ status: "READ" }, { status: "PLAYED" }],
+						},
+					},
+				});
+
+				if (keyIdCount > 0) {
+					logger.warn(`${i} => ${keyIdCount} ${keyId}`);
+					const messageStatus = MessageUtility.getMessageStatus(
+						message[i].update.status
+					);
+					await prismaClient.message.update({
+						data: {
+							status: messageStatus.status,
+							message: messageStatus.status_message,
+						},
+						where: {
+							id: keyId,
+						},
+					});
+				}
+			} catch (e) {
+				logger.error(`${keyId} Not Found`);
+				logger.error(e);
+			}
+		}
 	}
 }

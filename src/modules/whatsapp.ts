@@ -6,7 +6,9 @@ import {
 } from "@whiskeysockets/baileys";
 import { Boom } from "@hapi/boom";
 import { logger } from "../config/logger";
+import { MessageService } from "../services/messageService";
 import type { WAMessagesUpdate } from "../@types/baileys/WAMessages";
+
 const { session } = { session: "auth_data" };
 
 export let waSock: any;
@@ -77,35 +79,8 @@ export async function connectToWhatsApp(): Promise<void> {
 		}
 	);
 
-	waSock.ev.on("messages.update", async (m: Array<WAMessagesUpdate>) => {
-		logger.info(
-			`messages.update|\n|${JSON.stringify(m, undefined, 2)}\n|FINISH UPDATE`
-		);
-		// for (let i = 0; i < m.length; i++) {
-		// 	try {
-		// 		logger.warn(`i => ${i} ${m[i].key.id}`);
-		// 		await prismaClient.message.upsert({
-		// 			update: {
-		// 				status: MessageUtility.getMessageStatus(m[i].update.status),
-		// 				message: "Updated",
-		// 			},
-		// 			create: {
-		// 				id: m[i].key.id,
-		// 				status: MessageUtility.getMessageStatus(m[i].update.status),
-		// 				message: "Created",
-		// 			},
-		// 			where: {
-		// 				id: m[i].key.id,
-		// 				NOT: {
-		// 					OR: [{ status: "READ" }, { status: "PLAYED" }],
-		// 				},
-		// 			},
-		// 		});
-		// 	} catch (error) {
-		// 		logger.warn(`${m[i].key.id} Not Found`);
-		// 		logger.error(error);
-		// 	}
-		// }
+	waSock.ev.on("messages.update", async (message: Array<WAMessagesUpdate>) => {
+		MessageService.messageUpdated(message);
 	});
 }
 
