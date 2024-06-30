@@ -29,7 +29,7 @@ async function seeder() {
 		await prisma.$disconnect();
 		process.exit(0);
 	} catch (error) {
-		logger.info(error);
+		logger.error(error);
 		process.exit(1);
 	} finally {
 		await prisma.$disconnect();

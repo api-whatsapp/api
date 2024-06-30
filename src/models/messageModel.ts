@@ -16,7 +16,7 @@ export type MessageReq = {
 };
 
 export function toMessageResponse(msg: WASendMessageResponse): MessageResponse {
-	logger.error("toMessageResponse => " + JSON.stringify(msg, null, 2));
+	logger.info("toMessageResponse => " + JSON.stringify(msg, null, 2));
 	const messageStatus = MessageUtility.getMessageStatus(msg.status);
 
 	return {

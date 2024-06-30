@@ -76,7 +76,7 @@ export class MessageService {
 				});
 
 				if (keyIdCount > 0) {
-					logger.warn(`${i} => ${keyIdCount} ${keyId}`);
+					logger.info(`${i} => ${keyId}`);
 					const messageStatus = MessageUtility.getMessageStatus(
 						message[i].update.status
 					);
