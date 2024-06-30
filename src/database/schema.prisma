@@ -22,10 +22,12 @@ model User {
 }
 
 model Message {
-  id      String        @unique
-  text    String        @default("Not From PakaiWA")
-  status  MessageStatus @default(PENDING)
-  message String        @db.VarChar(100)
+  id         String        @unique
+  text       String        @default("Not From PakaiWA")
+  status     MessageStatus @default(PENDING)
+  message    String        @db.VarChar(100)
+  send_at    DateTime      @default(now())
+  updated_at DateTime?     @updatedAt
 
   @@map("messages")
 }
