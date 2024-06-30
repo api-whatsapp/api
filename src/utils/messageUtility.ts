@@ -1,6 +1,8 @@
+import type { MessageStatus } from "@prisma/client/edge";
+
 export class MessageUtility {
 	static getMessageStatus(statusCode: number) {
-		const messageStatus = {
+		const messageStatus: { status: MessageStatus; status_message: string } = {
 			status: "ERROR",
 			status_message: "ERROR",
 		};
