@@ -1,22 +1,33 @@
-import type { MessageStatus } from "@prisma/client/edge";
-
 export class MessageUtility {
-	static getMessageStatus(statusCode: number): MessageStatus {
+	static getMessageStatus(statusCode: number) {
+		const messageStatus = {
+			status: "ERROR",
+			status_message: "ERROR",
+		};
+
 		switch (statusCode) {
-			case 0:
-				return "ERROR";
 			case 1:
-				return "PENDING";
+				messageStatus.status = "PENDING";
+				messageStatus.status_message =
+					"Message is pending and waiting to be processed";
+				break;
 			case 2:
-				return "SERVER_ACK";
+				messageStatus.status = "SERVER_ACK";
+				messageStatus.status_message = "Message has been sent.";
+				break;
 			case 3:
-				return "DELIVERY_ACK";
+				messageStatus.status = "DELIVERY_ACK";
+				messageStatus.status_message = "Message has been Delivered .";
+				break;
 			case 4:
-				return "READ";
+				messageStatus.status = "READ";
+				messageStatus.status_message = "Message has been Read.";
+				break;
 			case 5:
-				return "PLAYED";
-			default:
-				return "ERROR";
+				messageStatus.status = "PLAYED";
+				messageStatus.status_message = "Message has been Played.";
+				break;
 		}
+		return messageStatus;
 	}
 }

@@ -1,3 +1,4 @@
+import { logger } from "../config/logger";
 import { prismaClient } from "../config/database";
 import { Validation } from "../validation/validation";
 import { ResponseError } from "../errors/responseErrors";
@@ -14,10 +15,13 @@ import {
 export class MessageService {
 	static async sendMessage(request: MessageReq): Promise<MessageResponse> {
 		const sendMessageReq = Validation.validate(MessageValidation.SEND, request);
+		logger.info(
+			`MessageService.sendMessage => ${JSON.stringify(sendMessageReq, null, 2)}`
+		);
 		let message: MessageResponse = {
 			id: "",
 			status: "",
-			messages: "",
+			message: "",
 		};
 
 		if (!isWAConnected()) {
@@ -32,12 +36,13 @@ export class MessageService {
 					text: sendMessageReq.message,
 				})
 				.then(async (result: WASendMessageResponse) => {
+					const messageStatus = MessageUtility.getMessageStatus(result.status);
 					await prismaClient.message.create({
 						data: {
 							id: result.key.id,
-							status: MessageUtility.getMessageStatus(result.status),
-							message: "Message is pending and waiting to be processed.",
-							text: JSON.stringify(request, null, 2),
+							status: messageStatus.status,
+							message: messageStatus.status_message,
+							text: sendMessageReq.message,
 						},
 					});
 					message = toMessageResponse(result);

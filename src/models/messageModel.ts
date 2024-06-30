@@ -5,7 +5,7 @@ import type { WASendMessageResponse } from "../@types/baileys/WAMessages";
 export type MessageResponse = {
 	id: string;
 	status: string;
-	messages: string;
+	message: string;
 };
 
 export type MessageReq = {
@@ -16,11 +16,12 @@ export type MessageReq = {
 };
 
 export function toMessageResponse(msg: WASendMessageResponse): MessageResponse {
-	logger.error("toMessageResponse=>" + JSON.stringify(msg, null, 2));
+	logger.error("toMessageResponse => " + JSON.stringify(msg, null, 2));
+	const messageStatus = MessageUtility.getMessageStatus(msg.status);
 
 	return {
 		id: msg.key.id,
-		status: MessageUtility.getMessageStatus(msg.status),
-		messages: "Message is pending and waiting to be processed.",
+		status: messageStatus.status,
+		message: messageStatus.status_message,
 	};
 }
