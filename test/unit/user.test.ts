@@ -1,6 +1,6 @@
 import "dotenv/config";
 import supertest from "supertest";
-import { web } from "../../src/app/web";
+import { web } from "../../src/main/server/app";
 import { prismaClient } from "../../src/config/database";
 
 const email = process.env.EXAMPLE_EMAIL;
