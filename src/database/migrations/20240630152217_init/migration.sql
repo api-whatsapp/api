@@ -16,7 +16,8 @@ CREATE TABLE `users` (
 -- CreateTable
 CREATE TABLE `messages` (
     `id` VARCHAR(191) NOT NULL,
-    `text` VARCHAR(191) NOT NULL DEFAULT 'Not From PakaiWA',
+    `text` VARCHAR(191) NOT NULL,
+    `payload` VARCHAR(191) NOT NULL,
     `status` ENUM('ERROR', 'PENDING', 'SERVER_ACK', 'DELIVERY_ACK', 'READ', 'PLAYED') NOT NULL DEFAULT 'PENDING',
     `message` VARCHAR(100) NOT NULL,
     `send_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
