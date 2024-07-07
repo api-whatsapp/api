@@ -1,0 +1,24 @@
+{
+	"messages": [
+		{
+			"key": {
+				"remoteJid": "120363295272113002@g.us",
+				"fromMe": false,
+				"id": "3A535B4A5BC1E48BEFE3",
+				"participant": "628992199373@s.whatsapp.net"
+			},
+			"messageTimestamp": 1719411566,
+			"pushName": "Call Vin",
+			"broadcast": false,
+			"message": {
+				"extendedTextMessage": {
+					"text": "@6285186858487",
+					"contextInfo": {
+						"mentionedJid": ["6285186858487@s.whatsapp.net"]
+					}
+				}
+			}
+		}
+	],
+	"type": "notify"
+}

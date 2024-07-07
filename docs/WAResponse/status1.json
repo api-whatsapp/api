@@ -1,0 +1,51 @@
+{
+	"messages": [
+		{
+			"key": {
+				"remoteJid": "status@broadcast",
+				"fromMe": false,
+				"id": "0969400335522286079BB39984D01FD9",
+				"participant": "6281277607955@s.whatsapp.net"
+			},
+			"messageTimestamp": 1719412563,
+			"pushName": "Dwi Septiani",
+			"broadcast": true,
+			"message": {
+				"senderKeyDistributionMessage": {
+					"groupId": "status@broadcast",
+					"axolotlSenderKeyDistributionMessage": "Mwiywb/AARANGiCdYHJU5qkQKLDVPimxxE1fVO9jaGgH2i94ppJWZEj/gyIhBezAFZUyo4YzXwDxTEN+wovmCg88/REhJJwUTCUu5vVt"
+				},
+				"imageMessage": {
+					"url": "https://mmg.whatsapp.net/v/t62.7118-24/21197253_1650654412365582_172935953457265986_n.enc?ccb=11-4&oh=01_Q5AaIFIPghcESc9R_vvrl3RT_vQdubwRZtiJFgmPh9HDQ2Wd&oe=66A39DB6&_nc_sid=5e03e0&mms3=true",
+					"mimetype": "image/jpeg",
+					"caption": "Terharu🥹",
+					"fileSha256": "WAsC76uwCOHGTe8vvyY7Nt0I4IvI55AY+3xcckgBu1U=",
+					"fileLength": "28993",
+					"height": 487,
+					"width": 1079,
+					"mediaKey": "m84MiPUKqWultM5S+kuI8Vgb/f1qeoDk0IwZ+sGivOg=",
+					"fileEncSha256": "C1duMb+WHTkrpi8Bs2+q9eDgOpyOCrHQ2IGMcg36GvM=",
+					"directPath": "/v/t62.7118-24/21197253_1650654412365582_172935953457265986_n.enc?ccb=11-4&oh=01_Q5AaIFIPghcESc9R_vvrl3RT_vQdubwRZtiJFgmPh9HDQ2Wd&oe=66A39DB6&_nc_sid=5e03e0",
+					"mediaKeyTimestamp": "1719412497",
+					"jpegThumbnail": "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",
+					"contextInfo": {
+						"isSampled": true
+					},
+					"scansSidecar": "2QpKvIZy+jGFdpZmI4dW24Fi0XvmOUVawJucCptDDgRNhbbtPZHRng==",
+					"scanLengths": [3562, 10592, 6304, 8535],
+					"midQualityFileSha256": "UCXcc6QtL9UoyhE1Tf8EaW2WfaAaoyQ0QJrR7RQE+RQ="
+				},
+				"messageContextInfo": {
+					"deviceListMetadata": {
+						"senderKeyHash": "jJ0XCdtfhc0mUg==",
+						"senderTimestamp": "1719287833",
+						"recipientKeyHash": "O6twjRrQOI/S4w==",
+						"recipientTimestamp": "1719410369"
+					},
+					"deviceListMetadataVersion": 2
+				}
+			}
+		}
+	],
+	"type": "notify"
+}

@@ -1,0 +1,28 @@
+{
+	"messages": [
+		{
+			"key": {
+				"remoteJid": "120363295272113002@g.us",
+				"fromMe": false,
+				"id": "3A58DFE3EC011DFEF60B",
+				"participant": "628992199373@s.whatsapp.net"
+			},
+			"messageTimestamp": 1719411672,
+			"pushName": "Call Vin",
+			"broadcast": false,
+			"message": {
+				"extendedTextMessage": {
+					"text": "OK",
+					"contextInfo": {
+						"stanzaId": "258FA055EF3D058238F923E60D56D3B2",
+						"participant": "6285186858487@s.whatsapp.net",
+						"quotedMessage": {
+							"conversation": "Ok"
+						}
+					}
+				}
+			}
+		}
+	],
+	"type": "notify"
+}

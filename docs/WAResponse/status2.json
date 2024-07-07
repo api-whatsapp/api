@@ -1,0 +1,48 @@
+{
+	"messages": [
+		{
+			"key": {
+				"remoteJid": "status@broadcast",
+				"fromMe": false,
+				"id": "43E45345FA2D3BFAEA814BC8756A0A1A",
+				"participant": "6281328423531@s.whatsapp.net"
+			},
+			"messageTimestamp": 1719413081,
+			"pushName": "dinni w.",
+			"broadcast": true,
+			"message": {
+				"senderKeyDistributionMessage": {
+					"groupId": "status@broadcast",
+					"axolotlSenderKeyDistributionMessage": "Mwj989qjARAGGiBoU0VBSc/2/pvbYDUddp9x+yPRQffRVh7k3u71nQOfdCIhBbteoDoCe3dc4EeOuaGgOiVDJhzMo9ZjCf2DdXX0BXMx"
+				},
+				"imageMessage": {
+					"url": "https://mmg.whatsapp.net/v/t62.7118-24/18859059_988694799506672_9058974059828001722_n.enc?ccb=11-4&oh=01_Q5AaIDPyObo7l7aI9dSwVn-WZ7J-d9rCqnFke2iYVhJK7sOQ&oe=66A38541&_nc_sid=5e03e0&mms3=true",
+					"mimetype": "image/jpeg",
+					"caption": "kalian diginiin dosen pembimbing kalian ga🫵🏻🫵🏻",
+					"fileSha256": "GM6ELcORuFDXSdJU6WH7quxvFrC/odFoveEECqTlDJw=",
+					"fileLength": "47480",
+					"height": 819,
+					"width": 720,
+					"mediaKey": "NEUBBqyJb/GXHXCo3RMHZBqvvxknMy/7IO11tOGNWtk=",
+					"fileEncSha256": "PtJvXt1b4vqcvJqqA2r6aoXroX98/o5SEf+pa9gQ5+E=",
+					"directPath": "/v/t62.7118-24/18859059_988694799506672_9058974059828001722_n.enc?ccb=11-4&oh=01_Q5AaIDPyObo7l7aI9dSwVn-WZ7J-d9rCqnFke2iYVhJK7sOQ&oe=66A38541&_nc_sid=5e03e0&_nc_hot=1719413074",
+					"mediaKeyTimestamp": "1719413005",
+					"jpegThumbnail": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEABsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z//////////////8BGxsbGxwbHiEhHiotKC0qPTgzMzg9XUJHQkdCXY1YZ1hYZ1iNfZd7c3uXfeCwnJyw4P/Zztn////////////////CABEIAEgAPgMBIgACEQEDEQH/xAAtAAADAQEBAAAAAAAAAAAAAAAAAQIDBAUBAQEBAAAAAAAAAAAAAAAAAAABAv/aAAwDAQACEAMQAAAA8qeYs1HTPPeomM9GSy010abBNSVnULTHdCZJBAXKFZpqc17BmajOedQt2FqAAAzAP//EACQQAAMAAgICAgEFAAAAAAAAAAABAhITEVEDIRBSMQQgImFi/9oACAEBAAE/AP03j8NWs69cHkjxO3i+EKI+5hH3GkmVMqU0/Y0uE0x/MwmjXJrk1ya5LlJiTZixU0vwZvozfRt/o3f5KrJ8ipoyZjRjQ1TXBrZqoqXJMOp5NTHlJzXZnRnRsvsbb/JL/hwe/jhj/Ym0ZMyZPNeuTWuzWuzSXOLPHCs0T2aJ7NK7ZqX2ZqX2Z5E5fCbEnR4rxH5euUbK7Zsrtmb7ZsfbLrk8bSZ//8QAGBEAAgMAAAAAAAAAAAAAAAAAECEAETD/2gAIAQIBAT8AFlRbf//EABwRAAIBBQEAAAAAAAAAAAAAAAABEQIQEiJRIP/aAAgBAwEBPwAzRmhVJ21NRY2hELhF4q6JPvn/2Q==",
+					"scansSidecar": "TxaLDHw4LGFW7CFy3X4VEzJs523O9Np2z0Jl4gFc/w8TXuJtUswRPw==",
+					"scanLengths": [4716, 16383, 10409, 15972],
+					"midQualityFileSha256": "qI4Cyqi0PS+kywOekYk8t9JBgooveiqBEk3Nw3kEZQ8="
+				},
+				"messageContextInfo": {
+					"deviceListMetadata": {
+						"senderKeyHash": "XUh2+DfYBoXlrQ==",
+						"senderTimestamp": "1719369693",
+						"recipientKeyHash": "O6twjRrQOI/S4w==",
+						"recipientTimestamp": "1719410369"
+					},
+					"deviceListMetadataVersion": 2
+				}
+			}
+		}
+	],
+	"type": "notify"
+}

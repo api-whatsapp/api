@@ -1,0 +1,19 @@
+{
+	"key": {
+		"remoteJid": "628992199373@s.whatsapp.net",
+		"fromMe": true,
+		"id": ""
+	},
+	"message": {
+		"extendedTextMessage": {
+			"text": "",
+			"matchedText": "data-140389@gmail.com",
+			"canonicalUrl": "https://accounts.google.com/v3/signin/identifier?continue=https%3A%2F%2Fmail.google.com%2Fmail%2Fu%2F0%2F&emr=1&followup=https%3A%2F%2Fmail.google.com%2Fmail%2Fu%2F0%2F&ifkv=AS5LTASqa0fUEKrBbgNe0I15F2sUmKZTAC7rwC6srCqwUxnpcgLeH9tNRRXpHgDoKFP3IgjkzC9VRQ&osid=1&passive=1209600&service=mail&flowName=WebLiteSignIn&flowEntry=ServiceLogin&dsh=S1527086912%3A1719585621760833",
+			"description": "Gmail is email that’s intuitive, efficient, and useful. 15 GB of storage, less spam, and mobile access.",
+			"title": "Gmail",
+			"previewType": "NONE"
+		}
+	},
+	"messageTimestamp": "",
+	"status": ""
+}
