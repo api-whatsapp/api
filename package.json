@@ -1,18 +1,13 @@
 {
 	"name": "pakaiwa",
-	"type": "module",
-	"module": "src/main.ts",
-	"main": "dist/main.js",
-	"author": "KAnggara75",
-	"license": "MIT",
-	"version": "0.1.0",
-	"description": "WhatsApp API by KAnggara75",
+	"version": "0.1.0-alpha0359",
+	"description": "WhatsApp API by PakaiWA",
 	"keywords": [
 		"node.js",
 		"pakaiwa",
 		"whatsapp-api"
 	],
-	"homepage": "https://github.com/pakaiwa/api#readme",
+	"homepage": "https://pakaiwa.my.id",
 	"bugs": {
 		"url": "https://github.com/pakaiwa/api/issues"
 	},
@@ -20,19 +15,18 @@
 		"type": "git",
 		"url": "git+https://github.com/pakaiwa/api.git"
 	},
+	"license": "MIT",
+	"author": "KAnggara75",
+	"type": "module",
+	"main": "dist/main.ts",
 	"scripts": {
-		"build": "tsc && tsc-alias",
-		"start": "node dist/main.js",
+		"build": "rm -rf dist && tsc && tsc-alias",
 		"dev": "nodemon --signal SIGHUP src/main.ts",
-		"seed": "pnpm prisma db seed",
-		"wa": "nodemon src/app/whatsapp.ts",
-		"test": "jest -i --detectOpenHandles --runInBand",
+		"fc": "pnpm prettier --write . && pnpm eslint --fix . && pnpm prettier --check . && pnpm eslint .",
 		"mig": "rm -rf src/database/migrations && pnpm prisma generate && pnpm prisma migrate dev --name init && pnpm seed",
-		"fc": "pnpm prettier --write . && pnpm eslint --fix . && pnpm prettier --check . && pnpm eslint ."
-	},
-	"prisma": {
-		"seed": "tsx src/database/seed/seeder.ts",
-		"schema": "src/database/schema.prisma"
+		"seed": "pnpm prisma db seed",
+		"start": "node dist/main.js",
+		"test": "jest -i --detectOpenHandles --runInBand"
 	},
 	"dependencies": {
 		"@hapi/boom": "^10.0.1",
@@ -46,7 +40,9 @@
 		"helmet": "^7.1.0",
 		"link-preview-js": "^3.0.5",
 		"pino": "^9.2.0",
+		"prisma": "^5.16.1",
 		"qrcode-terminal": "^0.12.0",
+		"typescript": "^5.5.3",
 		"uuid": "^10.0.0",
 		"winston": "^3.13.0",
 		"zod": "^3.23.8"
@@ -55,20 +51,27 @@
 		"@babel/preset-env": "^7.24.7",
 		"@babel/preset-typescript": "^7.24.7",
 		"@eslint/js": "^9.6.0",
+		"@jest/globals": "^29.7.0",
 		"@types/compression": "^1.7.5",
 		"@types/cors": "^2.8.17",
+		"@types/eslint__js": "^8.42.3",
 		"@types/express": "^4.17.21",
+		"@types/jest": "^29.5.12",
+		"@types/node": "^20.14.10",
 		"@types/supertest": "^6.0.2",
 		"@types/uuid": "^10.0.0",
 		"babel-jest": "^29.7.0",
-		"globals": "^15.6.0",
+		"globals": "^15.8.0",
 		"jest": "^29.7.0",
 		"prettier": "^3.3.2",
-		"prisma": "^5.16.1",
 		"supertest": "^7.0.0",
+		"ts-jest": "^29.1.5",
 		"tsc-alias": "^1.8.10",
-		"tsx": "^4.16.0",
-		"typescript": "^5.5.2",
-		"typescript-eslint": "^7.14.1"
+		"tsx": "^4.16.2",
+		"typescript-eslint": "^7.15.0"
+	},
+	"prisma": {
+		"seed": "tsx src/database/seed/seeder.ts",
+		"schema": "src/database/schema.prisma"
 	}
 }

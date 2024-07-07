@@ -43,6 +43,7 @@ export class MessageService {
 					await prismaClient.message.create({
 						data: {
 							id: result.key.id,
+							payload: JSON.stringify(sendMessageReq),
 							status: messageStatus.status,
 							message: messageStatus.status_message,
 							text: sendMessageReq.message,
@@ -95,5 +96,33 @@ export class MessageService {
 				logger.error(e);
 			}
 		}
+	}
+
+	static async getAllMessages() {
+		const message = await prismaClient.message.findMany({
+			select: {
+				id: true,
+				status: true,
+				message: true,
+				send_at: true,
+				payload: true,
+			},
+		});
+		for (const msg of message) {
+			msg.payload = JSON.parse(msg.payload);
+		}
+		logger.info(JSON.stringify(message));
+		return message;
+	}
+
+	static async getMessageInfo(messageId: string) {
+		const message = await prismaClient.message.findUnique({
+			where: {
+				id: messageId,
+			},
+		});
+
+		logger.info(JSON.stringify(message));
+		return message;
 	}
 }

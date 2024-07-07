@@ -13,4 +13,25 @@ export class MessageController {
 			next(e);
 		}
 	}
+
+	static async getAllMessages(req: Request, res: Response, next: NextFunction) {
+		try {
+			await MessageService.getAllMessages().then((msg) => {
+				res.status(200).json({ data: msg });
+			});
+		} catch (e) {
+			next(e);
+		}
+	}
+
+	static async getMessageInfo(req: Request, res: Response, next: NextFunction) {
+		try {
+			const messageId = req.params.messageId;
+			await MessageService.getMessageInfo(messageId).then((msg) => {
+				res.status(200).json({ data: msg });
+			});
+		} catch (e) {
+			next(e);
+		}
+	}
 }

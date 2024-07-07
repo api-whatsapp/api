@@ -23,7 +23,8 @@ model User {
 
 model Message {
   id         String        @unique
-  text       String        @default("Not From PakaiWA")
+  text       String
+  payload    String
   status     MessageStatus @default(PENDING)
   message    String        @db.VarChar(100)
   send_at    DateTime      @default(now())

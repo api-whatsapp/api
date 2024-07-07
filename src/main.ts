@@ -25,6 +25,11 @@ process.on("SIGHUP", async () => {
 	process.kill(process.pid, "SIGTERM");
 });
 
+process.on("unhandledRejection", (error: Error) => {
+	log.error(`Unhandled Rejection: ${error.message || error}`);
+	// errorHandler.handleError(error);
+});
+
 function gracefulShutdown(): void {
 	log.info("SIGTERM/SIGINT signal received: closing HTTP server");
 	log.info("Shutting down gracefully...");

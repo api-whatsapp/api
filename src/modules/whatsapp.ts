@@ -1,20 +1,22 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import fs from "node:fs";
 import {
 	makeWASocket,
 	DisconnectReason,
 	useMultiFileAuthState,
+	type ConnectionState,
 } from "@whiskeysockets/baileys";
 import { Boom } from "@hapi/boom";
 import { logger } from "../config/logger";
 import { MessageService } from "../services/messageService";
 import type { WAMessagesUpdate } from "../@types/baileys/WAMessages";
 
-const { session } = { session: "auth_data" };
+const { session } = { session: "auth_datas" };
 
 export let waSock: any;
 
 export async function connectToWhatsApp(): Promise<void> {
-	const { state, saveCreds } = await useMultiFileAuthState("auth_data");
+	const { state, saveCreds } = await useMultiFileAuthState("auth_datas");
 
 	waSock = makeWASocket({
 		generateHighQualityLinkPreview: false,
@@ -25,19 +27,20 @@ export async function connectToWhatsApp(): Promise<void> {
 	});
 
 	waSock.ev.on("creds.update", saveCreds);
-
 	waSock.ev.on(
 		"connection.update",
-		async (update: { connection: any; lastDisconnect: any }) => {
-			const { connection, lastDisconnect } = update;
+		async (update: Partial<ConnectionState>) => {
+			const { connection, lastDisconnect, qr } = update;
+			logger.info(`QR => ${qr}`);
 			if (connection === "close") {
 				const reason = new Boom(lastDisconnect?.error).output.statusCode;
 				switch (reason) {
 					case DisconnectReason.badSession:
 						logger.error(
-							`Bad Session File, Please Delete ${session} and Scan Again`
+							`Bad Session File, Deleting ${session} and Scan Again`
 						);
-						waSock.logout();
+						fs.rmSync("./auth_data", { recursive: true, force: true });
+						connectToWhatsApp();
 						break;
 					case DisconnectReason.connectionClosed:
 						logger.error("Connection closed, reconnecting....");
@@ -55,9 +58,10 @@ export async function connectToWhatsApp(): Promise<void> {
 						break;
 					case DisconnectReason.loggedOut:
 						logger.error(
-							`Device Logged Out, Please Delete ${session} and Scan Again.`
+							`Device Logged Out, Deleting ${session} and Scan Again.`
 						);
-						waSock.logout();
+						fs.rmSync("./auth_data", { recursive: true, force: true });
+						connectToWhatsApp();
 						break;
 					case DisconnectReason.restartRequired:
 						logger.error("Restart Required, Restarting...");
