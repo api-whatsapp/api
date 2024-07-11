@@ -8,6 +8,7 @@ import {
 } from "@whiskeysockets/baileys";
 import { Boom } from "@hapi/boom";
 import { logger } from "../config/logger";
+import { QRService } from "../services/qrService";
 import { MessageService } from "../services/messageService";
 import type { WAMessagesUpdate } from "../@types/baileys/WAMessages";
 
@@ -21,7 +22,7 @@ export async function connectToWhatsApp(): Promise<void> {
 	waSock = makeWASocket({
 		generateHighQualityLinkPreview: false,
 		linkPreviewImageThumbnailWidth: 0,
-		printQRInTerminal: true,
+		printQRInTerminal: false,
 		syncFullHistory: false,
 		auth: state,
 	});
@@ -31,7 +32,7 @@ export async function connectToWhatsApp(): Promise<void> {
 		"connection.update",
 		async (update: Partial<ConnectionState>) => {
 			const { connection, lastDisconnect, qr } = update;
-			logger.info(`QR => ${qr}`);
+			qr != undefined && QRService.updateQR(qr);
 			if (connection === "close") {
 				const reason = new Boom(lastDisconnect?.error).output.statusCode;
 				switch (reason) {

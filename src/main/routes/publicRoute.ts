@@ -11,6 +11,7 @@ publicRouter.get("/", getVersion);
 publicRouter.post("/users", UserController.register);
 
 publicRouter.get("/qr", QRController.getQR);
+publicRouter.get("/qr/show", QRController.showQR);
 
 // Messages
 publicRouter.post("/messages", MessageController.sendMessage);

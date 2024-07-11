@@ -41,6 +41,7 @@
 		"link-preview-js": "^3.0.5",
 		"pino": "^9.2.0",
 		"prisma": "^5.16.1",
+		"qrcode": "^1.5.3",
 		"qrcode-terminal": "^0.12.0",
 		"typescript": "^5.5.3",
 		"uuid": "^10.0.0",

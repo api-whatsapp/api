@@ -26,8 +26,6 @@ app.use("/", publicRouter);
 app.use(ErrorMiddleware);
 app.disable("x-powered-by");
 
-// app.use(express.static(path.join(__dirname, "..", "..", "public")));
-app.set("view engine", "ejs");
-// app.set("views", path.join(__dirname, "..", "..", "public"));
+// app.use(express.static(path.join(__dirname, "../../../public")));
 
 export { app as web };
