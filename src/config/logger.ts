@@ -1,68 +1,77 @@
-import "dotenv/config";
-import { createLogger, format, transports } from "winston";
+import pino from "pino";
 
-const { combine, timestamp, printf, colorize } = format;
+const timestamp: string = new Date().toISOString();
+const logFolder: string = `./logs/${timestamp.slice(0, 10).replace(/-/g, "")}/${timestamp.slice(0, 10)}`;
 
-const logsFormat = printf(({ level, message, timestamp }) => {
-	return `${timestamp}|[${level.toUpperCase()}]|${message}|`;
-});
+const customLevel = {
+	query: 25,
+};
 
-const logLevel: string = process.env.LOG_LEVEL ?? "prod";
-const todayDate: string = new Date().toISOString().slice(0, 10);
-const logFolder: string = `./logs/${todayDate.replace(/-/g, "")}/${todayDate}`;
+const pinoOption = {
+	formatters: {
+		bindings: (bindings: pino.Bindings) => {
+			return {
+				pid: bindings.pid,
+				host: bindings.hostname,
+				node_version: process.version,
+			};
+		},
+		// level: (level: string) => {
+		// 	return { level: level.toUpperCase() };
+		// },
+	},
+	timestamp: () => `,"timestamp":"${timestamp}"`,
+	redact: {
+		paths: ["host"],
+		censor: "***",
+		remove: false,
+	},
+	customLevels: customLevel,
+};
 
-const myTransports: (
-	| transports.ConsoleTransportInstance
-	| transports.FileTransportInstance
-)[] = [
-	new transports.File({
-		filename: `${logFolder}-error.log`,
-		level: "error",
-	}),
-	new transports.File({
-		filename: `${logFolder}-warn.log`,
-		level: "warn",
-	}),
-	new transports.File({
-		filename: `${logFolder}-info.log`,
-		level: "info",
-	}),
-	new transports.File({
-		filename: `${logFolder}-query.log`,
-		level: "verbose",
-	}),
-];
-
-/* istanbul ignore next */
-if (logLevel === "warn") {
-	myTransports.push(
-		new transports.Console({
+const transport = pino.transport({
+	targets: [
+		{
 			level: "warn",
-		})
-	);
-	/* istanbul ignore next */
-} else if (logLevel === "info") {
-	myTransports.push(
-		new transports.Console({
+			target: "pino/file",
+			options: {
+				destination: 1,
+				colorize: true,
+			}, // this writes to STDOUT
+		},
+		{
+			level: "debug",
+			target: "pino/file",
+			options: {
+				destination: `${logFolder}-query.log`,
+				mkdir: true,
+			},
+		},
+		{
 			level: "info",
-		})
-	);
-} else {
-	myTransports.push(
-		new transports.Console({
+			target: "pino/file",
+			options: {
+				destination: `${logFolder}-info.log`,
+				mkdir: true,
+			},
+		},
+		{
+			level: "warn",
+			target: "pino/file",
+			options: {
+				destination: `${logFolder}-warn.log`,
+				mkdir: true,
+			},
+		},
+		{
 			level: "error",
-		})
-	);
-}
-
-export const logger = createLogger({
-	format: combine(
-		timestamp({ format: "YYYY-MM-DD HH:mm:ss.SSS" }),
-		logsFormat,
-		colorize()
-	),
-	transports: myTransports,
-	rejectionHandlers: [
-		new transports.File({ filename: `${logFolder}-rejections.log` }),
+			target: "pino/file",
+			options: {
+				destination: `${logFolder}-error.log`,
+				mkdir: true,
+			},
+		},
 	],
 });
+
+export const logger = pino(pinoOption, transport);

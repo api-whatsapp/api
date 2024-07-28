@@ -8,17 +8,17 @@ export default [
 	{
 		languageOptions: { globals: globals.node },
 		rules: {
+			"no-unused-vars": "warn",
+			"@typescript-eslint/no-unused-vars": "warn",
 			"no-console": [
 				"error",
 				{
 					allow: ["warn", "error"],
 				},
 			],
-
 			semi: [2, "always"],
 			indent: ["warn", "tab", { SwitchCase: 1 }],
 			quotes: ["warn", "double"],
-			"no-unused-vars": "warn",
 		},
 	},
 	pluginJs.configs.recommended,

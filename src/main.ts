@@ -4,6 +4,8 @@ import { logger as log } from "./config/logger";
 import { prismaClient } from "./config/database";
 import { connectToWhatsApp } from "./modules/whatsapp";
 
+process.env.TZ = "Asia/Jakarta";
+
 const port: string = process.env.API_PORT ?? "3030";
 
 const server = web.listen(port, () => {
@@ -27,7 +29,13 @@ process.on("SIGHUP", async () => {
 
 process.on("unhandledRejection", (error: Error) => {
 	log.error(`Unhandled Rejection: ${error.message || error}`);
+	gracefulShutdown();
 	// errorHandler.handleError(error);
+});
+
+process.on("uncaughtException", (err) => {
+	log.fatal(err, "uncaught exception detected");
+	gracefulShutdown();
 });
 
 function gracefulShutdown(): void {
@@ -43,9 +51,7 @@ function gracefulShutdown(): void {
 
 	// Force close the server after 5 seconds
 	setTimeout(async () => {
-		console.error(
-			"Could not close connections in time, forcefully shutting down"
-		);
+		log.error("Could not close connections in time, forcefully shutting down");
 		await prismaClient.$disconnect();
 		process.exit(1);
 	}, 5000);

@@ -35,7 +35,7 @@ prismaClient.$on("info", (e) => {
 });
 
 prismaClient.$on("query", (e) => {
-	logger.verbose("Query: " + e.query);
-	logger.verbose("Params: " + e.params);
-	logger.verbose("Duration: " + e.duration + " ms");
+	logger.query("Query: " + e.query);
+	logger.query("Params: " + e.params);
+	logger.query("Duration: " + e.duration + " ms");
 });
