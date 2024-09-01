@@ -1,0 +1,39 @@
+{
+	"messages": [
+		{
+			"key": {
+				"remoteJid": "6282285879686@s.whatsapp.net",
+				"fromMe": false,
+				"id": "DFC33DDCBF1CF58AFAC69006A5B13921"
+			},
+			"messageTimestamp": 1719414545,
+			"pushName": "Yolanda",
+			"broadcast": false,
+			"message": {
+				"extendedTextMessage": {
+					"text": ".",
+					"previewType": "NONE",
+					"contextInfo": {
+						"expiration": 0,
+						"ephemeralSettingTimestamp": "1698219305",
+						"disappearingMode": {
+							"initiator": "CHANGED_IN_CHAT",
+							"trigger": "UNKNOWN"
+						}
+					},
+					"inviteLinkGroupTypeV2": "DEFAULT"
+				},
+				"messageContextInfo": {
+					"deviceListMetadata": {
+						"senderKeyHash": "fOoTQEkEU7WpaQ==",
+						"senderTimestamp": "1719374367",
+						"recipientKeyHash": "O6twjRrQOI/S4w==",
+						"recipientTimestamp": "1718532809"
+					},
+					"deviceListMetadataVersion": 2
+				}
+			}
+		}
+	],
+	"type": "notify"
+}

@@ -1,0 +1,32 @@
+{
+	"messages": [
+		{
+			"key": {
+				"remoteJid": "120363295272113002@g.us",
+				"fromMe": false,
+				"id": "3A38343260E5FF2F2208",
+				"participant": "628992199373@s.whatsapp.net"
+			},
+			"messageTimestamp": 1719411534,
+			"pushName": "Call Vin",
+			"broadcast": false,
+			"message": {
+				"conversation": "OK",
+				"senderKeyDistributionMessage": {
+					"groupId": "120363295272113002@g.us",
+					"axolotlSenderKeyDistributionMessage": "MwjCtezTAhAAGiARWUYzBU5csYXi7TVQpq5sFWT+dmsc/8KhzOP1b32GuSIhBbcXiGVfrHYhqgCrZdTt8Zon/leqYlvUpoq4HTmWEE8T"
+				},
+				"messageContextInfo": {
+					"deviceListMetadata": {
+						"senderKeyHash": "dz/HRVI368pL2g==",
+						"senderTimestamp": "1719376698",
+						"recipientKeyHash": "O6twjRrQOI/S4w==",
+						"recipientTimestamp": "1719410369"
+					},
+					"deviceListMetadataVersion": 2
+				}
+			}
+		}
+	],
+	"type": "notify"
+}

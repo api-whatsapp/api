@@ -1,0 +1,10 @@
+{
+	"events": {
+		"start": "clear"
+	},
+	"ignore": ["*.test.*", "**/*.log", "**/logs/**/*", "WAResponse*", "auth*"],
+	"execMap": {
+		"ts": "tsx"
+	},
+	"delay": 2500
+}

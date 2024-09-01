@@ -1,0 +1,27 @@
+{
+	"messages": [
+		{
+			"key": {
+				"remoteJid": "628992199373@s.whatsapp.net",
+				"fromMe": false,
+				"id": "3ADFA918EB3F35FE4933"
+			},
+			"messageTimestamp": 1719410656,
+			"pushName": "Call Vin",
+			"broadcast": false,
+			"message": {
+				"conversation": "ok",
+				"messageContextInfo": {
+					"deviceListMetadata": {
+						"senderKeyHash": "dz/HRVI368pL2g==",
+						"senderTimestamp": "1719376698",
+						"recipientKeyHash": "O6twjRrQOI/S4w==",
+						"recipientTimestamp": "1718532809"
+					},
+					"deviceListMetadataVersion": 2
+				}
+			}
+		}
+	],
+	"type": "notify"
+}

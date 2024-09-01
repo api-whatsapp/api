@@ -1,0 +1,28 @@
+{
+	"messages": [
+		{
+			"key": {
+				"remoteJid": "120363295272113002@g.us",
+				"fromMe": false,
+				"id": "3A37620A8FAE7C27E066",
+				"participant": "628992199373@s.whatsapp.net"
+			},
+			"messageTimestamp": 1719411615,
+			"pushName": "Call Vin",
+			"broadcast": false,
+			"message": {
+				"reactionMessage": {
+					"key": {
+						"remoteJid": "120363295272113002@g.us",
+						"fromMe": true,
+						"id": "258FA055EF3D058238F923E60D56D3B2",
+						"participant": "6285186858487@s.whatsapp.net"
+					},
+					"text": "😂",
+					"senderTimestampMs": "1719411614200"
+				}
+			}
+		}
+	],
+	"type": "notify"
+}

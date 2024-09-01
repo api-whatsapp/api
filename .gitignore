@@ -9,13 +9,13 @@ lerna-debug.log*
 sessions
 *old*
 .wwebjs_cache
+auth*
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
 # Runtime data
 pids
-*migrations*
 *.pid
 *.seed
 *.pid.lock

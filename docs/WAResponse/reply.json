@@ -1,0 +1,36 @@
+{
+	"messages": [
+		{
+			"key": {
+				"remoteJid": "628992199373@s.whatsapp.net",
+				"fromMe": false,
+				"id": "3AF7F72B69F4FF913824"
+			},
+			"messageTimestamp": 1719410668,
+			"pushName": "Call Vin",
+			"broadcast": false,
+			"message": {
+				"extendedTextMessage": {
+					"text": "OK",
+					"contextInfo": {
+						"stanzaId": "3EB006EE0DF0921135DDAA",
+						"participant": "6285186858487@s.whatsapp.net",
+						"quotedMessage": {
+							"conversation": "OK"
+						}
+					}
+				},
+				"messageContextInfo": {
+					"deviceListMetadata": {
+						"senderKeyHash": "dz/HRVI368pL2g==",
+						"senderTimestamp": "1719376698",
+						"recipientKeyHash": "O6twjRrQOI/S4w==",
+						"recipientTimestamp": "1718532809"
+					},
+					"deviceListMetadataVersion": 2
+				}
+			}
+		}
+	],
+	"type": "notify"
+}

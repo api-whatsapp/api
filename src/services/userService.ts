@@ -1,5 +1,5 @@
 import { v7 as uuidv7 } from "uuid";
-import { prismaClient } from "../app/database";
+import { prismaClient } from "../config/database";
 import { ResponseError } from "../errors/responseErrors";
 import {
 	toUserResponse,
@@ -16,7 +16,7 @@ export class UserService {
 			request
 		);
 
-		const userExists = await prismaClient.user.count({
+		const userExists: number | null = await prismaClient.user.count({
 			where: {
 				email: registerRequest.email,
 			},

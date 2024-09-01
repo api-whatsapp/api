@@ -21,6 +21,27 @@ model User {
   @@map("users")
 }
 
+model qrCode {
+  id          Int       @id @default(autoincrement())
+  qr          String    @db.VarChar(500)
+  created_at  DateTime  @default(now())
+  last_update DateTime? @updatedAt
+
+  @@map("qr_code")
+}
+
+model Message {
+  id         String        @unique
+  text       String
+  payload    String
+  status     MessageStatus @default(PENDING)
+  message    String        @db.VarChar(100)
+  send_at    DateTime      @default(now())
+  updated_at DateTime?     @updatedAt
+
+  @@map("messages")
+}
+
 model Device {
   id                  Int          @id @default(autoincrement())
   userEmail           String?
@@ -38,6 +59,15 @@ model Device {
 enum DeviceStatus {
   connected
   disconnected
+}
+
+enum MessageStatus {
+  ERROR
+  PENDING
+  SERVER_ACK
+  DELIVERY_ACK
+  READ
+  PLAYED
 }
 
 enum UserLevel {
