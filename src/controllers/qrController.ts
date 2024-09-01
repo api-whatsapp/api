@@ -10,7 +10,7 @@ export class QRController {
 				await QRService.getQR().then((qr: string) => {
 					res.status(200).json({
 						qr_code: qr,
-						image_url: `${req.protocol}://${req.get("host")}${req.originalUrl}/show?qrcode=${qr}`,
+						image_url: `${req.protocol}://${req.get("host")}${req.originalUrl}/show?qrcode=${encodeURIComponent(qr)}`,
 					});
 				});
 			} else {
