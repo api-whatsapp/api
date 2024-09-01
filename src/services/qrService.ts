@@ -1,3 +1,4 @@
+import { logger as log } from "../config/logger";
 import { prismaClient } from "../config/database";
 
 export class QRService {
@@ -13,10 +14,14 @@ export class QRService {
 	}
 
 	static async updateQR(qr: string) {
-		await prismaClient.qrCode.upsert({
-			where: { id: 1 },
-			update: { id: 1, qr: qr },
-			create: { id: 1, qr: qr },
-		});
+		try {
+			await prismaClient.qrCode.upsert({
+				where: { id: 1 },
+				update: { id: 1, qr: qr },
+				create: { id: 1, qr: qr },
+			});
+		} catch (error) {
+			log.error(`Unhandled Error: ${error}`);
+		}
 	}
 }
