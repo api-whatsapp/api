@@ -1,10 +1,11 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import fs from "node:fs";
 import {
+	WASocket,
 	makeWASocket,
 	DisconnectReason,
 	useMultiFileAuthState,
 	type ConnectionState,
+	WAMessageUpdate,
 } from "@whiskeysockets/baileys";
 import { Boom } from "@hapi/boom";
 import { logger } from "../config/logger";
@@ -14,7 +15,7 @@ import type { WAMessagesUpdate } from "../@types/baileys/WAMessages";
 
 const { session } = { session: "auth_datas" };
 
-export let waSock: any;
+export let waSock: WASocket;
 
 export async function connectToWhatsApp(): Promise<void> {
 	const { state, saveCreds } = await useMultiFileAuthState("auth_datas");
@@ -73,9 +74,7 @@ export async function connectToWhatsApp(): Promise<void> {
 						connectToWhatsApp();
 						break;
 					default:
-						waSock.end(
-							`Unknown DisconnectReason: ${reason}|${lastDisconnect?.error}`
-						);
+						waSock.end(lastDisconnect?.error);
 						break;
 				}
 			} else if (connection === "open") {
@@ -84,8 +83,8 @@ export async function connectToWhatsApp(): Promise<void> {
 		}
 	);
 
-	waSock.ev.on("messages.update", async (message: Array<WAMessagesUpdate>) => {
-		MessageService.messageUpdated(message);
+	waSock.ev.on("messages.update", async (arg: WAMessageUpdate[]) => {
+		MessageService.messageUpdated(arg);
 	});
 }
 
