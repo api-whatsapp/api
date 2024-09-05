@@ -11,16 +11,21 @@ import { Boom } from "@hapi/boom";
 import { logger } from "../config/logger";
 import { QRService } from "../services/qrService";
 import { MessageService } from "../services/messageService";
-import type { WAMessagesUpdate } from "../@types/baileys/WAMessages";
 
-const { session } = { session: "auth_datas" };
+const auth_dir: string = process.env.AUTH_DIR ?? "auth_data";
+
+const { session } = { session: auth_dir };
+
+let retry: number = 1;
 
 export let waSock: WASocket;
 
 export async function connectToWhatsApp(): Promise<void> {
-	const { state, saveCreds } = await useMultiFileAuthState("auth_datas");
+	const { state, saveCreds } = await useMultiFileAuthState(auth_dir);
 
+	waSock.logout();
 	waSock = makeWASocket({
+		logger,
 		generateHighQualityLinkPreview: false,
 		linkPreviewImageThumbnailWidth: 0,
 		printQRInTerminal: false,
@@ -41,7 +46,7 @@ export async function connectToWhatsApp(): Promise<void> {
 						logger.error(
 							`Bad Session File, Deleting ${session} and Scan Again`
 						);
-						fs.rmSync("./auth_data", { recursive: true, force: true });
+						fs.rmSync(`./${auth_dir}`, { recursive: true, force: true });
 						connectToWhatsApp();
 						break;
 					case DisconnectReason.connectionClosed:
@@ -62,7 +67,7 @@ export async function connectToWhatsApp(): Promise<void> {
 						logger.error(
 							`Device Logged Out, Deleting ${session} and Scan Again.`
 						);
-						fs.rmSync("./auth_data", { recursive: true, force: true });
+						fs.rmSync(`./${auth_dir}`, { recursive: true, force: true });
 						connectToWhatsApp();
 						break;
 					case DisconnectReason.restartRequired:
