@@ -14,7 +14,7 @@ const server = web.listen(port, () => {
 		connectToWhatsApp().catch((e) => log.error(`unexpected error: ${e}`));
 	} catch (error) {
 		log.error(`Failed to start the server ${error}`);
-		process.exit(1);
+		process.exitCode = 1;
 	}
 });
 
@@ -38,7 +38,7 @@ process.on("uncaughtException", (err) => {
 	gracefulShutdown();
 });
 
-function gracefulShutdown(): void {
+export function gracefulShutdown(): void {
 	log.info("SIGTERM/SIGINT signal received: closing HTTP server");
 	log.info("Shutting down gracefully...");
 
@@ -46,13 +46,6 @@ function gracefulShutdown(): void {
 		log.info("HTTP server closed");
 		await prismaClient.$disconnect();
 		// Close any other connections or resources here
-		process.exit(0);
+		process.exitCode = 0;
 	});
-
-	// Force close the server after 5 seconds
-	setTimeout(async () => {
-		log.error("Could not close connections in time, forcefully shutting down");
-		await prismaClient.$disconnect();
-		process.exit(1);
-	}, 5000);
 }
