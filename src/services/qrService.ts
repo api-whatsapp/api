@@ -10,7 +10,12 @@ export class QRService {
 			select: { qr: true },
 		});
 		console.warn(JSON.stringify(qrData));
-		return qrData.qr ?? "";
+
+		if (qrData == null) {
+			return "";
+		} else {
+			return qrData.qr;
+		}
 	}
 
 	static async updateQR(qr: string) {

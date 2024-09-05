@@ -13,7 +13,7 @@ const server = web.listen(port, () => {
 		log.info(`App run on http://127.0.0.1:${port}`);
 		connectToWhatsApp().catch((e) => log.error(`unexpected error: ${e}`));
 	} catch (error) {
-		log.error("Failed to start the server");
+		log.error(`Failed to start the server ${error}`);
 		process.exit(1);
 	}
 });

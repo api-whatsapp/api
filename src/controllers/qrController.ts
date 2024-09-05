@@ -25,7 +25,7 @@ export class QRController {
 
 	static async showQR(req: Request, res: Response, next: NextFunction) {
 		try {
-			const qrcode = req.query.qrcode || "";
+			const qrcode: string = (req.query.qrcode as string) || "";
 			const qrCodeImage = await QRCode.toDataURL(qrcode);
 			res.send(`
 				<img src="${qrCodeImage}" alt="QR Code" style="display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:blue;"/>
