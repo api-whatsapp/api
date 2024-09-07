@@ -9,6 +9,7 @@ import {
 } from "@whiskeysockets/baileys";
 import { Boom } from "@hapi/boom";
 import { logger } from "../config/logger";
+import { gracefulShutdown } from "../main";
 import { QRService } from "../services/qrService";
 import { MessageService } from "../services/messageService";
 
@@ -16,7 +17,9 @@ const auth_dir: string = process.env.AUTH_DIR ?? "auth_data";
 
 const { session } = { session: auth_dir };
 
-let retry: number = 1;
+const maxRetry = Number(process.env.MAX_RENEW_QR ?? 3);
+
+let retry = 0;
 
 export let waSock: WASocket;
 
@@ -55,7 +58,7 @@ export async function connectToWhatsApp(): Promise<void> {
 						break;
 					case DisconnectReason.connectionLost:
 						logger.error("Connection Lost from Server, reconnecting...");
-						connectToWhatsApp();
+						timedOut();
 						break;
 					case DisconnectReason.connectionReplaced:
 						logger.error(
@@ -76,7 +79,7 @@ export async function connectToWhatsApp(): Promise<void> {
 						break;
 					case DisconnectReason.timedOut:
 						logger.error("Connection TimedOut, Reconnecting...");
-						connectToWhatsApp();
+						timedOut();
 						break;
 					default:
 						waSock.end(lastDisconnect?.error);
@@ -95,4 +98,23 @@ export async function connectToWhatsApp(): Promise<void> {
 
 export const isWAConnected = () => {
 	return waSock.user;
+};
+
+const timedOut = async (logout = true) => {
+	if (retry < maxRetry) {
+		connectToWhatsApp();
+		retry++;
+	} else {
+		retry = 0;
+		try {
+			logger.warn("Destroy");
+			await Promise.all([logout && waSock.logout()]);
+			process.on("SIGTERM", gracefulShutdown);
+			gracefulShutdown();
+		} catch (e) {
+			logger.error(e, "An error occured during session destroy");
+		} finally {
+			logger.warn("Shutdown");
+		}
+	}
 };
