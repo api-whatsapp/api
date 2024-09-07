@@ -1,6 +1,7 @@
+import "dotenv/config";
 import fs from "node:fs";
 import {
-	WASocket,
+	type WASocket,
 	makeWASocket,
 	DisconnectReason,
 	useMultiFileAuthState,
