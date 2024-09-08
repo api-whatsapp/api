@@ -1,5 +1,5 @@
 import { ZodError } from "zod";
-import { ResponseError } from "../../errors/responseErrors";
+import { ResponseError } from "../errors/responseErrors";
 import type { NextFunction, Request, Response } from "express";
 
 /*eslint-disable @typescript-eslint/no-unused-vars -- next used as middleware for NextFunction */

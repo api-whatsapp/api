@@ -1,5 +1,5 @@
 import { v7 as uuid7 } from "uuid";
-import { logger } from "../../config/logger";
+import { logger } from "../config/logger";
 import type { NextFunction, Request, Response } from "express";
 
 export const reqInterceptor = async (
