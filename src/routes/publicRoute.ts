@@ -1,10 +1,10 @@
-import getVersion from "../../controllers/versionController";
+import getVersion from "../controllers/versionController";
+import { QRController } from "../controllers/qrController";
 import { Router, type Request, type Response } from "express";
-import { UserController } from "../../controllers/userController";
-import { MessageController } from "../../controllers/messageController";
-import { QRController } from "../../controllers/qrController";
+import { UserController } from "../controllers/userController";
+import { MessageController } from "../controllers/messageController";
 
-const publicRouter: Router = Router();
+export const publicRouter: Router = Router();
 
 publicRouter.get("/", getVersion);
 
@@ -23,5 +23,3 @@ publicRouter.all("*", (req: Request, res: Response) => {
 		error: `Endpoint ${req.baseUrl}${req.url} Not Found`,
 	});
 });
-
-export { publicRouter };
