@@ -10,6 +10,8 @@ import { Validation } from "../validation/validation";
 import { User } from "@prisma/client";
 import { AuthValidation } from "../validation/authValidation";
 
+import jwt from "jsonwebtoken";
+
 export class AuthService {
 	static async login(request: LoginRq): Promise<LoginResponse> {
 		const loginRq = Validation.validate(AuthValidation.LOGIN, request);
@@ -27,6 +29,10 @@ export class AuthService {
 			throw new ResponseError(400, "Wrong email or password");
 		}
 
-		return toLoginResponse(user);
+		const secret: string = process.env.JWT_SECERET!;
+		const exp: number = 86400 * Number(process.env.JWT_EXPIRIED_DAY ?? 1);
+		const token = jwt.sign(user, secret, { expiresIn: exp });
+
+		return toLoginResponse(user, token);
 	}
 }

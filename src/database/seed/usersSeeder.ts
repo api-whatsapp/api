@@ -8,31 +8,31 @@ export const usersSeeder: {
 	level: UserLevel;
 }[] = [
 	{
-		email: "a@a.a",
+		email: "a@a.com",
 		quota: 100,
 		token: "1121",
-		password: "1121",
+		password: "$2a$12$fxLIC.j7zwCJnCgbNwvzjek1levSIhvale1Y8cpiRjPsGuZquOS02",
 		level: "user",
 	},
 	{
-		email: "b@b.b",
+		email: "b@b.com",
 		quota: 100,
 		token: "1122",
-		password: "1122",
+		password: "$2a$12$fxLIC.j7zwCJnCgbNwvzjek1levSIhvale1Y8cpiRjPsGuZquOS02",
 		level: "member",
 	},
 	{
-		email: "c@c.c",
+		email: "c@c.com",
 		quota: 100,
 		token: "1123",
-		password: "1123",
+		password: "$2a$12$fxLIC.j7zwCJnCgbNwvzjek1levSIhvale1Y8cpiRjPsGuZquOS02",
 		level: "premium",
 	},
 	{
-		email: "n@o.t",
+		email: "n@o.com",
 		quota: 100,
 		token: "404",
-		password: "404",
+		password: "$2a$12$fxLIC.j7zwCJnCgbNwvzjek1levSIhvale1Y8cpiRjPsGuZquOS02",
 		level: "premium",
 	},
 ];

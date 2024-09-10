@@ -1,18 +1,19 @@
 import type { User } from "@prisma/client";
-
-export type LoginResponse = {
-	email: string;
-	token?: string;
-};
+import { toUserResponse, UserData } from "./userModel";
 
 export type LoginRq = {
 	email: string;
 	password: string;
 };
 
-export function toLoginResponse(user: User): LoginResponse {
+export type LoginResponse = {
+	data: UserData;
+	token: string;
+};
+
+export function toLoginResponse(user: User, token: string): LoginResponse {
 	return {
-		email: user.email,
-		token: user.token,
+		data: toUserResponse(user),
+		token: token,
 	};
 }

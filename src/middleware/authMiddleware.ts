@@ -1,38 +1,37 @@
-import { prismaClient } from "../config/database";
 import type { NextFunction, Request, Response } from "express";
+import jwt from "jsonwebtoken";
+import { logger } from "../config/logger";
+import { UserData } from "../models/userModel";
+
+interface ValidationRequest extends Request {
+	userData: UserData;
+}
 
 export const authMiddleware = async (
 	req: Request,
 	res: Response,
 	next: NextFunction
 ) => {
-	const token = req.headers.authorization;
+	const request = req as ValidationRequest;
+	const { authorization } = request.headers;
 
-	if (!token) {
+	if (!authorization) {
 		return res.status(401).json({
 			message: "Missing API token.",
 		});
 	} else {
 		try {
-			const user = await prismaClient.user.findUnique({
-				where: {
-					token: token.substring(7),
-				},
-				select: {
-					email: true,
-					quota: true,
-				},
-			});
+			const token = authorization.substring(7);
+			const secret: string = process.env.JWT_SECERET!;
+			const jwtDecode = jwt.verify(token, secret);
 
-			if (!user) {
-				return res.status(403).json({
-					message: "Invalid API token.",
-				});
+			if (typeof jwtDecode !== "string") {
+				request.userData = jwtDecode as UserData;
 			}
 		} catch (error) {
-			/* istanbul ignore next */
-			return res.status(500).json({
-				error: error,
+			logger.error(error);
+			return res.status(401).json({
+				message: "Invalid API token.",
 			});
 		}
 	}

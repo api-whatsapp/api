@@ -1,4 +1,4 @@
-import { logger as log } from "./config/logger";
+import { logger as log } from "../config/logger";
 import { gracefulShutdown } from "../main";
 
 // process.on("SIGINT", gracefulShutdown);
