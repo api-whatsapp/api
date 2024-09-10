@@ -1,8 +1,11 @@
 import getVersion from "../controllers/versionController";
 import { Router, type Request, type Response } from "express";
 import { authMiddleware } from "../middleware/authMiddleware";
+import { AuthController } from "../controllers/authController";
 
 export const publicRouterV1: Router = Router();
+
+publicRouterV1.post("/login", AuthController.login);
 
 publicRouterV1.get("/", authMiddleware, getVersion);
 

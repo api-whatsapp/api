@@ -2,6 +2,7 @@
 CREATE TABLE `users` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `email` VARCHAR(191) NOT NULL,
+    `password` VARCHAR(255) NOT NULL,
     `quota` INTEGER NOT NULL DEFAULT 100,
     `level` ENUM('user', 'member', 'premium') NOT NULL DEFAULT 'user',
     `token` VARCHAR(100) NOT NULL,
@@ -28,6 +29,7 @@ CREATE TABLE `devices` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `userEmail` VARCHAR(191) NULL,
     `device_id` VARCHAR(100) NOT NULL,
+    `phone_number` VARCHAR(100) NOT NULL,
     `status` ENUM('connected', 'disconnected') NOT NULL DEFAULT 'disconnected',
     `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `connected_at` TIMESTAMP NULL,
