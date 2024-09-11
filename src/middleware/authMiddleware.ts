@@ -2,10 +2,10 @@ import type { NextFunction, Response } from "express";
 import jwt from "jsonwebtoken";
 import { logger } from "../config/logger";
 import { UserData } from "../models/userModel";
-import { ValidationRequest } from "../models/jwtRqInterface";
+import { ValidatedRequest } from "../models/jwtRqInterface";
 
 export const authMiddleware = async (
-	req: ValidationRequest,
+	req: ValidatedRequest,
 	res: Response,
 	next: NextFunction
 ) => {

@@ -1,6 +1,6 @@
-import { UserData } from "../models/userModel";
 import type { Request } from "express";
+import { UserData } from "../models/userModel";
 
-export interface ValidationRequest extends Request {
+export interface ValidatedRequest extends Request {
 	userData: UserData;
 }
