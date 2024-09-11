@@ -21,6 +21,25 @@ export class DeviceController {
 		}
 	}
 
+	static async getDeviceData(
+		req: ValidatedRequest,
+		res: Response,
+		next: NextFunction
+	) {
+		try {
+			const userData: UserData = req.userData;
+
+			const result: DeviceData = await DeviceService.getDeviceData(
+				userData,
+				req.params.deviceId
+			);
+
+			res.status(200).json(result);
+		} catch (e) {
+			next(e);
+		}
+	}
+
 	static async getDeviceList(
 		req: ValidatedRequest,
 		res: Response,
@@ -31,7 +50,7 @@ export class DeviceController {
 
 			const result: DeviceList = await DeviceService.getDeviceList(userData);
 
-			res.status(201).json(result);
+			res.status(200).json(result);
 		} catch (e) {
 			next(e);
 		}

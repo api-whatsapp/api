@@ -7,10 +7,12 @@ import {
 	addDeviceResponse,
 	DeviceList,
 	deviceListResponse,
+	toDeviceResponse,
 	type DeviceData,
 	type DeviceRequest,
 } from "../models/deviceModel";
 import { logger } from "../config/logger";
+import { Device } from "@prisma/client";
 
 export class DeviceService {
 	static async add(
@@ -38,6 +40,24 @@ export class DeviceService {
 		});
 
 		return addDeviceResponse(device);
+	}
+
+	static async getDeviceData(
+		userData: UserData,
+		deviceId: string
+	): Promise<DeviceData> {
+		const deviceData: Device | null = await prismaClient.device.findFirst({
+			where: {
+				device_id: deviceId,
+				userEmail: userData.email,
+			},
+		});
+
+		if (deviceData) {
+			return toDeviceResponse(deviceData);
+		} else {
+			return new Object();
+		}
 	}
 
 	static async getDeviceList(userData: UserData): Promise<DeviceList> {
