@@ -29,7 +29,7 @@ export class DeviceController {
 		try {
 			const userData: UserData = req.userData;
 
-			const result: DeviceData = await DeviceService.getDeviceData(
+			const result: DeviceData | object = await DeviceService.getDeviceData(
 				userData,
 				req.params.deviceId
 			);

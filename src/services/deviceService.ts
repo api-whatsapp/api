@@ -1,3 +1,4 @@
+import { Device } from "@prisma/client";
 import { UserData } from "../models/userModel";
 import { prismaClient } from "../config/database";
 import { Validation } from "../validation/validation";
@@ -11,8 +12,6 @@ import {
 	type DeviceData,
 	type DeviceRequest,
 } from "../models/deviceModel";
-import { logger } from "../config/logger";
-import { Device } from "@prisma/client";
 
 export class DeviceService {
 	static async add(
@@ -45,7 +44,7 @@ export class DeviceService {
 	static async getDeviceData(
 		userData: UserData,
 		deviceId: string
-	): Promise<DeviceData> {
+	): Promise<DeviceData | object> {
 		const deviceData: Device | null = await prismaClient.device.findFirst({
 			where: {
 				device_id: deviceId,
@@ -64,8 +63,6 @@ export class DeviceService {
 		const deviceList = await prismaClient.device.findMany({
 			where: { userEmail: userData.email },
 		});
-		logger.warn(deviceList);
-
 		return deviceListResponse(deviceList);
 	}
 
