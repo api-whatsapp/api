@@ -68,4 +68,13 @@ export class DeviceService {
 
 		return deviceListResponse(deviceList);
 	}
+
+	static async removeDevice(userData: UserData, deviceId: string) {
+		await prismaClient.device.deleteMany({
+			where: {
+				device_id: deviceId,
+				userEmail: userData.email,
+			},
+		});
+	}
 }

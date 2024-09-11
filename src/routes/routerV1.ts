@@ -17,6 +17,11 @@ publicRouterV1.get(
 	authMiddleware,
 	DeviceController.getDeviceData
 );
+publicRouterV1.delete(
+	"/devices/:deviceId",
+	authMiddleware,
+	DeviceController.removeDevice
+);
 
 publicRouterV1.all("*", (req: Request, res: Response) => {
 	res.status(404).json({

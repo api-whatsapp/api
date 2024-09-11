@@ -40,6 +40,22 @@ export class DeviceController {
 		}
 	}
 
+	static async removeDevice(
+		req: ValidatedRequest,
+		res: Response,
+		next: NextFunction
+	) {
+		try {
+			const userData: UserData = req.userData;
+
+			await DeviceService.removeDevice(userData, req.params.deviceId);
+
+			res.status(204).json();
+		} catch (e) {
+			next(e);
+		}
+	}
+
 	static async getDeviceList(
 		req: ValidatedRequest,
 		res: Response,
