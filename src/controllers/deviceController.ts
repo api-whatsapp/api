@@ -1,9 +1,8 @@
+import { UserData } from "../models/userModel";
 import type { NextFunction, Response } from "express";
 import { DeviceService } from "../services/deviceService";
 import { ValidatedRequest } from "../models/jwtRqInterface";
-import { DeviceData, DeviceRequest } from "../models/deviceModel";
-import { logger } from "../config/logger";
-import { UserData } from "../models/userModel";
+import { DeviceData, DeviceList, DeviceRequest } from "../models/deviceModel";
 
 export class DeviceController {
 	static async addDevice(
@@ -12,11 +11,25 @@ export class DeviceController {
 		next: NextFunction
 	) {
 		try {
-			const request: DeviceRequest = req.body as DeviceRequest;
 			const userData: UserData = req.userData;
-			logger.warn(`User Data ${JSON.stringify(userData)}`);
-
+			const request: DeviceRequest = req.body as DeviceRequest;
 			const result: DeviceData = await DeviceService.add(request, userData);
+
+			res.status(201).json(result);
+		} catch (e) {
+			next(e);
+		}
+	}
+
+	static async getDeviceList(
+		req: ValidatedRequest,
+		res: Response,
+		next: NextFunction
+	) {
+		try {
+			const userData: UserData = req.userData;
+
+			const result: DeviceList = await DeviceService.getDeviceList(userData);
 
 			res.status(201).json(result);
 		} catch (e) {

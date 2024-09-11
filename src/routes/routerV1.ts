@@ -11,6 +11,7 @@ publicRouterV1.post("/login", AuthController.login);
 publicRouterV1.get("/", authMiddleware, getVersion);
 
 publicRouterV1.post("/devices", authMiddleware, DeviceController.addDevice);
+publicRouterV1.get("/devices", authMiddleware, DeviceController.getDeviceList);
 
 publicRouterV1.all("*", (req: Request, res: Response) => {
 	res.status(404).json({
