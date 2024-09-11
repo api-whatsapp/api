@@ -1,19 +1,15 @@
-import type { NextFunction, Request, Response } from "express";
+import type { NextFunction, Response } from "express";
 import jwt from "jsonwebtoken";
 import { logger } from "../config/logger";
 import { UserData } from "../models/userModel";
-
-interface ValidationRequest extends Request {
-	userData: UserData;
-}
+import { ValidationRequest } from "../models/jwtRqInterface";
 
 export const authMiddleware = async (
-	req: Request,
+	req: ValidationRequest,
 	res: Response,
 	next: NextFunction
 ) => {
-	const request = req as ValidationRequest;
-	const { authorization } = request.headers;
+	const { authorization } = req.headers;
 
 	if (!authorization) {
 		return res.status(401).json({
@@ -25,9 +21,7 @@ export const authMiddleware = async (
 			const secret: string = process.env.JWT_SECERET!;
 			const jwtDecode = jwt.verify(token, secret);
 
-			if (typeof jwtDecode !== "string") {
-				request.userData = jwtDecode as UserData;
-			}
+			req.userData = jwtDecode as UserData;
 		} catch (error) {
 			logger.error(error);
 			return res.status(401).json({
