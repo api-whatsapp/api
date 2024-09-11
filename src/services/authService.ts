@@ -5,6 +5,7 @@ import {
 	toLoginResponse,
 	type LoginRq,
 	type LoginResponse,
+	toJwtPayload,
 } from "../models/authModel";
 import { Validation } from "../validation/validation";
 import { User } from "@prisma/client";
@@ -26,12 +27,12 @@ export class AuthService {
 		const isPasswordValid = await bcrypt.compare(loginRq.password, userPass);
 
 		if (!user || !isPasswordValid) {
-			throw new ResponseError(400, "Wrong email or password");
+			throw new ResponseError(400, "Wrong E-mail or password");
 		}
 
 		const secret: string = process.env.JWT_SECERET!;
 		const exp: number = 86400 * Number(process.env.JWT_EXPIRIED_DAY ?? 1);
-		const token = jwt.sign(user, secret, { expiresIn: exp });
+		const token = jwt.sign(toJwtPayload(user), secret, { expiresIn: exp });
 
 		return toLoginResponse(user, token);
 	}

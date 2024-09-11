@@ -11,6 +11,14 @@ export type LoginResponse = {
 	token: string;
 };
 
+export function toJwtPayload(user: User): UserData {
+	return {
+		id: user.id,
+		email: user.email,
+		level: user.level,
+	};
+}
+
 export function toLoginResponse(user: User, token: string): LoginResponse {
 	return {
 		data: toUserResponse(user),

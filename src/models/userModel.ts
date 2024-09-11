@@ -1,12 +1,12 @@
 import type { User, UserLevel } from "@prisma/client";
 
 export type UserData = {
-	id: number;
+	id?: number;
 	email: string;
-	quota: number;
+	quota?: number;
 	level: UserLevel;
-	created_at: Date;
-	last_request: Date | null;
+	created_at?: Date;
+	last_request?: Date | null;
 };
 
 export type CreateUserRequest = {
