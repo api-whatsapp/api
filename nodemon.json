@@ -2,7 +2,14 @@
 	"events": {
 		"start": "clear"
 	},
-	"ignore": ["*.test.*", "**/*.log", "**/logs/**/*", "WAResponse*", "auth*"],
+	"ignore": [
+		"*.test.*",
+		"**/*.log",
+		"**/logs/**/*",
+		"WAResponse*",
+		"auth*",
+		"**/database/**/*"
+	],
 	"execMap": {
 		"ts": "tsx"
 	},

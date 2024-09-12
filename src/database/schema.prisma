@@ -5,7 +5,6 @@ generator client {
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
-  // shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
 model User {
@@ -32,18 +31,33 @@ model qrCode {
 }
 
 model Device {
-  id                  Int          @id @default(autoincrement())
-  userEmail           String?
+  id                  BigInt       @id @default(autoincrement())
+  user_email          String?
   device_id           String       @db.VarChar(100)
-  phone_number        String?      @db.VarChar(100)
+  session_id          BigInt?
+  phone_number        String?      @unique @db.VarChar(100)
   status              DeviceStatus @default(disconnected)
   created_at          DateTime     @default(now())
   connected_at        DateTime?    @db.Timestamp
   disconnected_at     DateTime?    @db.Timestamp
   disconnected_reason String?      @db.VarChar(100)
-  User                User?        @relation(fields: [userEmail], references: [email])
+  User                User?        @relation(fields: [user_email], references: [email])
+  Session             Session?     @relation(fields: [session_id], references: [pkId])
 
   @@map("devices")
+}
+
+model Session {
+  pkId       BigInt   @id @default(autoincrement())
+  id         String
+  session_id String   @unique
+  data       String   @db.Text
+  device_id  Int?
+  Device     Device[]
+
+  @@unique([session_id, id], map: "unique_id_per_session_id_session")
+  @@index([session_id])
+  @@map("session")
 }
 
 enum DeviceStatus {
@@ -115,6 +129,7 @@ model Chat {
 
   @@unique([sessionId, id], map: "unique_id_per_session_id_chat")
   @@index([sessionId])
+  @@map("chat")
 }
 
 model Contact {
@@ -129,6 +144,7 @@ model Contact {
 
   @@unique([sessionId, id], map: "unique_id_per_session_id_contact")
   @@index([sessionId])
+  @@map("contact")
 }
 
 model Message {
@@ -182,14 +198,5 @@ model Message {
 
   @@unique([sessionId, remoteJid, id], map: "unique_message_key_per_session_id")
   @@index([sessionId])
-}
-
-model Session {
-  pkId      BigInt @id @default(autoincrement())
-  sessionId String
-  id        String
-  data      String @db.Text
-
-  @@unique([sessionId, id], map: "unique_id_per_session_id_session")
-  @@index([sessionId])
+  @@map("message")
 }
