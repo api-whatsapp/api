@@ -1,10 +1,13 @@
+import "dotenv/config";
 import pino from "pino";
 
+const logLevel: string = process.env.LOG_LEVEL ?? "prod";
 const timestamp: string = new Date().toISOString();
 const logFolder: string = `./logs/${timestamp.slice(0, 10).replace(/-/g, "")}/${timestamp.slice(0, 10)}`;
 
 const customLevel = {
-	query: 25,
+	query: 25, // Any number between debug (20) and info (30) will work the same
+	notice: 35, // Any number between info (30) and warn (40) will work the same
 };
 
 const pinoOption = {
@@ -12,15 +15,16 @@ const pinoOption = {
 		bindings: (bindings: pino.Bindings) => {
 			return {
 				pid: bindings.pid,
-				host: bindings.hostname,
 				node_version: process.version,
 			};
 		},
-		// level: (level: string) => {
-		// 	return { level: level.toUpperCase() };
-		// },
+		level(label: string, number: number) {
+			return { levels: label.toUpperCase(), level: number };
+		},
 	},
-	timestamp: () => `,"timestamp":"${timestamp}"`,
+	timestamp: () => {
+		return `,"timestamp":"${new Date(Date.now()).toISOString()}"`;
+	},
 	redact: {
 		paths: ["host"],
 		censor: "***",
@@ -32,7 +36,7 @@ const pinoOption = {
 const transport = pino.transport({
 	targets: [
 		{
-			level: "warn",
+			level: logLevel,
 			target: "pino/file",
 			options: {
 				destination: 1,
@@ -74,4 +78,4 @@ const transport = pino.transport({
 	],
 });
 
-export const logger = pino(pinoOption, transport);
+export const logger: Logger = pino(pinoOption, transport);
