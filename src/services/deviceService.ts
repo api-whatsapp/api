@@ -23,7 +23,7 @@ export class DeviceService {
 		const deviceExists: number | null = await prismaClient.device.count({
 			where: {
 				device_id: deviceRq.device_id,
-				userEmail: userData.email,
+				user_email: userData.email,
 			},
 		});
 
@@ -34,7 +34,7 @@ export class DeviceService {
 		const device = await prismaClient.device.create({
 			data: {
 				device_id: deviceRq.device_id,
-				userEmail: userData.email,
+				user_email: userData.email,
 			},
 		});
 
@@ -48,7 +48,7 @@ export class DeviceService {
 		const deviceData: Device | null = await prismaClient.device.findFirst({
 			where: {
 				device_id: deviceId,
-				userEmail: userData.email,
+				user_email: userData.email,
 			},
 		});
 
@@ -61,7 +61,7 @@ export class DeviceService {
 
 	static async getDeviceList(userData: UserData): Promise<DeviceList> {
 		const deviceList = await prismaClient.device.findMany({
-			where: { userEmail: userData.email },
+			where: { user_email: userData.email },
 		});
 		return deviceListResponse(deviceList);
 	}
@@ -70,7 +70,7 @@ export class DeviceService {
 		await prismaClient.device.deleteMany({
 			where: {
 				device_id: deviceId,
-				userEmail: userData.email,
+				user_email: userData.email,
 			},
 		});
 	}
