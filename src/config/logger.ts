@@ -18,8 +18,8 @@ const pinoOption = {
 				node_version: process.version,
 			};
 		},
-		level(label: string, number: number) {
-			return { levels: label.toUpperCase(), level: number };
+		level: (label: string, number: number) => {
+			return { log: label.toUpperCase(), level: number };
 		},
 	},
 	timestamp: () => {
