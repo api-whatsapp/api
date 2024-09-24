@@ -44,34 +44,10 @@ const transport = pino.transport({
 			}, // this writes to STDOUT
 		},
 		{
-			level: "debug",
+			level: logLevel,
 			target: "pino/file",
 			options: {
-				destination: `${logFolder}-query.log`,
-				mkdir: true,
-			},
-		},
-		{
-			level: "info",
-			target: "pino/file",
-			options: {
-				destination: `${logFolder}-info.log`,
-				mkdir: true,
-			},
-		},
-		{
-			level: "warn",
-			target: "pino/file",
-			options: {
-				destination: `${logFolder}-warn.log`,
-				mkdir: true,
-			},
-		},
-		{
-			level: "error",
-			target: "pino/file",
-			options: {
-				destination: `${logFolder}-error.log`,
+				destination: `${logFolder}-${logLevel}.log`,
 				mkdir: true,
 			},
 		},
