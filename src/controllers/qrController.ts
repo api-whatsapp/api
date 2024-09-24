@@ -1,6 +1,6 @@
 import QRCode from "qrcode";
 import { QRService } from "../services/qrService";
-import { isWAConnected } from "../modules/whatsapp";
+import { isWAConnected } from "../mediation/whatsapp";
 import type { NextFunction, Request, Response } from "express";
 
 export class QRController {

@@ -40,7 +40,7 @@ export class DeviceController {
 		}
 	}
 
-	static async removeDevice(
+	static async remove(
 		req: ValidatedRequest,
 		res: Response,
 		next: NextFunction
