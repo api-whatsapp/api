@@ -80,7 +80,6 @@
 		"typescript-eslint": "^8.6.0"
 	},
 	"prisma": {
-		"seed": "tsx src/database/seed/seeder.ts",
-		"schema": "prisma/schema.prisma"
+		"seed": "tsx src/database/seed/seeder.ts"
 	}
 }
