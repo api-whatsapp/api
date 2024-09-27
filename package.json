@@ -23,7 +23,7 @@
 		"build": "rm -rf dist && tsc && tsc-alias",
 		"dev": "nodemon --signal SIGHUP src/main.ts",
 		"fc": "pnpm prettier --write . && pnpm eslint --fix . && pnpm prettier --check . && pnpm eslint .",
-		"mig": "rm -rf src/database/migrations && pnpm prisma generate && pnpm prisma migrate dev --name init",
+		"mig": "rm -rf prisma/migrations && pnpm prisma generate && pnpm prisma migrate dev --name init",
 		"seed": "pnpm prisma db seed",
 		"start": "node dist/main.js",
 		"test": "jest -i --detectOpenHandles --runInBand"
@@ -81,6 +81,6 @@
 	},
 	"prisma": {
 		"seed": "tsx src/database/seed/seeder.ts",
-		"schema": "src/database/schema.prisma"
+		"schema": "prisma/schema.prisma"
 	}
 }

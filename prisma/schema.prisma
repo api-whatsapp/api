@@ -7,6 +7,29 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// ENUM
+
+enum DeviceStatus {
+  connected
+  disconnected
+}
+
+enum MessageStatus {
+  ERROR
+  PENDING
+  SERVER_ACK
+  DELIVERY_ACK
+  READ
+  PLAYED
+}
+
+enum UserLevel {
+  user
+  member
+  premium
+}
+
+// MODEL 
 model User {
   id           Int       @id @default(autoincrement())
   email        String    @unique
@@ -64,26 +87,6 @@ model qrCode {
   last_update DateTime? @updatedAt
 
   @@map("qr_code")
-}
-
-enum DeviceStatus {
-  connected
-  disconnected
-}
-
-enum MessageStatus {
-  ERROR
-  PENDING
-  SERVER_ACK
-  DELIVERY_ACK
-  READ
-  PLAYED
-}
-
-enum UserLevel {
-  user
-  member
-  premium
 }
 
 model Chat {
