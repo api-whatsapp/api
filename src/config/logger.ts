@@ -1,5 +1,5 @@
 import "dotenv/config";
-import pino from "pino";
+import pino, { LogFn } from "pino";
 
 const logLevel: string = process.env.LOG_LEVEL ?? "prod";
 const timestamp: string = new Date().toISOString();
@@ -23,6 +23,20 @@ const pinoOption = {
 	},
 	timestamp: () => {
 		return `,"timestamp":"${new Date(Date.now()).toISOString()}"`;
+	},
+	hooks: {
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		logMethod: (inputArgs: any, method: LogFn) => {
+			if (inputArgs[0].timestamp) {
+				delete inputArgs[0].timestamp;
+			}
+			if (inputArgs[0].message) {
+				inputArgs[0].msg = `${inputArgs[0].message}-${inputArgs[0].target}`;
+				delete inputArgs[0].message;
+				delete inputArgs[0].target;
+			}
+			return method.apply(this, inputArgs);
+		},
 	},
 	redact: {
 		paths: ["host", "payload.password", "header.authorization"],
