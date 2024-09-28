@@ -18,7 +18,7 @@ const pinoOption = {
 			};
 		},
 		level: (label: string, number: number) => {
-			return { log: label.toUpperCase(), level: number };
+			return { severity: label.toUpperCase(), level: number };
 		},
 	},
 	timestamp: () => {
