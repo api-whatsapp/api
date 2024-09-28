@@ -15,7 +15,6 @@ const pinoOption = {
 		bindings: (bindings: pino.Bindings) => {
 			return {
 				pid: bindings.pid,
-				node_version: process.version,
 			};
 		},
 		level: (label: string, number: number) => {
