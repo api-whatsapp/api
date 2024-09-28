@@ -25,7 +25,7 @@ const pinoOption = {
 		return `,"timestamp":"${new Date(Date.now()).toISOString()}"`;
 	},
 	redact: {
-		paths: ["host"],
+		paths: ["host", "payload.password", "header.authorization"],
 		censor: "***",
 		remove: false,
 	},
