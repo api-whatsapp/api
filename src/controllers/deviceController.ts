@@ -31,7 +31,7 @@ export class DeviceController {
 
 			const result: DeviceData | object = await DeviceService.getDeviceData(
 				userData,
-				req.params.deviceId
+				req.params.deviceId.toLocaleLowerCase()
 			);
 
 			res.status(200).json(result);
@@ -48,7 +48,10 @@ export class DeviceController {
 		try {
 			const userData: UserData = req.userData;
 
-			await DeviceService.removeDevice(userData, req.params.deviceId);
+			await DeviceService.removeDevice(
+				userData,
+				req.params.deviceId.toLocaleLowerCase()
+			);
 
 			res.status(204).json();
 		} catch (e) {

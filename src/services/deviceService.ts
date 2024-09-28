@@ -22,7 +22,7 @@ export class DeviceService {
 
 		const deviceExists: number | null = await prismaClient.device.count({
 			where: {
-				device_id: deviceRq.device_id,
+				device_id: deviceRq.device_id.toLocaleLowerCase(),
 				user_email: userData.email,
 			},
 		});
@@ -33,7 +33,7 @@ export class DeviceService {
 
 		const device = await prismaClient.device.create({
 			data: {
-				device_id: deviceRq.device_id,
+				device_id: deviceRq.device_id.toLocaleLowerCase(),
 				user_email: userData.email,
 			},
 		});
