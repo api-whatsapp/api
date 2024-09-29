@@ -1,6 +1,6 @@
-import { Device } from "@prisma/client";
 import { UserData } from "../models/userModel";
 import { prismaClient } from "../config/database";
+import { Device } from "@prisma/client/index-browser";
 import { Validation } from "../validation/validation";
 import { ResponseError } from "../errors/responseErrors";
 import { DeviceValidation } from "../validation/deviceValidation";

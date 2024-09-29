@@ -1,0 +1,21 @@
+model Device {
+  id                  BigInt       @id @default(autoincrement())
+  user_email          String?
+  device_id           String       @db.VarChar(100)
+  phone_number        String?      @db.VarChar(100)
+  status              DeviceStatus @default(disconnected)
+  created_at          DateTime     @default(now())
+  connected_at        DateTime?    @db.Timestamp
+  disconnected_at     DateTime?    @db.Timestamp
+  disconnected_reason String?      @db.VarChar(100)
+  User                User?        @relation(fields: [user_email], references: [email])
+  Session             Session?     @relation(fields: [sessionPkId], references: [pkId])
+  sessionPkId         BigInt?
+
+  @@map("devices")
+}
+
+enum DeviceStatus {
+  connected
+  disconnected
+}
