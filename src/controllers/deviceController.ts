@@ -47,13 +47,15 @@ export class DeviceController {
 	) {
 		try {
 			const userData: UserData = req.userData;
-
-			await DeviceService.removeDevice(
-				userData,
-				req.params.deviceId.toLocaleLowerCase()
-			);
-
-			res.status(204).json();
+			const deviceId: string = req.params.deviceId.toLocaleLowerCase();
+			const del = await DeviceService.removeDevice(userData, deviceId);
+			if (del) {
+				res.status(204).json();
+			} else {
+				res.status(404).json({
+					message: `${deviceId} Not Exist`,
+				});
+			}
 		} catch (e) {
 			next(e);
 		}

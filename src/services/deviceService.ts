@@ -66,12 +66,16 @@ export class DeviceService {
 		return deviceListResponse(deviceList);
 	}
 
-	static async removeDevice(userData: UserData, deviceId: string) {
-		await prismaClient.device.deleteMany({
+	static async removeDevice(
+		userData: UserData,
+		deviceId: string
+	): Promise<boolean> {
+		const del = await prismaClient.device.deleteMany({
 			where: {
 				device_id: deviceId,
 				user_email: userData.email,
 			},
 		});
+		return del.count;
 	}
 }
