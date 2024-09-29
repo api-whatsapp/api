@@ -1,36 +1,45 @@
 import "./process";
-import cors from "cors";
-import helmet from "helmet";
-import express from "express";
-// import { fileURLToPath } from "url";
-// import path, { dirname } from "path";
-import pinoHTTP from "pino-http";
-import compression from "compression";
+import http from "http";
+import { config } from "dotenv";
 import { logger } from "../config/logger";
-import { publicRouterV1, publicRouter } from "../routes";
-import { reqInterceptor } from "../middleware/logMiddleware";
-import { limiter } from "../middleware/rateLimiterMiddleware";
-import { ErrorMiddleware } from "../middleware/errorMiddleware";
+import { ExpressServer } from "./expressServer";
+import { prismaClient } from "../config/database";
+import { SessionHandler } from "../handler/sessionHandler";
 
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = dirname(__filename);
+config();
 
-export const app = express();
-app.use(helmet());
-app.use(cors());
-app.use(compression());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(limiter);
-app.use(reqInterceptor);
-app.use(pinoHTTP({ logger }));
-app.use("/v1", publicRouterV1);
-app.use("/", publicRouter);
-app.use(ErrorMiddleware);
-app.disable("x-powered-by");
+export class AppServer {
+	private server: http.Server;
+	private httpServer: ExpressServer;
+	private sessionHandler: SessionHandler;
+	private port: number = Number(process.env.PORT ?? 3030);
 
-// app.use(express.static(path.join(__dirname, "../../../public")));
-// app.set("view engine", "ejs");
-// app.set("views", path.join(__dirname, "../../../public/views"));
+	constructor() {
+		this.httpServer = new ExpressServer();
+		this.sessionHandler = new SessionHandler();
+		this.server = http.createServer(this.httpServer.getApp());
+	}
 
-export { app as web };
+	public async start(): Promise<void> {
+		this.server.listen(this.port, async () => {
+			try {
+				logger.info(`App run on http://127.0.0.1:${this.port}`);
+
+				await this.sessionHandler
+					.init()
+					.catch((e) => logger.error(`connectToWhatsApp error: ${e}`));
+			} catch (error) {
+				logger.error(`Failed to start the server ${error}`);
+				process.exitCode = 1;
+			}
+		});
+	}
+
+	public stop() {
+		this.server.close(async () => {
+			logger.info("HTTP server closed");
+			await prismaClient.$disconnect();
+			process.exitCode = 0;
+		});
+	}
+}

@@ -1,22 +1,23 @@
-import { logger as log } from "../config/logger";
-import { gracefulShutdown } from "../main";
+import { server } from "../main";
+import { logger } from "../config/logger";
 
-// process.on("SIGINT", gracefulShutdown);
+export class Process {
+	public gracefulShutdown(): void {
+		logger.info("SIGTERM/SIGINT signal received: closing HTTP server");
+		logger.info("Shutting down gracefully...");
+		server.stop();
+	}
+}
 
-// process.on("SIGTERM", gracefulShutdown);
-
-// process.on("SIGHUP", async () => {
-// 	await prismaClient.$disconnect();
-// 	process.kill(process.pid, "SIGTERM");
-// });
+const gracefulShutdown = new Process();
 
 process.on("unhandledRejection", (error: Error) => {
-	log.error(`Unhandled Rejection: ${error.message || error}`);
-	gracefulShutdown();
+	logger.error(`Unhandled Rejection: ${error.message || error}`);
+	gracefulShutdown.gracefulShutdown();
 	// errorHandler.handleError(error);
 });
 
 process.on("uncaughtException", (err) => {
-	log.fatal(err, "uncaught exception detected");
-	gracefulShutdown();
+	logger.fatal(err, "uncaught exception detected");
+	gracefulShutdown.gracefulShutdown();
 });
