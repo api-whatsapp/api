@@ -27,13 +27,26 @@ const pinoOption = {
 	hooks: {
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		logMethod(inputArgs: any, method: LogFn) {
-			if (inputArgs[0].timestamp) {
-				delete inputArgs[0].timestamp;
-			}
-			if (inputArgs[0].message) {
-				inputArgs[0].msg = `${inputArgs[0].message}-${inputArgs[0].target}`;
-				delete inputArgs[0].message;
-				delete inputArgs[0].target;
+			try {
+				if (inputArgs[0].timestamp) {
+					delete inputArgs[0].timestamp;
+				}
+				if (inputArgs[0].message) {
+					inputArgs[0].msg = `${inputArgs[0].message}-${inputArgs[0].target}`;
+					delete inputArgs[0].message;
+					delete inputArgs[0].target;
+				}
+				if (inputArgs[0].error) {
+					inputArgs[0].error = inputArgs[0].error.split("\n")[0];
+				}
+				if (inputArgs[0].trace) {
+					inputArgs[0].trace = inputArgs[0].trace.split("\n")[0];
+				}
+				if (inputArgs[0].stack) {
+					inputArgs[0].stack = inputArgs[0].stack.split("\n")[0];
+				}
+			} catch (error) {
+				logger.error(error);
 			}
 			return method.apply(this, inputArgs);
 		},
