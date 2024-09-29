@@ -1,11 +1,12 @@
 import { logger as log } from "../config/logger";
 import { prismaClient } from "../config/database";
+import { UserData } from "../models/userModel";
 
 export class QRService {
-	static async getQR(): Promise<string> {
+	static async getQR(userData: UserData): Promise<string> {
 		const qrData = await prismaClient.qrCode.findUnique({
 			where: {
-				id: 1,
+				id: userData.id,
 			},
 			select: { qr: true },
 		});

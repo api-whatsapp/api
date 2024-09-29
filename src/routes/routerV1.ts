@@ -1,27 +1,16 @@
-import getVersion from "../controllers/versionController";
+import { deviceRouter } from "./v1/device";
+// import getVersion from "../controllers/versionController";
 import { Router, type Request, type Response } from "express";
-import { authMiddleware } from "../middleware/authMiddleware";
+// import { authMiddleware } from "../middleware/authMiddleware";
 import { AuthController } from "../controllers/authController";
-import { DeviceController } from "../controllers/deviceController";
+import { qrRouter } from "./v1/qrRouter";
 
 export const publicRouterV1: Router = Router();
 
 publicRouterV1.post("/login", AuthController.login);
 
-publicRouterV1.get("/", authMiddleware, getVersion);
-
-publicRouterV1.post("/devices", authMiddleware, DeviceController.addDevice);
-publicRouterV1.get("/devices", authMiddleware, DeviceController.getDeviceList);
-publicRouterV1.get(
-	"/devices/:deviceId",
-	authMiddleware,
-	DeviceController.getDeviceData
-);
-publicRouterV1.delete(
-	"/devices/:deviceId",
-	authMiddleware,
-	DeviceController.removeDevice
-);
+publicRouterV1.use("/qr", qrRouter);
+publicRouterV1.use("/devices", deviceRouter);
 
 publicRouterV1.all("*", (req: Request, res: Response) => {
 	res.status(404).json({

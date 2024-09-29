@@ -1,23 +1,20 @@
 import QRCode from "qrcode";
+import { UserData } from "../models/userModel";
 import { QRService } from "../services/qrService";
-import { isWAConnected } from "../mediation/whatsapp";
+import { ValidatedRequest } from "../models/jwtRqInterface";
 import type { NextFunction, Request, Response } from "express";
 
 export class QRController {
-	static async getQR(req: Request, res: Response, next: NextFunction) {
+	static async getQR(req: ValidatedRequest, res: Response, next: NextFunction) {
 		try {
-			if (!isWAConnected()) {
-				await QRService.getQR().then((qr: string) => {
-					res.status(200).json({
-						qr_code: qr,
-						image_url: `${req.protocol}://${req.get("host")}${req.originalUrl}/show?qrcode=${encodeURIComponent(qr)}`,
-					});
-				});
-			} else {
+			const userData: UserData = req.userData;
+
+			await QRService.getQR(userData).then((qr: string) => {
 				res.status(200).json({
-					message: "WhatsApp Already Connected",
+					qr_code: qr,
+					image_url: `${req.protocol}://${req.get("host")}${req.originalUrl}/show?qrcode=${encodeURIComponent(qr)}`,
 				});
-			}
+			});
 		} catch (e) {
 			next(e);
 		}
