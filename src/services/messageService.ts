@@ -5,10 +5,8 @@ import { ResponseError } from "../errors/responseErrors";
 import { MessageUtility } from "../utils/messageUtility";
 import { waSock, isWAConnected } from "../modules/whatsapp";
 import { MessageValidation } from "../validation/messageValidation";
-import type {
-	WAMessagesUpdate,
-	WASendMessageResponse,
-} from "../@types/baileys/WAMessages";
+import type { WASendMessageResponse } from "../@types/baileys/WAMessages";
+import { WAMessageUpdate } from "baileys";
 import {
 	toMessageResponse,
 	type MessageReq,

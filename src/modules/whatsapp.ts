@@ -7,7 +7,7 @@ import {
 	useMultiFileAuthState,
 	type ConnectionState,
 	WAMessageUpdate,
-} from "@whiskeysockets/baileys";
+} from "baileys";
 import { Boom } from "@hapi/boom";
 import { logger } from "../config/logger";
 import { gracefulShutdown } from "../main";

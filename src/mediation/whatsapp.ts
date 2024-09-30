@@ -1,6 +1,6 @@
 import "dotenv/config";
 import fs from "node:fs";
-import type { WASocket, SocketConfig } from "@whiskeysockets/baileys";
+import type { WASocket, SocketConfig } from "baileys";
 
 import {
 	Browsers,
@@ -10,7 +10,7 @@ import {
 	isJidBroadcast,
 	useMultiFileAuthState,
 	makeCacheableSignalKeyStore,
-} from "@whiskeysockets/baileys";
+} from "baileys";
 
 import { prismaClient } from "../config/database";
 
