@@ -2,10 +2,17 @@ import { UserData } from "../models/userModel";
 import type { NextFunction, Response } from "express";
 import { DeviceService } from "../services/deviceService";
 import { ValidatedRequest } from "../models/jwtRqInterface";
+import { DeviceUseCase } from "../usacase/deviceUsecase";
 import { DeviceData, DeviceList, DeviceRequest } from "../models/deviceModel";
 
 export class DeviceController {
-	static async addDevice(
+	private usecase: DeviceUseCase;
+
+	constructor() {
+		this.usecase = new DeviceUseCase();
+	}
+
+	public static async addDevice(
 		req: ValidatedRequest,
 		res: Response,
 		next: NextFunction

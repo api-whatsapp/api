@@ -3,7 +3,6 @@ import { prismaClient } from "../config/database";
 import { Validation } from "../validation/validation";
 import { ResponseError } from "../errors/responseErrors";
 import { MessageUtility } from "../utils/messageUtility";
-import { waSock, isWAConnected } from "../modules/whatsapp";
 import { MessageValidation } from "../validation/messageValidation";
 import type { WASendMessageResponse } from "../@types/baileys/WAMessages";
 import { WAMessageUpdate } from "baileys";
@@ -12,8 +11,15 @@ import {
 	type MessageReq,
 	type MessageResponse,
 } from "../models/messageModel";
+import { SessionHandler } from "../handler/sessionHandler";
 
 export class MessageService {
+	private sessionHandler: SessionHandler;
+
+	constructor() {
+		this.sessionHandler = new SessionHandler();
+	}
+
 	static async sendMessage(request: MessageReq): Promise<MessageResponse> {
 		const sendMessageReq = Validation.validate(MessageValidation.SEND, request);
 		logger.info(
@@ -25,7 +31,7 @@ export class MessageService {
 			message: "",
 		};
 
-		if (!isWAConnected()) {
+		if (sessionHandler.isWAConnected()) {
 			throw new ResponseError(
 				503,
 				"Service Unavailable, WhatsApp not Connected"
@@ -58,7 +64,7 @@ export class MessageService {
 		return message;
 	}
 
-	static async messageUpdated(message: Array<WAMessagesUpdate>) {
+	static async messageUpdated(message: WAMessageUpdate[]) {
 		logger.info(
 			`MessageService.messageUpdated|\n|${JSON.stringify(message, undefined, 2)}\n|FINISH UPDATE`
 		);

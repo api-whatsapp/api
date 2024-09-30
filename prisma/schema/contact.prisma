@@ -1,0 +1,14 @@
+model Contact {
+  pkId         BigInt  @id @default(autoincrement())
+  sessionId    String
+  id           String
+  name         String?
+  notify       String?
+  verifiedName String?
+  imgUrl       String?
+  status       String?
+
+  @@unique([sessionId, id], map: "unique_id_per_session_id_contact")
+  @@index([sessionId])
+  @@map("contact")
+}

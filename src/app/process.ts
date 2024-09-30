@@ -11,13 +11,13 @@ export class Process {
 
 const gracefulShutdown = new Process();
 
-process.on("unhandledRejection", (error: Error) => {
-	logger.error(`Unhandled Rejection: ${error.message || error}`);
-	gracefulShutdown.gracefulShutdown();
-	// errorHandler.handleError(error);
-});
+// process.on("unhandledRejection", (error: Error) => {
+// 	logger.error(`Unhandled Rejection: ${error.message || error}`);
+// 	gracefulShutdown.gracefulShutdown();
+// 	// errorHandler.handleError(error);
+// });
 
-process.on("uncaughtException", (err) => {
-	logger.fatal(err, "uncaught exception detected");
-	gracefulShutdown.gracefulShutdown();
-});
+// process.on("uncaughtException", (err) => {
+// 	logger.fatal(err, "uncaught exception detected");
+// 	gracefulShutdown.gracefulShutdown();
+// });

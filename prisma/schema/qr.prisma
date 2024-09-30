@@ -1,0 +1,8 @@
+model qrCode {
+  id          Int       @id @default(autoincrement())
+  qr          String    @db.VarChar(500)
+  created_at  DateTime  @default(now())
+  last_update DateTime? @updatedAt
+
+  @@map("qr_code")
+}

@@ -1,0 +1,51 @@
+model Chat {
+  pkId                      BigInt   @id @default(autoincrement())
+  sessionId                 String
+  archived                  Boolean?
+  contactPrimaryIdentityKey Bytes?
+  conversationTimestamp     BigInt?
+  createdAt                 BigInt?
+  createdBy                 String?
+  description               String?
+  disappearingMode          Json?
+  displayName               String?
+  endOfHistoryTransfer      Boolean?
+  endOfHistoryTransferType  Int?
+  ephemeralExpiration       Int?
+  ephemeralSettingTimestamp BigInt?
+  id                        String
+  isDefaultSubgroup         Boolean?
+  isParentGroup             Boolean?
+  lastMsgTimestamp          BigInt?
+  lidJid                    String?
+  markedAsUnread            Boolean?
+  mediaVisibility           Int?
+  messages                  Json?
+  muteEndTime               BigInt?
+  name                      String?
+  newJid                    String?
+  notSpam                   Boolean?
+  oldJid                    String?
+  pHash                     String?
+  parentGroupId             String?
+  participant               Json?
+  pinned                    Int?
+  pnJid                     String?
+  pnhDuplicateLidThread     Boolean?
+  readOnly                  Boolean?
+  shareOwnPn                Boolean?
+  support                   Boolean?
+  suspended                 Boolean?
+  tcToken                   Bytes?
+  tcTokenSenderTimestamp    BigInt?
+  tcTokenTimestamp          BigInt?
+  terminated                Boolean?
+  unreadCount               Int?
+  unreadMentionCount        Int?
+  wallpaper                 Json?
+  lastMessageRecvTimestamp  Int?
+
+  @@unique([sessionId, id], map: "unique_id_per_session_id_chat")
+  @@index([sessionId])
+  @@map("chat")
+}

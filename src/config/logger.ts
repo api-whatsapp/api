@@ -1,5 +1,10 @@
 import "dotenv/config";
 import pino, { LogFn } from "pino";
+import invariant from "tiny-invariant";
+import type { SocketConfig } from "baileys";
+import { DEFAULT_CONNECTION_CONFIG } from "baileys";
+
+let log: SocketConfig["logger"] | null = null;
 
 const logLevel: string = process.env.LOG_LEVEL ?? "prod";
 const timestamp: string = new Date().toISOString();
@@ -80,4 +85,15 @@ const transport = pino.transport({
 	],
 });
 
-export const logger: Logger = pino(pinoOption, transport);
+export const logger = pino(pinoOption, transport);
+
+export const pinoLog = pino({ level: process.env.LOG_LEVEL || "debug" });
+
+export function setLogger(pinoLogger?: SocketConfig["logger"]) {
+	log = pinoLogger ?? DEFAULT_CONNECTION_CONFIG.logger;
+}
+
+export function useLogger() {
+	invariant(log, "Pino logger cannot be used before initialization");
+	return log;
+}

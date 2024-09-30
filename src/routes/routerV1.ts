@@ -1,9 +1,7 @@
-import { deviceRouter } from "./v1/device";
-// import getVersion from "../controllers/versionController";
-import { Router, type Request, type Response } from "express";
-// import { authMiddleware } from "../middleware/authMiddleware";
-import { AuthController } from "../controllers/authController";
 import { qrRouter } from "./v1/qrRouter";
+import { Router, type Request, type Response } from "express";
+import { AuthController } from "../controllers/authController";
+import { deviceRouter } from "./v1/deviceRouter";
 
 export const publicRouterV1: Router = Router();
 

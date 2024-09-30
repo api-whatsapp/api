@@ -1,0 +1,62 @@
+model Message {
+  pkId                            BigInt   @id @default(autoincrement())
+  sessionId                       String
+  remoteJid                       String
+  id                              String
+  agentId                         String?
+  bizPrivacyStatus                Int?
+  broadcast                       Boolean?
+  clearMedia                      Boolean?
+  duration                        Int?
+  ephemeralDuration               Int?
+  ephemeralOffToOn                Boolean?
+  ephemeralOutOfSync              Boolean?
+  ephemeralStartTimestamp         BigInt?
+  finalLiveLocation               Json?
+  futureproofData                 Bytes?
+  ignore                          Boolean?
+  keepInChat                      Json?
+  key                             Json
+  labels                          Json?
+  mediaCiphertextSha256           Bytes?
+  mediaData                       Json?
+  message                         Json?
+  messageC2STimestamp             BigInt?
+  messageSecret                   Bytes?
+  messageStubParameters           Json?
+  messageStubType                 Int?
+  messageTimestamp                BigInt?
+  multicast                       Boolean?
+  originalSelfAuthorUserJidString String?
+  participant                     String?
+  paymentInfo                     Json?
+  photoChange                     Json?
+  pollAdditionalMetadata          Json?
+  pollUpdates                     Json?
+  pushName                        String?
+  quotedPaymentInfo               Json?
+  quotedStickerData               Json?
+  reactions                       Json?
+  revokeMessageTimestamp          BigInt?
+  starred                         Boolean?
+  status                          Int?
+  statusAlreadyViewed             Boolean?
+  statusPsa                       Json?
+  urlNumber                       Boolean?
+  urlText                         Boolean?
+  userReceipt                     Json?
+  verifiedBizName                 String?
+
+  @@unique([sessionId, remoteJid, id], map: "unique_message_key_per_session_id")
+  @@index([sessionId])
+  @@map("message")
+}
+
+enum MessageStatus {
+  ERROR
+  PENDING
+  SERVER_ACK
+  DELIVERY_ACK
+  READ
+  PLAYED
+}

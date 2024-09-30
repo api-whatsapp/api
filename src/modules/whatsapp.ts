@@ -20,15 +20,13 @@ const { session } = { session: auth_dir };
 
 const maxRetry = Number(process.env.MAX_RENEW_QR ?? 3);
 
-let retry = 0;
+const retry = 0;
 
-export let waSock: WASocket;
-
-export async function connectToWhatsApp(): Promise<void> {
+export async function connectToWhatsApp(): Promise<WASocket> {
 	const { state, saveCreds } = await useMultiFileAuthState(auth_dir);
 
 	waSock.logout();
-	waSock = makeWASocket({
+	const sock: WASocket = makeWASocket({
 		logger,
 		generateHighQualityLinkPreview: false,
 		linkPreviewImageThumbnailWidth: 0,
@@ -42,7 +40,12 @@ export async function connectToWhatsApp(): Promise<void> {
 		"connection.update",
 		async (update: Partial<ConnectionState>) => {
 			const { connection, lastDisconnect, qr } = update;
-			qr != undefined && QRService.updateQR(qr);
+			if (qr != undefined) {
+				QRService.updateQR(qr);
+			}
+
+			logger.warn(`connection ${connection}`);
+
 			if (connection === "close") {
 				const reason = new Boom(lastDisconnect?.error).output.statusCode;
 				switch (reason) {
@@ -50,37 +53,37 @@ export async function connectToWhatsApp(): Promise<void> {
 						logger.error(
 							`Bad Session File, Deleting ${session} and Scan Again`
 						);
-						fs.rmSync(`./${auth_dir}`, { recursive: true, force: true });
-						connectToWhatsApp();
+						deleteFolder(auth_dir);
+						reconect();
 						break;
 					case DisconnectReason.connectionClosed:
 						logger.error("Connection closed, reconnecting....");
-						connectToWhatsApp();
+						reconect();
 						break;
 					case DisconnectReason.connectionLost:
 						logger.error("Connection Lost from Server, reconnecting...");
-						timedOut();
+						timedOut(reason);
 						break;
 					case DisconnectReason.connectionReplaced:
 						logger.error(
 							"Connection Replaced, Another New Session Opened, Please Close Current Session First"
 						);
-						waSock.logout();
+						await Promise.all([waSock.logout()]);
 						break;
 					case DisconnectReason.loggedOut:
 						logger.error(
 							`Device Logged Out, Deleting ${session} and Scan Again.`
 						);
-						fs.rmSync(`./${auth_dir}`, { recursive: true, force: true });
-						connectToWhatsApp();
+						deleteFolder(auth_dir);
+						reconect();
 						break;
 					case DisconnectReason.restartRequired:
 						logger.error("Restart Required, Restarting...");
-						connectToWhatsApp();
+						reconect();
 						break;
 					case DisconnectReason.timedOut:
 						logger.error("Connection TimedOut, Reconnecting...");
-						timedOut();
+						timedOut(reason);
 						break;
 					default:
 						waSock.end(lastDisconnect?.error);
@@ -95,27 +98,6 @@ export async function connectToWhatsApp(): Promise<void> {
 	waSock.ev.on("messages.update", async (arg: WAMessageUpdate[]) => {
 		MessageService.messageUpdated(arg);
 	});
+
+	return sock;
 }
-
-export const isWAConnected = () => {
-	return waSock.user;
-};
-
-const timedOut = async (logout = true) => {
-	if (retry < maxRetry) {
-		connectToWhatsApp();
-		retry++;
-	} else {
-		retry = 0;
-		try {
-			logger.warn("Destroy");
-			await Promise.all([logout && waSock.logout()]);
-			process.on("SIGTERM", gracefulShutdown);
-			gracefulShutdown();
-		} catch (e) {
-			logger.error(e, "An error occured during session destroy");
-		} finally {
-			logger.warn("Shutdown");
-		}
-	}
-};

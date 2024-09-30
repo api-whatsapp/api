@@ -1,0 +1,16 @@
+model Session {
+  pkId        BigInt    @id @default(autoincrement())
+  id          String
+  session_id  String    @unique
+  data        String    @db.Text
+  user_email  String?
+  device_id   Int?
+  created_at  DateTime  @default(now())
+  last_update DateTime? @updatedAt
+  User        User?     @relation(fields: [user_email], references: [email])
+  Device      Device[]
+
+  @@unique([session_id, id], map: "unique_id_per_session_id_session")
+  @@index([session_id])
+  @@map("session")
+}

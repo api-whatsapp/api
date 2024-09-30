@@ -8,7 +8,6 @@ export class QRController {
 	static async getQR(req: ValidatedRequest, res: Response, next: NextFunction) {
 		try {
 			const userData: UserData = req.userData;
-
 			await QRService.getQR(userData).then((qr: string) => {
 				res.status(200).json({
 					qr_code: qr,

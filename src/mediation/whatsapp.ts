@@ -15,11 +15,12 @@ import {
 import { prismaClient } from "../config/database";
 
 import { Boom } from "@hapi/boom";
-import { logger } from "../config/logger";
+import { logger, useLogger } from "../config/logger";
 import { gracefulShutdown } from "../main";
 import { QRService } from "../services/qrService";
 import { MessageService } from "../services/messageService";
-import { initStore, Store, useSession } from "baileys-store-pakaiwa";
+import { initStore, Store } from "baileys-store-pakaiwa";
+import { useSession } from "../repository/sessionRepository";
 
 const auth_dir: string = process.env.AUTH_DIR ?? "auth_data";
 
@@ -76,6 +77,7 @@ export async function createSession(options: createSessionOptions) {
 	} = options;
 
 	const { state, saveCreds } = await useSession(session_id);
+
 	const socket = makeWASocket({
 		printQRInTerminal: true,
 		browser: Browsers.ubuntu("Chrome"),
