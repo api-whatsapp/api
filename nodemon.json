@@ -3,11 +3,11 @@
 		"start": "clear"
 	},
 	"ignore": [
+		"*auth*",
 		"*.test.*",
 		"**/*.log",
-		"**/logs/**/*",
 		"WAResponse*",
-		"auth*",
+		"**/logs/**/*",
 		"**/database/**/*"
 	],
 	"execMap": {
