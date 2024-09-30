@@ -26,7 +26,7 @@ const pinoOption = {
 	},
 	hooks: {
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		logMethod: (inputArgs: any, method: LogFn) => {
+		logMethod(inputArgs: any, method: LogFn) {
 			if (inputArgs[0].timestamp) {
 				delete inputArgs[0].timestamp;
 			}

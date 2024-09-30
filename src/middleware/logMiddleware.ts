@@ -8,8 +8,11 @@ export const reqInterceptor = async (
 	next: NextFunction
 ) => {
 	req.headers.reqId = uuid7();
-	logger.info(`Receive new Request with uuid: ${req.headers.reqId}`);
-	logger.info(`REQ Headers: ${JSON.stringify(req.headers, null, 2)}`);
-	logger.info(`REQ Body: ${JSON.stringify(req.body, null, 2)}`);
+	const reqData = {
+		reqId: req.headers.reqId,
+		header: req.headers,
+		payload: req.body,
+	};
+	logger.info(reqData);
 	next();
 };
