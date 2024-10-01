@@ -10,7 +10,7 @@ import { logger } from "../config/logger";
 // import { ErrorMiddleware } from "../middleware/errorMiddleware";
 import express, { Application, type Request, type Response } from "express";
 
-export class ExpressServer {
+export default class ExpressServer {
 	private readonly app: Application;
 
 	constructor() {
