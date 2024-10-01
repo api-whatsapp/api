@@ -7,7 +7,7 @@ import { logger } from "../config/logger";
 // import { publicRouterV1, publicRouter } from "../routes";
 // import { reqInterceptor } from "../middleware/logMiddleware";
 // import { limiter } from "../middleware/rateLimiterMiddleware";
-// import { ErrorMiddleware } from "../middleware/errorMiddleware";
+import ErrorMiddleware from "../middleware/errorMiddleware";
 import express, { Application, type Request, type Response } from "express";
 
 export default class ExpressServer {
@@ -28,7 +28,7 @@ export default class ExpressServer {
 		// this.app.use(limiter);
 		// this.app.use(reqInterceptor);
 		this.app.use(pinoHTTP({ logger }));
-		// this.app.use(ErrorMiddleware);
+		this.app.use(ErrorMiddleware.generalError);
 		this.app.disable("x-powered-by");
 	}
 

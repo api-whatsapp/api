@@ -87,7 +87,7 @@ const transport = pino.transport({
 
 export const logger = pino(pinoOption, transport);
 
-export const pinoLog = pino({ level: process.env.LOG_LEVEL || "debug" });
+export const pinoLog = pino({ level: process.env.LOG_LEVEL ?? "debug" });
 
 export function setLogger(pinoLogger?: SocketConfig["logger"]) {
 	log = pinoLogger ?? DEFAULT_CONNECTION_CONFIG.logger;
