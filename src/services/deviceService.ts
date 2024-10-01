@@ -76,6 +76,7 @@ export class DeviceService {
 				user_email: userData.email,
 			},
 		});
-		return del.count;
+
+		return del.count == 1;
 	}
 }
