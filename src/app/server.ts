@@ -3,7 +3,7 @@ import http from "http";
 import { config } from "dotenv";
 import { logger } from "../config/logger";
 import { ExpressServer } from "./expressServer";
-import { prismaClient } from "../config/database";
+// import { prismaClient } from "../config/database";
 
 config();
 
@@ -31,7 +31,7 @@ export class AppServer {
 	public stop() {
 		this.server.close(async () => {
 			logger.info("HTTP server closed");
-			await prismaClient.$disconnect();
+			// await prismaClient.$disconnect();
 			process.exitCode = 0;
 		});
 	}
