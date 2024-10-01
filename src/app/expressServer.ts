@@ -11,7 +11,7 @@ import { logger } from "../config/logger";
 import express, { Application, type Request, type Response } from "express";
 
 export class ExpressServer {
-	private app: Application;
+	private readonly app: Application;
 
 	constructor() {
 		this.app = express();

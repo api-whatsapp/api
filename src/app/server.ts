@@ -7,10 +7,10 @@ import { ExpressServer } from "./expressServer";
 
 config();
 
-export class AppServer {
-	private server: http.Server;
-	private httpServer: ExpressServer;
-	private port: number = Number(process.env.PORT ?? 3030);
+export default class AppServer {
+	private readonly server: http.Server;
+	private readonly httpServer: ExpressServer;
+	private readonly port: number = Number(process.env.PORT ?? 3030);
 
 	constructor() {
 		this.httpServer = new ExpressServer();
