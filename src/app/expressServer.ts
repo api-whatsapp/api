@@ -4,6 +4,7 @@ import helmet from "helmet";
 import pinoHTTP from "pino-http";
 import compression from "compression";
 import { logger } from "../config/logger";
+import publicRouterV1 from "../routes/routerV1";
 // import { publicRouterV1, publicRouter } from "../routes";
 import LogMiddleware from "../middleware/logMiddleware";
 // import { limiter } from "../middleware/rateLimiterMiddleware";
@@ -33,11 +34,11 @@ export default class ExpressServer {
 	}
 
 	private setupRoutes() {
-		// this.app.use("/v1", publicRouterV1);
+		this.app.use("/v1", publicRouterV1);
 		// this.app.use("/", publicRouter);
 		this.app.all("*", (req: Request, res: Response) => {
 			res.status(404).json({
-				error: `Endpoint ${req.baseUrl}${req.url} Not Found`,
+				error: `${req.baseUrl}${req.url} Not Found`,
 			});
 		});
 		this.app.all("*", (_: Request, res: Response) =>
