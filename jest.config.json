@@ -4,6 +4,8 @@
 	"coverageDirectory": "coverage",
 	"coverageReporters": ["json-summary", "text", "html"],
 	"transform": {
-		"^.+\\.[t|j]sx?$": "babel-jest"
-	}
+		"^.+\\.[t|j]sx?$": "babel-jest",
+		"^.+\\.ts?$": "ts-jest"
+	},
+	"testMatch": ["**/test/**/*.test.ts"]
 }
