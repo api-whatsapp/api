@@ -29,9 +29,13 @@ This project is a simple restfull API to send messages to whatsapp using the [ba
 
 ## Install
 
+Depedency
+
 ```bash
 pnpm add @prisma/client baileys bcrypt dotenv express express-rate-limit joi qrcode uuid winston
 ```
+
+Dev Depedency
 
 ```bash
 pnpm add -D @babel/preset-env @microsoft/eslint-formatter-sarif @types/bcrypt @types/express @types/jest @types/supertest @types/uuid babel-jest eslint eslint-config-airbnb-base eslint-config-prettier eslint-plugin-import eslint-plugin-prettier jest nodemon prettier prisma supertest
