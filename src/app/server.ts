@@ -1,5 +1,6 @@
 import http from "http";
 import { config } from "dotenv";
+import { logger } from "../configs/logger";
 import ExpressServer from "./expressServer";
 import { prismaClient } from "../configs/database";
 
@@ -18,17 +19,17 @@ export default class AppServer {
 	public async start(): Promise<void> {
 		try {
 			this.server.listen(this.port, async () => {
-				console.log(`App run on http://127.0.0.1:${this.port}`);
+				logger.info(`App run on http://127.0.0.1:${this.port}`);
 			});
 		} catch (error) {
-			console.error(`Failed to start the server ${error}`);
+			logger.error(`Failed to start the server ${error}`);
 			process.exitCode = 1;
 		}
 	}
 
 	public stop() {
 		this.server.close(async () => {
-			console.log("HTTP server closed");
+			logger.info("HTTP server closed");
 			await prismaClient.$disconnect();
 			process.exitCode = 0;
 		});
