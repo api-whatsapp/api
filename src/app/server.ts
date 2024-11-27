@@ -1,6 +1,7 @@
 import http from "http";
 import { config } from "dotenv";
 import ExpressServer from "./expressServer";
+import { prismaClient } from "../configs/database";
 
 config();
 
@@ -28,6 +29,7 @@ export default class AppServer {
 	public stop() {
 		this.server.close(async () => {
 			console.log("HTTP server closed");
+			await prismaClient.$disconnect();
 			process.exitCode = 0;
 		});
 	}
