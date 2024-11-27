@@ -32,7 +32,7 @@ This project is a simple restfull API to send messages to whatsapp using the [ba
 Depedency
 
 ```bash
-pnpm add @prisma/client baileys bcrypt dotenv express express-rate-limit joi qrcode uuid winston
+pnpm add @prisma/client baileys bcrypt dotenv express express-rate-limit qrcode uuid winston zod
 ```
 
 Dev Depedency
