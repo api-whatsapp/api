@@ -2,16 +2,10 @@
 	"verbose": true,
 	"collectCoverage": true,
 	"coverageDirectory": "coverage",
-	"coverageReporters": [
-		"json-summary",
-		"text",
-		"html"
-	],
+	"coverageReporters": ["json-summary", "text", "html"],
 	"transform": {
 		"^.+\\.[t|j]sx?$": "babel-jest",
 		"^.+\\.ts?$": "ts-jest"
 	},
-	"testMatch": [
-		"**/test/**/*.test.ts"
-	]
+	"testMatch": ["**/test/**/*.test.ts"]
 }
