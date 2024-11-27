@@ -38,8 +38,7 @@ pnpm add @prisma/client baileys bcrypt dotenv express express-rate-limit qrcode 
 Dev Depedency
 
 ```bash
-pnpm add -D @babel/preset-env @microsoft/eslint-formatter-sarif @types/bcrypt @types/express @types/jest @types/supertest @types/uuid babel-jest eslint eslint-config-airbnb-base eslint-config-prettier eslint-plugin-import eslint-plugin-prettier jest nodemon prettier prisma supertest
-pnpm add -D @babel/preset-env @babel/preset-typescript @jest/globals @types/bcrypt @types/express @types/jest @types/supertest @types/uuid babel-jest jest prisma supertest typescript
+pnpm add -D @babel/preset-env @babel/preset-typescript @eslint/js @jest/globals @types/bcrypt @types/express @types/jest @types/supertest @types/uuid babel-jest eslint globals jest prettier prisma supertest typescript typescript-eslint
 ```
 
 ```bash

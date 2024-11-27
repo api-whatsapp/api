@@ -1,6 +1,6 @@
 import cors from "cors";
 import helmet from "helmet";
-import pinoHTTP from "pino-http";
+// import pinoHTTP from "pino-http";
 import compression from "compression";
 // import { logger } from "../config/logger";
 // import publicRouterV1 from "../routes/routerV1";

@@ -2,9 +2,10 @@ import globals from "globals";
 import pluginJs from "@eslint/js";
 import tseslint from "typescript-eslint";
 
+/** @type {import('eslint').Linter.Config[]} */
 export default [
-	{ ignores: ["**/modules/index.js"] },
-	{ files: ["**/*.{js,mjs,cjs,ts}"] },
+	{ ignores: ["**/modules/index.js", "**/src-old/*.{js,mjs,cjs,ts}"] },
+	{ files: ["**/src/*.{js,mjs,cjs,ts}"] },
 	{
 		languageOptions: { globals: globals.node },
 		rules: {
