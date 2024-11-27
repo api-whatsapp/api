@@ -1,9 +1,24 @@
 {
 	"name": "pakaiwa",
-	"version": "1.0.0",
-	"description": "",
-	"main": "index.js",
+	"version": "0.1.0-alpha0359",
+	"description": "WhatsApp API by PakaiWA",
+	"keywords": [
+		"node.js",
+		"pakaiwa",
+		"whatsapp-api"
+	],
+	"homepage": "https://pakaiwa.my.id",
+	"bugs": {
+		"url": "https://github.com/pakaiwa/api/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/pakaiwa/api.git"
+	},
+	"license": "MIT",
+	"author": "KAnggara75",
 	"type": "module",
+	"main": "dist/main.ts",
 	"scripts": {
 		"build": "rm -rf dist && tsc && tsc-alias",
 		"dev": "nodemon --signal SIGHUP src/main.ts",
@@ -13,9 +28,6 @@
 		"start": "node dist/main.js",
 		"test": "jest -i --detectOpenHandles --runInBand"
 	},
-	"keywords": [],
-	"author": "",
-	"license": "ISC",
 	"dependencies": {
 		"@prisma/client": "^5.22.0",
 		"bcrypt": "^5.1.1",
